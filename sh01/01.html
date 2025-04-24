@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Igor Dimitrov">
-<meta name="dcterms.date" content="2024-12-18">
 
-<title>Operating Systems and Networs SoSe 25 Solutions</title>
+<title>Operating Systems and Networs SoSe 25 Solutions - 1&nbsp; Blatt 01</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,23 +23,23 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./sh01/01.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -70,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +109,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sh01/01.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -97,9 +124,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Operating Systems and Networs SoSe 25 Solutions</a> 
+      <a href="../">Operating Systems and Networs SoSe 25 Solutions</a> 
         <div class="sidebar-tools-main">
-    <a href="./Operating-Systems-and-Networs-SoSe-25-Solutions.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="../Operating-Systems-and-Networs-SoSe-25-Solutions.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -112,13 +139,13 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh01/01.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh01/01.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span></a>
   </div>
 </li>
@@ -132,7 +159,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1"><span class="header-section-number">1.1</span> Aufgabe 1</a></li>
+  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2"><span class="header-section-number">1.2</span> Aufgabe 2</a></li>
+  <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3"><span class="header-section-number">1.3</span> Aufgabe 3</a></li>
   </ul>
 </nav>
     </div>
@@ -141,26 +170,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Operating Systems and Networs SoSe 25 Solutions</h1>
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Igor Dimitrov </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 18, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -170,10 +187,97 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
+<section id="aufgabe-1" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="aufgabe-1"><span class="header-section-number">1.1</span> Aufgabe 1</h2>
+<p>Learning how to Learn:</p>
+<ul>
+<li><strong>Zwei Denkmodi aus „Learning How to Learn“</strong>
+<ul>
+<li><strong>Fokussierter Modus</strong>: Zielgerichtetes, konzentriertes Denken. Gut für bekannte Aufgaben und Übung.</li>
+<li><strong>Diffuser Modus</strong>: Entspanntes, offenes Denken. Hilft bei neuen Ideen und kreativen Verknüpfungen.</li>
+</ul></li>
+<li><strong>Aufgaben und passende Denkmodi</strong>
+<ol type="a">
+<li>Fokussierter Modus<br>
+<strong>Warum</strong>: Erfordert Konzentration und gezieltes Einprägen.</li>
+<li>Zuerst diffuser, dann fokussierter Modus<br>
+<strong>Warum</strong>: Erst Überblick und Verständnis aufbauen, dann vertiefen.<br>
+</li>
+<li>Fokussierter Modus<br>
+<strong>Warum</strong>: Klare, schrittweise Übung – ideal für fokussiertes Denken.</li>
+<li>Beide Modi<br>
+<strong>Warum</strong>: Fokussiert für Details &amp; Übungen, diffus für Überblick &amp; Vernetzung.</li>
+</ol></li>
+</ul>
+<p>John Cleese:</p>
+<ul>
+<li><strong>Zwei Denkmodi</strong>:
+<ol type="1">
+<li><strong>Offener Modus</strong>: Locker, spielerisch, kreativ.<br>
+<strong>Beispiel</strong>: Ideen für eine Geschichte sammeln.<br>
+<strong>Warum</strong>: Offenheit fördert neue Einfälle.<br>
+</li>
+<li><strong>Geschlossener Modus</strong>: Zielgerichtet, angespannt, entscheidungsfreudig.<br>
+<strong>Beispiel</strong>: Bericht überarbeiten und fertigstellen.<br>
+<strong>Warum</strong>: Präzises Arbeiten und klare Entscheidungen nötig.<br>
+</li>
+</ol></li>
+<li><strong>Vergleich mit „Learning How to Learn“</strong>
+<ul>
+<li><strong>Offen <span class="math inline">\(\Leftrightarrow\)</span> Diffus</strong>: Für Kreativität und Überblick.<br>
+</li>
+<li><strong>Geschlossen <span class="math inline">\(\Leftrightarrow\)</span> Fokussiert</strong>: Für Detailarbeit und Umsetzung.</li>
+</ul></li>
+<li><strong>Alexander Fleming</strong>:
+<ul>
+<li><strong>Modus</strong>: Offen</li>
+<li><strong>Warum</strong>: Fleming entdeckte Penicillin zufällig, weil er offen und entspannt war – neugierig statt zielgerichtet. Im geschlossenen Modus hätte er die verschimmelte Petrischale wohl einfach weggeschmissen – zu fokussiert für zufällige Entdeckungen.</li>
+</ul></li>
+<li><strong>Alfred Hitchcock</strong>:
+<ul>
+<li><strong>Modus</strong>: Offen<br>
+</li>
+<li><strong>Wie</strong>: Er erzählte lustige Anekdoten, um das Team zum Lachen zu bringen – so schuf er eine entspannte Atmosphäre, die kreatives Denken förderte.</li>
+</ul></li>
+</ul>
+</section>
+<section id="aufgabe-2" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="aufgabe-2"><span class="header-section-number">1.2</span> Aufgabe 2</h2>
+<ol type="i">
+<li><ul>
+<li>x64: 16 64 Bit GPRs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math inline">\(\Rightarrow\)</span> 16 x 64 b = 16 x 8 B = <span class="math inline">\(2^7\)</span> B.</li>
+<li>AVX2: 16 256 Bit GPRs<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math inline">\(\Rightarrow\)</span> 16 x 256 b = 16 x 32 B = <span class="math inline">\(2^9\)</span> B</li>
+</ul></li>
+<li><ul>
+<li>x64: <span class="math inline">\(\frac{2^7}{2^{30}} = \frac{1}{2^{23}}\)</span></li>
+<li>AVX2: <span class="math inline">\(\frac{2^9}{2^{30}} = \frac{1}{2^{21}}\)</span></li>
+</ul>
+allgemein gilt: <span class="math inline">\(10^3 \approx 2^{10}\)</span></li>
+</ol>
+</section>
+<section id="aufgabe-3" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="aufgabe-3"><span class="header-section-number">1.3</span> Aufgabe 3</h2>
+<ul>
+<li>Der Zugriff scheitert, weil der Arbeitsspeicher durch die <strong>Memory Protection</strong> (z. B. Paging mit Zugriffsrechten) vom Betriebssystem isoliert wird. Nur der Kernel darf die Speicherbereiche aller Prozesse sehen und verwalten.</li>
+<li>Ein Prozess kann trotzdem auf Ressourcen anderer Prozesse zugreifen über kontrollierte Schnittstellen wie IPC (Inter-Process Communication), Dateisysteme, Sockets oder Shared Memory, die vom Betriebssystem verwaltet und überwacht werden.</li>
+<li>Welche Risiken entstehen bei höchstem Privileg für alle Prozesse?
+<ul>
+<li><strong>Sicherheitslücken</strong>: Jeder Prozess könnte beliebige Speicherbereiche lesen/schreiben.<br>
+</li>
+<li><strong>Stabilitätsprobleme</strong>: Fehlerhafte Prozesse könnten das System zum Absturz bringen.<br>
+</li>
+<li><strong>Keine Isolation</strong>: Malware hätte vollen Systemzugriff, keine Schutzmechanismen.</li>
+</ul></li>
+</ul>
 
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>https://www.wikiwand.com/en/articles/X86-64<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>https://www.wikiwand.com/en/articles/Advanced_Vector_Extensions<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
 </section>
 
 </main> <!-- /main -->
@@ -588,11 +692,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sh01/01.html" class="pagination-link" aria-label="Blatt 01">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

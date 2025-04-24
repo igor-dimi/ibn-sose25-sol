@@ -8,5 +8,55 @@
     "crumbs": [
       "Preface"
     ]
+  },
+  {
+    "objectID": "sh01/01.html",
+    "href": "sh01/01.html",
+    "title": "1  Blatt 01",
+    "section": "",
+    "text": "1.1 Aufgabe 1\nLearning how to Learn:\nJohn Cleese:",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh01/01.html#aufgabe-1",
+    "href": "sh01/01.html#aufgabe-1",
+    "title": "1  Blatt 01",
+    "section": "",
+    "text": "Zwei Denkmodi aus „Learning How to Learn“\n\nFokussierter Modus: Zielgerichtetes, konzentriertes Denken. Gut für bekannte Aufgaben und Übung.\nDiffuser Modus: Entspanntes, offenes Denken. Hilft bei neuen Ideen und kreativen Verknüpfungen.\n\nAufgaben und passende Denkmodi\n\nFokussierter Modus\nWarum: Erfordert Konzentration und gezieltes Einprägen.\nZuerst diffuser, dann fokussierter Modus\nWarum: Erst Überblick und Verständnis aufbauen, dann vertiefen.\n\nFokussierter Modus\nWarum: Klare, schrittweise Übung – ideal für fokussiertes Denken.\nBeide Modi\nWarum: Fokussiert für Details & Übungen, diffus für Überblick & Vernetzung.\n\n\n\n\nZwei Denkmodi:\n\nOffener Modus: Locker, spielerisch, kreativ.\nBeispiel: Ideen für eine Geschichte sammeln.\nWarum: Offenheit fördert neue Einfälle.\n\nGeschlossener Modus: Zielgerichtet, angespannt, entscheidungsfreudig.\nBeispiel: Bericht überarbeiten und fertigstellen.\nWarum: Präzises Arbeiten und klare Entscheidungen nötig.\n\n\nVergleich mit „Learning How to Learn“\n\nOffen \\(\\Leftrightarrow\\) Diffus: Für Kreativität und Überblick.\n\nGeschlossen \\(\\Leftrightarrow\\) Fokussiert: Für Detailarbeit und Umsetzung.\n\nAlexander Fleming:\n\nModus: Offen\nWarum: Fleming entdeckte Penicillin zufällig, weil er offen und entspannt war – neugierig statt zielgerichtet. Im geschlossenen Modus hätte er die verschimmelte Petrischale wohl einfach weggeschmissen – zu fokussiert für zufällige Entdeckungen.\n\nAlfred Hitchcock:\n\nModus: Offen\n\nWie: Er erzählte lustige Anekdoten, um das Team zum Lachen zu bringen – so schuf er eine entspannte Atmosphäre, die kreatives Denken förderte.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh01/01.html#aufgabe-2",
+    "href": "sh01/01.html#aufgabe-2",
+    "title": "1  Blatt 01",
+    "section": "1.2 Aufgabe 2",
+    "text": "1.2 Aufgabe 2\n\n\nx64: 16 64 Bit GPRs1 \\(\\Rightarrow\\) 16 x 64 b = 16 x 8 B = \\(2^7\\) B.\nAVX2: 16 256 Bit GPRs2 \\(\\Rightarrow\\) 16 x 256 b = 16 x 32 B = \\(2^9\\) B\n\n\nx64: \\(\\frac{2^7}{2^{30}} = \\frac{1}{2^{23}}\\)\nAVX2: \\(\\frac{2^9}{2^{30}} = \\frac{1}{2^{21}}\\)\n\nallgemein gilt: \\(10^3 \\approx 2^{10}\\)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh01/01.html#aufgabe-3",
+    "href": "sh01/01.html#aufgabe-3",
+    "title": "1  Blatt 01",
+    "section": "1.3 Aufgabe 3",
+    "text": "1.3 Aufgabe 3\n\nDer Zugriff scheitert, weil der Arbeitsspeicher durch die Memory Protection (z. B. Paging mit Zugriffsrechten) vom Betriebssystem isoliert wird. Nur der Kernel darf die Speicherbereiche aller Prozesse sehen und verwalten.\nEin Prozess kann trotzdem auf Ressourcen anderer Prozesse zugreifen über kontrollierte Schnittstellen wie IPC (Inter-Process Communication), Dateisysteme, Sockets oder Shared Memory, die vom Betriebssystem verwaltet und überwacht werden.\nWelche Risiken entstehen bei höchstem Privileg für alle Prozesse?\n\nSicherheitslücken: Jeder Prozess könnte beliebige Speicherbereiche lesen/schreiben.\n\nStabilitätsprobleme: Fehlerhafte Prozesse könnten das System zum Absturz bringen.\n\nKeine Isolation: Malware hätte vollen Systemzugriff, keine Schutzmechanismen.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh01/01.html#footnotes",
+    "href": "sh01/01.html#footnotes",
+    "title": "1  Blatt 01",
+    "section": "",
+    "text": "https://www.wikiwand.com/en/articles/X86-64↩︎\nhttps://www.wikiwand.com/en/articles/Advanced_Vector_Extensions↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
   }
 ]
