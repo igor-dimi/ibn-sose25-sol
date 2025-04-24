@@ -7,7 +7,7 @@ book:
   date: "12/18/2024"
   chapters:
     - index.qmd
-    - make.qmd
+    - sh01/01.qmd
   downloads: ["pdf"]
   page-navigation: true
 
