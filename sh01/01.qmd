@@ -1,0 +1,62 @@
+---
+title: Blatt 01
+---
+
+## Aufgabe 1
+
+Learning how to Learn:
+
+* **Zwei Denkmodi aus „Learning How to Learn“**
+    * **Fokussierter Modus**: Zielgerichtetes, konzentriertes Denken. Gut für bekannte Aufgaben und Übung.
+    * **Diffuser Modus**: Entspanntes, offenes Denken. Hilft bei neuen Ideen und kreativen Verknüpfungen.
+
+* **Aufgaben und passende Denkmodi**
+    a) Fokussierter Modus  
+       **Warum**: Erfordert Konzentration und gezieltes Einprägen.
+    b) Zuerst diffuser, dann fokussierter Modus   
+       **Warum**: Erst Überblick und Verständnis aufbauen, dann vertiefen.  
+    c) Fokussierter Modus  
+       **Warum**: Klare, schrittweise Übung – ideal für fokussiertes Denken.
+    d) Beide Modi  
+       **Warum**: Fokussiert für Details & Übungen, diffus für Überblick & Vernetzung.
+
+John Cleese:
+
+* **Zwei Denkmodi**: 
+  1. **Offener Modus**: Locker, spielerisch, kreativ.  
+      **Beispiel**: Ideen für eine Geschichte sammeln.  
+      **Warum**: Offenheit fördert neue Einfälle.  
+  2. **Geschlossener Modus**: Zielgerichtet, angespannt, entscheidungsfreudig.  
+      **Beispiel**: Bericht überarbeiten und fertigstellen.   
+      **Warum**: Präzises Arbeiten und klare Entscheidungen nötig.  
+* **Vergleich mit „Learning How to Learn“**
+  - **Offen $\Leftrightarrow$ Diffus**: Für Kreativität und Überblick.  
+  - **Geschlossen $\Leftrightarrow$ Fokussiert**: Für Detailarbeit und Umsetzung.
+* **Alexander Fleming**:
+   - **Modus**: Offen
+   - **Warum**: Fleming entdeckte Penicillin zufällig, weil er offen und entspannt war – neugierig statt zielgerichtet.  Im geschlossenen Modus hätte er die verschimmelte Petrischale wohl einfach weggeschmissen – zu fokussiert für zufällige Entdeckungen.
+* **Alfred Hitchcock**: 
+  - **Modus**: Offen  
+  - **Wie**: Er erzählte lustige Anekdoten, um das Team zum Lachen zu bringen – so schuf er eine entspannte Atmosphäre, die kreatives Denken förderte.
+
+## Aufgabe 2
+
+i) * x64: 16 64 Bit GPRs[^1] $\Rightarrow$ 16 x 64 b  = 16 x 8 B = $2^7$ B. 
+   * AVX2: 16 256 Bit GPRs[^2] $\Rightarrow$ 16 x 256 b = 16 x 32 B = $2^9$ B
+ii) * x64: $\frac{2^7}{2^{30}} = \frac{1}{2^{23}}$
+    * AVX2: $\frac{2^9}{2^{30}} = \frac{1}{2^{21}}$
+
+    allgemein gilt: $10^3 \approx 2^{10}$
+
+
+## Aufgabe 3
+
+- Der Zugriff scheitert, weil der Arbeitsspeicher durch die **Memory Protection** (z. B. Paging mit Zugriffsrechten) vom Betriebssystem isoliert wird. Nur der Kernel darf die Speicherbereiche aller Prozesse sehen und verwalten.
+- Ein Prozess kann trotzdem auf Ressourcen anderer Prozesse zugreifen über kontrollierte Schnittstellen wie IPC (Inter-Process Communication), Dateisysteme, Sockets oder Shared Memory, die vom Betriebssystem verwaltet und überwacht werden.
+- Welche Risiken entstehen bei höchstem Privileg für alle Prozesse?
+  - **Sicherheitslücken**: Jeder Prozess könnte beliebige Speicherbereiche lesen/schreiben.  
+  - **Stabilitätsprobleme**: Fehlerhafte Prozesse könnten das System zum Absturz bringen.  
+  - **Keine Isolation**: Malware hätte vollen Systemzugriff, keine Schutzmechanismen.
+
+[^1]: https://www.wikiwand.com/en/articles/X86-64
+[^2]: https://www.wikiwand.com/en/articles/Advanced_Vector_Extensions
