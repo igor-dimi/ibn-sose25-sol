@@ -60,3 +60,42 @@ ii) * x64: $\frac{2^7}{2^{30}} = \frac{1}{2^{23}}$
 
 [^1]: https://www.wikiwand.com/en/articles/X86-64
 [^2]: https://www.wikiwand.com/en/articles/Advanced_Vector_Extensions
+
+## Aufgabe 4
+
+Kernel-Code benötigt einen sicheren, kontrollierten Speicherbereich (seinen eigenen Stack), um zu vermeiden:
+
+* Beschädigung durch Benutzerprozesse
+* Abstürze oder Rechteausweitung (Privilege Escalation)
+
+Daher hat jeder Prozess:
+
+* Einen User-Mode-Stack (wird bei normaler Ausführung verwendet)
+* Einen Kernel-Mode-Stack (wird bei System Calls und Interrupts verwendet)
+
+## Aufgabe 5
+
+Minimale POSIX-Systemaufrufliste:
+
+
+| Kategorie            | Wichtige Syscalls                                  |
+|---------------------|-----------------------------------------------------|
+| **Prozesskontrolle**  | `fork`, `exec`, `exit`, `wait`, `kill`               |
+| **Datei-I/O**          | `open`, `read`, `write`, `close`, `lseek`           |
+| **Dateisystem**        | `stat`, `link`, `unlink`, `mkdir`, `chmod`, `chown` |
+| **Dateideskriptoren**  | `dup`, `fcntl`                                      |
+| **Verzeichnisse**      | `chdir`                                             |
+| **Pipes & Signale**    | `pipe`, `alarm`                                     |
+| **Zeit**               | `time`, `times`                                     |
+
+
+Weggelassene, emulierbare Syscalls:
+
+- `access`: durch `stat` prüfbar  
+- `create`: `open` mit `O_CREAT`  
+- `fstat`: ähnlich wie `stat`, aber für Deskriptoren  
+- `ioctl`: oft ersetzbar durch `fcntl`  
+- `mknod`: für einfache Dateien mit `open` + `write`  
+- `pause`: durch Signal-Handling emulierbar  
+- `umask`: kann im Nutzerprogramm gesetzt werden  
+- `utime`: durch Öffnen und Schreiben aktualisierbar  
