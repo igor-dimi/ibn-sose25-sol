@@ -50,6 +50,26 @@
     ]
   },
   {
+    "objectID": "sh01/01.html#aufgabe-4",
+    "href": "sh01/01.html#aufgabe-4",
+    "title": "1  Blatt 01",
+    "section": "1.4 Aufgabe 4",
+    "text": "1.4 Aufgabe 4\nKernel-Code benötigt einen sicheren, kontrollierten Speicherbereich (seinen eigenen Stack), um zu vermeiden:\n\nBeschädigung durch Benutzerprozesse\nAbstürze oder Rechteausweitung (Privilege Escalation)\n\nDaher hat jeder Prozess:\n\nEinen User-Mode-Stack (wird bei normaler Ausführung verwendet)\nEinen Kernel-Mode-Stack (wird bei System Calls und Interrupts verwendet)",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh01/01.html#aufgabe-5",
+    "href": "sh01/01.html#aufgabe-5",
+    "title": "1  Blatt 01",
+    "section": "1.5 Aufgabe 5",
+    "text": "1.5 Aufgabe 5\nMinimale POSIX-Systemaufrufliste:\n\n\n\n\n\n\n\nKategorie\nWichtige Syscalls\n\n\n\n\nProzesskontrolle\nfork, exec, exit, wait, kill\n\n\nDatei-I/O\nopen, read, write, close, lseek\n\n\nDateisystem\nstat, link, unlink, mkdir, chmod, chown\n\n\nDateideskriptoren\ndup, fcntl\n\n\nVerzeichnisse\nchdir\n\n\nPipes & Signale\npipe, alarm\n\n\nZeit\ntime, times\n\n\n\nWeggelassene, emulierbare Syscalls:\n\naccess: durch stat prüfbar\n\ncreate: open mit O_CREAT\n\nfstat: ähnlich wie stat, aber für Deskriptoren\n\nioctl: oft ersetzbar durch fcntl\n\nmknod: für einfache Dateien mit open + write\n\npause: durch Signal-Handling emulierbar\n\numask: kann im Nutzerprogramm gesetzt werden\n\nutime: durch Öffnen und Schreiben aktualisierbar",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
     "objectID": "sh01/01.html#footnotes",
     "href": "sh01/01.html#footnotes",
     "title": "1  Blatt 01",
