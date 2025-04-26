@@ -64,7 +64,27 @@
     "href": "sh01/01.html#aufgabe-5",
     "title": "1  Blatt 01",
     "section": "1.5 Aufgabe 5",
-    "text": "1.5 Aufgabe 5\nMinimale POSIX-Systemaufrufliste:\n\n\n\n\n\n\n\nKategorie\nWichtige Syscalls\n\n\n\n\nProzesskontrolle\nfork, exec, exit, wait, kill\n\n\nDatei-I/O\nopen, read, write, close, lseek\n\n\nDateisystem\nstat, link, unlink, mkdir, chmod, chown\n\n\nDateideskriptoren\ndup, fcntl\n\n\nVerzeichnisse\nchdir\n\n\nPipes & Signale\npipe, alarm\n\n\nZeit\ntime, times\n\n\n\nWeggelassene, emulierbare Syscalls:\n\naccess: durch stat prüfbar\n\ncreate: open mit O_CREAT\n\nfstat: ähnlich wie stat, aber für Deskriptoren\n\nioctl: oft ersetzbar durch fcntl\n\nmknod: für einfache Dateien mit open + write\n\npause: durch Signal-Handling emulierbar\n\numask: kann im Nutzerprogramm gesetzt werden\n\nutime: durch Öffnen und Schreiben aktualisierbar",
+    "text": "1.5 Aufgabe 5\nEntfernte Systemaufrufe\n\n\n\n\n\n\n\nSystemaufruf\nGrund für Entfernung\n\n\n\n\ncreat\nEntspricht vollständig open(path, O_CREAT | O_WRONLY | O_TRUNC, mode).\n\n\ndup\nEntspricht vollständig fcntl(fd, F_DUPFD, 0).\n\n\n\nAlle übrigen Systemaufrufe bieten essenzielle Funktionen, die nicht exakt durch andere ersetzt werden können.\nSie decken ab:\n\nDatei- und Verzeichnisoperationen (open, read, write, unlink, mkdir, etc.)\nProzessmanagement (fork, exec, wait, exit, etc.)\nMetadatenverwaltung (chmod, chown, utime, etc.)\nKommunikation und Steuerung (pipe, kill, ioctl, etc.)\nZeit- und Systemabfragen (time, times, stat, etc.)\n\nOhne sie wären bestimmte Kernfunktionen unmöglich.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh01/01.html#aufgabe-6",
+    "href": "sh01/01.html#aufgabe-6",
+    "title": "1  Blatt 01",
+    "section": "1.6 Aufgabe 6",
+    "text": "1.6 Aufgabe 6\nscript.sh auch im Zip:\ncd $1\nwhile :\ndo\n    echo \"5 biggest files in $1:\"\n    ls -S | head -5\n    echo \"5 last modified files starting with '$2' in $1:\"\n    ls -t | grep ^$2 | head -5\n    sleep 5\ndone",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh01/01.html#aufgabe-7",
+    "href": "sh01/01.html#aufgabe-7",
+    "title": "1  Blatt 01",
+    "section": "1.7 Aufgabe 7",
+    "text": "1.7 Aufgabe 7\nVorteile:\n\nKomplexitätsreduktion: Abstraktionen verbergen technische Details und erleichtern das Entwickeln und Verstehen von Systemen.\n\nWiederverwendbarkeit: Einmal geschaffene Abstraktionen (z.B. Dateisystem, Prozesse) können flexibel in verschiedenen Programmen genutzt werden.\n\nNachteile:\n\nLeistungsaufwand: Abstraktionsschichten können zusätzliche Rechenzeit und Speicherverbrauch verursachen.\n\nFehlerverdeckung: Probleme in tieferen Schichten bleiben oft verborgen und erschweren Fehlersuche und Optimierung.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
