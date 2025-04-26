@@ -75,27 +75,50 @@ Daher hat jeder Prozess:
 
 ## Aufgabe 5
 
-Minimale POSIX-Systemaufrufliste:
+
+Entfernte Systemaufrufe
+
+| Systemaufruf | Grund für Entfernung |
+|:-------------|:---------------------|
+| **creat** | Entspricht vollständig `open(path, O_CREAT | O_WRONLY | O_TRUNC, mode)`. |
+| **dup** | Entspricht vollständig `fcntl(fd, F_DUPFD, 0)`. |
 
 
-| Kategorie            | Wichtige Syscalls                                  |
-|---------------------|-----------------------------------------------------|
-| **Prozesskontrolle**  | `fork`, `exec`, `exit`, `wait`, `kill`               |
-| **Datei-I/O**          | `open`, `read`, `write`, `close`, `lseek`           |
-| **Dateisystem**        | `stat`, `link`, `unlink`, `mkdir`, `chmod`, `chown` |
-| **Dateideskriptoren**  | `dup`, `fcntl`                                      |
-| **Verzeichnisse**      | `chdir`                                             |
-| **Pipes & Signale**    | `pipe`, `alarm`                                     |
-| **Zeit**               | `time`, `times`                                     |
+Alle übrigen Systemaufrufe bieten **essenzielle Funktionen**, die nicht exakt durch andere ersetzt werden können.  
+Sie decken ab:
 
+- Datei- und Verzeichnisoperationen (`open`, `read`, `write`, `unlink`, `mkdir`, etc.)
+- Prozessmanagement (`fork`, `exec`, `wait`, `exit`, etc.)
+- Metadatenverwaltung (`chmod`, `chown`, `utime`, etc.)
+- Kommunikation und Steuerung (`pipe`, `kill`, `ioctl`, etc.)
+- Zeit- und Systemabfragen (`time`, `times`, `stat`, etc.)
 
-Weggelassene, emulierbare Syscalls:
+Ohne sie wären bestimmte Kernfunktionen unmöglich.
 
-- `access`: durch `stat` prüfbar  
-- `create`: `open` mit `O_CREAT`  
-- `fstat`: ähnlich wie `stat`, aber für Deskriptoren  
-- `ioctl`: oft ersetzbar durch `fcntl`  
-- `mknod`: für einfache Dateien mit `open` + `write`  
-- `pause`: durch Signal-Handling emulierbar  
-- `umask`: kann im Nutzerprogramm gesetzt werden  
-- `utime`: durch Öffnen und Schreiben aktualisierbar  
+## Aufgabe 6
+
+`script.sh` auch im Zip: 
+
+```bash
+cd $1
+while :
+do
+    echo "5 biggest files in $1:"
+    ls -S | head -5
+    echo "5 last modified files starting with '$2' in $1:"
+    ls -t | grep ^$2 | head -5
+    sleep 5
+done
+```
+
+## Aufgabe 7
+
+Vorteile:
+
+- **Komplexitätsreduktion:** Abstraktionen verbergen technische Details und erleichtern das Entwickeln und Verstehen von Systemen.  
+- **Wiederverwendbarkeit:** Einmal geschaffene Abstraktionen (z.B. Dateisystem, Prozesse) können flexibel in verschiedenen Programmen genutzt werden.
+
+Nachteile:
+
+- **Leistungsaufwand:** Abstraktionsschichten können zusätzliche Rechenzeit und Speicherverbrauch verursachen.  
+- **Fehlerverdeckung:** Probleme in tieferen Schichten bleiben oft verborgen und erschweren Fehlersuche und Optimierung.
