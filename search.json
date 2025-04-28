@@ -34,7 +34,7 @@
     "href": "sh01/01.html#aufgabe-2",
     "title": "1  Blatt 01",
     "section": "1.2 Aufgabe 2",
-    "text": "1.2 Aufgabe 2\n\n\nx64: 16 64 Bit GPRs1 \\(\\Rightarrow\\) 16 x 64 b = 16 x 8 B = \\(2^7\\) B.\nAVX2: 16 256 Bit GPRs2 \\(\\Rightarrow\\) 16 x 256 b = 16 x 32 B = \\(2^9\\) B\n\n\nx64: \\(\\frac{2^7}{2^{30}} = \\frac{1}{2^{23}}\\)\nAVX2: \\(\\frac{2^9}{2^{30}} = \\frac{1}{2^{21}}\\)\n\nallgemein gilt: \\(10^3 \\approx 2^{10}\\)",
+    "text": "1.2 Aufgabe 2\n\n\nx64: 16 64 Bit GPRs1 \\(\\Rightarrow\\) 16 x 64 b = 16 x 8 B = \\(2^7\\) B.\nAVX2: 16 256 Bit GPRs2 \\(\\Rightarrow\\) 16 x 256 b = 16 x 32 B = \\(2^9\\) B\n\n\nx64: \\(\\frac{2^7}{2^{30}} = \\frac{1}{2^{23}}\\)\nAVX2: \\(\\frac{2^9}{2^{30}} = \\frac{1}{2^{21}}\\)\n\nallgemein gilt: \\(10^3 \\approx 2^{10}\\), und \\(\\frac{2^x}{2^y} = \\frac{1}{2^{y-x}}\\)",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
