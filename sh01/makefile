@@ -1,6 +1,6 @@
 NR := 01
-TEAM := Dimitrov_Gül_Blatt
-NAME := $(TEAM)$(NR)
+TEAM := G19-$(NR)-Kirchner-Dimitrov-Gül-Jorany
+NAME := $(TEAM)
 DIR := /home/igord/Seafile/HD-Informatik/SS25/IBN/sol/$(NR)
 
 

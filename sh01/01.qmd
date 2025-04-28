@@ -46,7 +46,7 @@ i) * x64: 16 64 Bit GPRs[^1] $\Rightarrow$ 16 x 64 b  = 16 x 8 B = $2^7$ B.
 ii) * x64: $\frac{2^7}{2^{30}} = \frac{1}{2^{23}}$
     * AVX2: $\frac{2^9}{2^{30}} = \frac{1}{2^{21}}$
 
-    allgemein gilt: $10^3 \approx 2^{10}$
+    allgemein gilt: $10^3 \approx 2^{10}$, und $\frac{2^x}{2^y} = \frac{1}{2^{y-x}}$
 
 
 ## Aufgabe 3
