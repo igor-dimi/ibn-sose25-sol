@@ -41,6 +41,17 @@ a) Mit dem program:
    ```
    
    werden insgesammt **6** Prozesse erzeugt. Graph der enstehenden Prozess hierarchie:
+
+    ```scss
+    P1 (i=1)  
+    ├── P1.1 (i=0)  
+    │   └── P1.1.1 (i=0)  
+    │       └── P1.1.1.1 (i=0)   ← fork() at C  
+    │   └── P1.1.2 (i=0)       ← fork() at C  
+    └── P1.2 (i=1)           ← fork() at C  
+    ```
+
+
    
    ![A2.a) Prozessgraph](./imgs/a2.1-process-tree-no-source.png){width="50%"}
 
