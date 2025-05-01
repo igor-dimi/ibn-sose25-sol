@@ -1,0 +1,134 @@
+---
+title: Blatt 01
+---
+
+## Aufgabe 1
+
+
+a) Im fokussierten Modus bewegen wir uns in Denkpfaden, die wir bereits kennen und können
+   so bekannte Gedankenmuster aufrufen. Dieser Modus ist also geeignet für das Wiederholen
+   vor bekannten Konzepten und Techniken, also für Vokabeln lernen und eine bestimmte Art
+   von Rechenaufgabe zu trainieren. Denn hier können wir uns intensiver konzentrieren.
+   
+   Im diffusen Denken sind die Hindernisse (Analogie zum Flipper-Spiel) viel weiter
+   voneinander entfernt. Dadurch kann ein Gedanke viel freiere und längere Wege machen.
+   Man lässt den Gedanken also wandern, was geeignet ist für das Lernen von völlig neuen
+   Konzepten.
+   
+   Für das Lernen für die IBN-Klausur braucht man beide Modi - den diffusen, um sich ein
+   Gesamtbild zu verschaffen und neue Verbindungen im Gehirn herzustellen, und den
+   fokussierten, um das über das Semester gelernte stärker zu wiederholen und zu üben.
+
+b) Beide Denker, Salvador Dalí und Thomas Edison, nutzen die Technik, sich durch freies
+Denken zu entspannen und fast schon zu träumen. Beide hielten einen Schlüssel bzw.
+Kugeln in der Hand, für den Fall, dass sie einschlafen. Falls das geschieht, fällt der
+Gegenstand aus der Hand und sie wachen auf und begeben sich sofort in den fokussierten
+Modus durch konzentriertes Arbeiten, um von den neuen Verbindungen zu profitieren, die im
+diffusen Modus vorher erlangten.
+
+   Beide wechselten also immer wieder zwischen beiden Modi, um möglichst effektiv zu lernen
+   und immer wieder neue Verbindungen im Gehirn herzustellen.
+ 
+c) Cleese spricht über das offene und geschlossene Denken. Das offene kann dem diffusen Denken und das geschlossene dem fokussierten Denken zugeordnet werden.
+
+   Im geschlossenen Modus ist man quasi im Tunnel. Man ist angespannt und fixiert, will
+   schnell fertig werden. Es geht um Effizienz. In diesem Modus kann man bspw. seine E-Mails
+   einfach stumpf abarbeiten oder Zahlen in eine Excel-Tabelle eintragen.
+
+   Im offenen Modus ist man dagegen entspannter und offen für neue Gedanken, ohne
+   konkreten Rahmen. Dieser Modus ist vor allem für Brainstorming geeignet, weil hier eher
+   neue und kreative Ideen gefragt sind.
+
+d) Fleming entdeckte die Wirkung von Penicillin im offenen Modus. Er hat nicht sofort die unbrauchbare Schale weggeworfen, als keine Kulturen wuchsen. Er hinterfragte stattdessen, warum sie nicht wachsen. Im geschlossenen Modus hätte er rein ergebnisorientiert gearbeitet - keine Kultur auf der Schale bedeutet, sie ist unbrauchbar.
+
+   Hitchcock wollte sein Team in den offenen Modus versetzen. Er unterbrach sie einfach, wenn sie eine Blockade bei der Arbeit hatten, mit lustigen, kontextlosen Geschichten. Damit
+   lenkte er sie ab und alle konnten herunterfahren und wieder offener denken.
+
+
+
+## Aufgabe 2
+
+i) * x64: 16 64 Bit GPRs[^1] $\Rightarrow$ 16 x 64 b  = 16 x 8 B = $2^7$ B. 
+   * AVX2: 16 256 Bit GPRs[^2] $\Rightarrow$ 16 x 256 b = 16 x 32 B = $2^9$ B
+ii) * x64: $\frac{2^7}{2^{30}} = \frac{1}{2^{23}}$
+    * AVX2: $\frac{2^9}{2^{30}} = \frac{1}{2^{21}}$
+
+    allgemein gilt: $10^3 \approx 2^{10}$, und $\frac{2^x}{2^y} = \frac{1}{2^{y-x}}$
+
+
+## Aufgabe 3
+
+- Der Zugriff scheitert, weil der Arbeitsspeicher durch die **Memory Protection** (z. B. Paging mit Zugriffsrechten) vom Betriebssystem isoliert wird. Nur der Kernel darf die Speicherbereiche aller Prozesse sehen und verwalten.
+- Ein Prozess kann trotzdem auf Ressourcen anderer Prozesse zugreifen über kontrollierte Schnittstellen wie IPC (Inter-Process Communication), Dateisysteme, Sockets oder Shared Memory, die vom Betriebssystem verwaltet und überwacht werden.
+- Welche Risiken entstehen bei höchstem Privileg für alle Prozesse?
+  - **Sicherheitslücken**: Jeder Prozess könnte beliebige Speicherbereiche lesen/schreiben.  
+  - **Stabilitätsprobleme**: Fehlerhafte Prozesse könnten das System zum Absturz bringen.  
+  - **Keine Isolation**: Malware hätte vollen Systemzugriff, keine Schutzmechanismen.
+
+[^1]: https://www.wikiwand.com/en/articles/X86-64
+[^2]: https://www.wikiwand.com/en/articles/Advanced_Vector_Extensions
+
+## Aufgabe 4
+
+1. Wenn der Kernel denselben Stack wie das Benutzerprogramm benutzen
+   würde könnten bösartige Benutzerprogramme versuchen, geheime Daten zu lesen oder den Kernel zu manipulieren.  
+   Ein eigener Kernel-Stack sorgt dafür, dass der Benutzer niemals an sensible
+   Kernel-Daten herankommt.
+2. Benutzerprogramme könnten zu wenig Platz auf ihrem Stack haben. Wenn der
+   Kernel denselben Stack benutzen würde, könnte er abstürzen, weil plötzlich kein Speicherplatz mehr da ist.  
+   Mit einem eigenen Stack ist der Kernel unabhängig von Fehlern im Benutzerprogramm.
+3. Wenn ein Interrupt kommt, merkt sich der Kernel sofort den aktuellen 
+   Zustand auf seinem eigenen Stack. Dadurch kann der Kernel später genau an der richtigen Stelle weitermachen, ohne dass der Benutzer-Stack durcheinander ist.
+
+
+
+
+## Aufgabe 5
+
+
+Entfernte Systemaufrufe
+
+| Systemaufruf | Grund für Entfernung |
+|:-------------|:---------------------|
+| **creat** | Entspricht vollständig `open(path, O_CREAT | O_WRONLY | O_TRUNC, mode)`. |
+| **dup** | Entspricht vollständig `fcntl(fd, F_DUPFD, 0)`. |
+
+
+Alle übrigen Systemaufrufe bieten **essenzielle Funktionen**, die nicht exakt durch andere ersetzt werden können.  
+Sie decken ab:
+
+- Datei- und Verzeichnisoperationen (`open`, `read`, `write`, `unlink`, `mkdir`, etc.)
+- Prozessmanagement (`fork`, `exec`, `wait`, `exit`, etc.)
+- Metadatenverwaltung (`chmod`, `chown`, `utime`, etc.)
+- Kommunikation und Steuerung (`pipe`, `kill`, `ioctl`, etc.)
+- Zeit- und Systemabfragen (`time`, `times`, `stat`, etc.)
+
+Ohne sie wären bestimmte Kernfunktionen unmöglich.
+
+## Aufgabe 6
+
+`script.sh` auch im Zip: 
+
+```bash
+cd $1
+while :
+do
+    echo "5 biggest files in $1:"
+    ls -S | head -5
+    echo "5 last modified files starting with '$2' in $1:"
+    ls -t | grep ^$2 | head -5
+    sleep 5
+done
+```
+
+## Aufgabe 7
+
+Vorteile:
+
+- **Komplexitätsreduktion:** Abstraktionen verbergen technische Details und erleichtern das Entwickeln und Verstehen von Systemen.  
+- **Wiederverwendbarkeit:** Einmal geschaffene Abstraktionen (z.B. Dateisystem, Prozesse) können flexibel in verschiedenen Programmen genutzt werden.
+
+Nachteile:
+
+- **Leistungsaufwand:** Abstraktionsschichten können zusätzliche Rechenzeit und Speicherverbrauch verursachen.  
+- **Fehlerverdeckung:** Probleme in tieferen Schichten bleiben oft verborgen und erschweren Fehlersuche und Optimierung.
