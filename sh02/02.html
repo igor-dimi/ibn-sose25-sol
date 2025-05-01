@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Igor Dimitrov">
-<meta name="dcterms.date" content="2024-12-18">
 
-<title>Operating Systems and Networs SoSe 25 Solutions</title>
+<title>2&nbsp; Blatt 02 – Operating Systems and Networs SoSe 25 Solutions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,26 +20,60 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./sh01/01.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-6c21014d9765ba549c6ebad95917e4d7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-713f883f12444255370e25cd4e90f6b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sh01/01.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c21014d9765ba549c6ebad95917e4d7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-713f883f12444255370e25cd4e90f6b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -70,6 +102,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -82,7 +143,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sh02/02.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Blatt 02</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -97,9 +158,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Operating Systems and Networs SoSe 25 Solutions</a> 
+      <a href="../">Operating Systems and Networs SoSe 25 Solutions</a> 
         <div class="sidebar-tools-main">
-    <a href="./Operating-Systems-and-Networs-SoSe-25-Solutions.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="../Operating-Systems-and-Networs-SoSe-25-Solutions.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -112,19 +173,19 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh01/01.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh01/01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh02/02.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh02/02.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Blatt 02</span></span></a>
   </div>
 </li>
@@ -138,7 +199,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
+  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
+  <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a>
+  <ul class="collapse">
+  <li><a href="#erklärung-zur-ausgabe-von-ps--t--h" id="toc-erklärung-zur-ausgabe-von-ps--t--h" class="nav-link" data-scroll-target="#erklärung-zur-ausgabe-von-ps--t--h">Erklärung zur Ausgabe von <code>ps -T -H</code></a></li>
+  <li><a href="#process-state-codes" id="toc-process-state-codes" class="nav-link" data-scroll-target="#process-state-codes">Process state Codes</a></li>
+  <li><a href="#tiefe-der-aktuellen-sitzung" id="toc-tiefe-der-aktuellen-sitzung" class="nav-link" data-scroll-target="#tiefe-der-aktuellen-sitzung">Tiefe der Aktuellen Sitzung</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -147,26 +215,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Operating Systems and Networs SoSe 25 Solutions</h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Blatt 02</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Igor Dimitrov </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 18, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -176,10 +232,226 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
+<section id="aufgabe-1" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
+<p>Die Datenstruktur <code>task_struct</code> ist im Linux-Kernel-Quellcode (Linux kernel Version <strong>6.15.0</strong>) definiert unter:</p>
+<p><a href="https://github.com/torvalds/linux/blob/master/include/linux/sched.h"><code>include/linux/sched.h</code></a><br>
+Die Definition erstreckt sich über die Zeilen <strong>813 bis 1664</strong>.</p>
+<p>Darin befinden sich etwa <strong>320 Member-Variablen</strong>.<br>
+Bei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe von:</p>
+<p><strong>2.560 Byte</strong> <span class="math inline">\(\approx\)</span> <strong>2,5 KB</strong></p>
+</section>
+<section id="aufgabe-2" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
+<p>Der Systemaufruf <code>fork()</code> erzeugt einen neuen Prozess, der eine Kopie des aufrufenden Prozesses ist (Kindprozess).</p>
+<p><strong>Rückgabewert:</strong></p>
+<ul>
+<li><strong>0</strong> im Kindprozess<br>
+</li>
+<li><strong>PID des Kindes</strong> im Elternprozess<br>
+</li>
+<li><strong>−1</strong> bei Fehler</li>
+</ul>
+<ol type="a">
+<li><p>Mit dem program:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>fork<span class="op">()</span> <span class="op">!=</span> <span class="dv">0</span><span class="op">)</span> i<span class="op">++;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>i <span class="op">!=</span> <span class="dv">1</span><span class="op">)</span> fork<span class="op">();</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    fork<span class="op">();</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>werden insgesammt <strong>6</strong> Prozesse erzeugt. Graph der enstehenden Prozess hierarchie:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./imgs/a2.1-process-tree-no-source.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>A2.a) Prozessgraph</figcaption>
+</figure>
+</div></li>
+<li><p>Das Programm führt <code>fork()</code> aus, bis ein Kindprozess mit einer durch 10 teilbaren PID entsteht. Jeder <code>fork()</code> erzeugt ein Kind, das sofort endet (die Rückgabe von <code>fork()</code> is 0 bei einem Kind), außer die Bedingung ist erfüllt. Da etwa jede zehnte PID durch 10 teilbar ist, liegt die <strong>maximale Prozessanzahl</strong> (inkl. Elternprozess) typischerweise bei <strong>etwa 11</strong>.</p>
+<p>Da PIDs vom Kernel <strong>in aufsteigender Reihenfolge als nächste freie Zahl</strong> vergeben werden, ist garantiert, dass früher oder später eine durch 10 teilbare PID erzeugt wird. Das Programm terminiert daher immer. Wären PIDs zufällig, könnte es theoretisch unendlich laufen.</p>
+<p>Startende oder endende Prozesse können die PID-Vergabe beeinflussen, da sie die Reihenfolge freier PIDs verändern – dadurch variiert die genaue Prozessanzahl je nach Systemzustand.</p></li>
+</ol>
+</section>
+<section id="aufgabe-3" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
+<section id="erklärung-zur-ausgabe-von-ps--t--h" class="level3">
+<h3 class="anchored" data-anchor-id="erklärung-zur-ausgabe-von-ps--t--h">Erklärung zur Ausgabe von <code>ps -T -H</code></h3>
+<p>Das C-Programm:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>fork<span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> sleep<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>erzeugt einen Kindprozess. Das Kind beendet sich sofort (<code>exit(0)</code>), während der Elternprozess 1000 Sekunden schläft (<code>sleep(1000)</code>).</p>
+<p><strong>Ablauf der Kommandos:</strong></p>
+<ol type="1">
+<li>Das Ausführen von <code>./test &amp;</code>:
+<ul>
+<li>Das Programm läuft im Hintergrund.</li>
+<li>Die Shell gibt <code>[1] 136620</code> aus → Prozess-ID (PID) 136620.</li>
+<li>Der Kindprozess wird erzeugt und terminiert sofort.</li>
+<li>Der Elternprozess schläft weiter.</li>
+<li>Da <code>wait()</code> <strong>nicht</strong> aufgerufen wird, wird der Kindprozess zu einem <strong>Zombie-Prozess</strong>.</li>
+</ul></li>
+<li>Das Ausführen von <code>./test</code> und das drücken von <code>&lt;Strg&gt;+Z</code> danach:
+<ul>
+<li>Das Programm startet im Vordergrund.</li>
+<li>Mit <code>&lt;Strg&gt;+Z</code> wird es gestoppt.</li>
+<li>Die Shell zeigt: <code>[2]+  Stopped ./test</code>.</li>
+<li>Auch hier terminiert der Kindprozess sofort → Zombie-Prozess entsteht erneut.</li>
+</ul></li>
+</ol>
+<p><strong>Ausgabe von <code>ps -T -H</code>:</strong></p>
+<pre><code>    PID TTY      STAT   TIME COMMAND
+   1025 pts/0    Ss     0:00 /bin/bash --posix
+ 136620 pts/0    S      0:00   ./test
+ 136621 pts/0    Z      0:00     [test] &lt;defunct&gt;
+ 136879 pts/0    T      0:00   ./test
+ 136880 pts/0    Z      0:00     [test] &lt;defunct&gt;
+ 136989 pts/0    R+     0:00   ps T -H</code></pre>
+<p><strong>Erklärung:</strong></p>
+<ul>
+<li><code>1025</code>: Die Shell (<code>bash</code>), läuft im Terminal <code>pts/0</code>.</li>
+<li><code>136620</code>: Erstes <code>./test</code>-Programm, läuft im Hintergrund, schläft (<code>S</code>).</li>
+<li><code>136621</code>: Dessen Kindprozess (Zombie, <code>Z</code>), da <code>exit()</code> aufgerufen wurde, aber vom Elternprozess nicht abgeholt.</li>
+<li><code>136879</code>: Zweites <code>./test</code>-Programm, wurde mit <code>&lt;Strg+Z&gt;</code> gestoppt (<code>T</code>).</li>
+<li><code>136880</code>: Auch hier: Kindprozess wurde beendet, aber nicht „abgeholt“ → Zombie.</li>
+<li><code>136989</code>: Der <code>ps</code>-Prozess selbst, der gerade die Ausgabe erzeugt (<code>R+</code> = laufend im Vordergrund).</li>
+</ul>
+<p><strong>Die Spalten</strong></p>
+<ul>
+<li><strong>PID</strong>: Prozess-ID.</li>
+<li><strong>TTY</strong>: Terminal, dem der Prozess zugeordnet ist.</li>
+<li><strong>STAT</strong>: Prozessstatus:
+<ul>
+<li><code>S</code>: sleeping – schläft.</li>
+<li><code>T</code>: stopped – gestoppt (z. B. durch <code>SIGSTOP</code>).</li>
+<li><code>Z</code>: zombie – beendet, aber noch nicht „aufgeräumt“.</li>
+<li><code>R</code>: running – aktuell laufend auf der CPU.</li>
+<li><code>+</code>: Teil der Vordergrund-Prozessgruppe im Terminal.</li>
+</ul></li>
+<li><strong>TIME</strong>: CPU-Zeit, die der Prozess verbraucht hat.</li>
+<li><strong>COMMAND</strong>: Der auszuführende Befehl.
+<ul>
+<li><code>[test] &lt;defunct&gt;</code> heißt, es handelt sich um einen Zombie-Prozess, dessen Kommandozeile nicht mehr verfügbar ist.</li>
+</ul></li>
+</ul>
+</section>
+<section id="process-state-codes" class="level3">
+<h3 class="anchored" data-anchor-id="process-state-codes">Process state Codes</h3>
+<p>Prozesszustände (erste Buchstaben):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 26%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Code</th>
+<th>Meaning</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>R</code></td>
+<td>Running</td>
+<td>Currently running or ready to run (on CPU)</td>
+</tr>
+<tr class="even">
+<td><code>S</code></td>
+<td>Sleeping</td>
+<td>Waiting for an event (e.g., input, timer)</td>
+</tr>
+<tr class="odd">
+<td><code>D</code></td>
+<td>Uninterruptible sleep</td>
+<td>Waiting for I/O (e.g., disk), cannot be killed easily</td>
+</tr>
+<tr class="even">
+<td><code>T</code></td>
+<td>Stopped</td>
+<td>Process has been stopped (e.g., <code>SIGSTOP</code>, Ctrl+Z)</td>
+</tr>
+<tr class="odd">
+<td><code>Z</code></td>
+<td>Zombie</td>
+<td>Terminated, but not yet cleaned up by its parent</td>
+</tr>
+<tr class="even">
+<td><code>X</code></td>
+<td>Dead</td>
+<td>Process is terminated and should be gone (rarely shown)</td>
+</tr>
+</tbody>
+</table>
+<p>Zusätzliche flags:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Flag</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>&lt;</code></td>
+<td>High priority (not nice to others)</td>
+</tr>
+<tr class="even">
+<td><code>N</code></td>
+<td>Low priority (nice value &gt; 0)</td>
+</tr>
+<tr class="odd">
+<td><code>L</code></td>
+<td>Has pages locked in memory</td>
+</tr>
+<tr class="even">
+<td><code>s</code></td>
+<td>Session leader</td>
+</tr>
+<tr class="odd">
+<td><code>+</code></td>
+<td>In the foreground process group</td>
+</tr>
+<tr class="even">
+<td><code>l</code></td>
+<td>Multi-threaded (using CLONE_THREAD)</td>
+</tr>
+<tr class="odd">
+<td><code>p</code></td>
+<td>In a separate process group</td>
+</tr>
+</tbody>
+</table>
+<p>Z.B. <code>Ss+</code> beduetet: Sleeping (S), Session leader (s) &amp; Foreground process (+).</p>
+</section>
+<section id="tiefe-der-aktuellen-sitzung" class="level3">
+<h3 class="anchored" data-anchor-id="tiefe-der-aktuellen-sitzung">Tiefe der Aktuellen Sitzung</h3>
+<p>Zuerst finden wir die PID der Aktuellen sitzung mit</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>heraus. Output: <code>1025</code>.</p>
+<p>Danch führen wir das Command <code>ps -eH | less</code> aus und suchen im pager nach “1025”. In unserer Sitzung befand sich “bash” unter der Hierarchie:</p>
+<pre><code>1 systemd
+    718 ssdm
+        766 ssdm-helper
+            859 i3
+                884 kitty
+                    1025 bash</code></pre>
+<p>Das entspricht der Tiefe <strong>5</strong> des Prozessbaums.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -602,11 +874,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../sh01/01.html" class="pagination-link" aria-label="Blatt 01">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sh01/01.html" class="pagination-link" aria-label="Blatt 01">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

@@ -14,7 +14,7 @@
     "href": "sh01/01.html",
     "title": "1  Blatt 01",
     "section": "",
-    "text": "1.1 Aufgabe 1\nLearning how to Learn:\nJohn Cleese:",
+    "text": "Aufgabe 1\nLearning how to Learn:\nJohn Cleese:",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
@@ -33,8 +33,8 @@
     "objectID": "sh01/01.html#aufgabe-2",
     "href": "sh01/01.html#aufgabe-2",
     "title": "1  Blatt 01",
-    "section": "1.2 Aufgabe 2",
-    "text": "1.2 Aufgabe 2\n\n\nx64: 16 64 Bit GPRs1 \\(\\Rightarrow\\) 16 x 64 b = 16 x 8 B = \\(2^7\\) B.\nAVX2: 16 256 Bit GPRs2 \\(\\Rightarrow\\) 16 x 256 b = 16 x 32 B = \\(2^9\\) B\n\n\nx64: \\(\\frac{2^7}{2^{30}} = \\frac{1}{2^{23}}\\)\nAVX2: \\(\\frac{2^9}{2^{30}} = \\frac{1}{2^{21}}\\)\n\nallgemein gilt: \\(10^3 \\approx 2^{10}\\), und \\(\\frac{2^x}{2^y} = \\frac{1}{2^{y-x}}\\)",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\n\n\nx64: 16 64 Bit GPRs1 \\(\\Rightarrow\\) 16 x 64 b = 16 x 8 B = \\(2^7\\) B.\nAVX2: 16 256 Bit GPRs2 \\(\\Rightarrow\\) 16 x 256 b = 16 x 32 B = \\(2^9\\) B\n\n\nx64: \\(\\frac{2^7}{2^{30}} = \\frac{1}{2^{23}}\\)\nAVX2: \\(\\frac{2^9}{2^{30}} = \\frac{1}{2^{21}}\\)\n\nallgemein gilt: \\(10^3 \\approx 2^{10}\\), und \\(\\frac{2^x}{2^y} = \\frac{1}{2^{y-x}}\\)",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
@@ -43,8 +43,8 @@
     "objectID": "sh01/01.html#aufgabe-3",
     "href": "sh01/01.html#aufgabe-3",
     "title": "1  Blatt 01",
-    "section": "1.3 Aufgabe 3",
-    "text": "1.3 Aufgabe 3\n\nDer Zugriff scheitert, weil der Arbeitsspeicher durch die Memory Protection (z. B. Paging mit Zugriffsrechten) vom Betriebssystem isoliert wird. Nur der Kernel darf die Speicherbereiche aller Prozesse sehen und verwalten.\nEin Prozess kann trotzdem auf Ressourcen anderer Prozesse zugreifen über kontrollierte Schnittstellen wie IPC (Inter-Process Communication), Dateisysteme, Sockets oder Shared Memory, die vom Betriebssystem verwaltet und überwacht werden.\nWelche Risiken entstehen bei höchstem Privileg für alle Prozesse?\n\nSicherheitslücken: Jeder Prozess könnte beliebige Speicherbereiche lesen/schreiben.\n\nStabilitätsprobleme: Fehlerhafte Prozesse könnten das System zum Absturz bringen.\n\nKeine Isolation: Malware hätte vollen Systemzugriff, keine Schutzmechanismen.",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\n\nDer Zugriff scheitert, weil der Arbeitsspeicher durch die Memory Protection (z. B. Paging mit Zugriffsrechten) vom Betriebssystem isoliert wird. Nur der Kernel darf die Speicherbereiche aller Prozesse sehen und verwalten.\nEin Prozess kann trotzdem auf Ressourcen anderer Prozesse zugreifen über kontrollierte Schnittstellen wie IPC (Inter-Process Communication), Dateisysteme, Sockets oder Shared Memory, die vom Betriebssystem verwaltet und überwacht werden.\nWelche Risiken entstehen bei höchstem Privileg für alle Prozesse?\n\nSicherheitslücken: Jeder Prozess könnte beliebige Speicherbereiche lesen/schreiben.\n\nStabilitätsprobleme: Fehlerhafte Prozesse könnten das System zum Absturz bringen.\n\nKeine Isolation: Malware hätte vollen Systemzugriff, keine Schutzmechanismen.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
@@ -53,8 +53,8 @@
     "objectID": "sh01/01.html#aufgabe-4",
     "href": "sh01/01.html#aufgabe-4",
     "title": "1  Blatt 01",
-    "section": "1.4 Aufgabe 4",
-    "text": "1.4 Aufgabe 4\nKernel-Code benötigt einen sicheren, kontrollierten Speicherbereich (seinen eigenen Stack), um zu vermeiden:\n\nBeschädigung durch Benutzerprozesse\nAbstürze oder Rechteausweitung (Privilege Escalation)\n\nDaher hat jeder Prozess:\n\nEinen User-Mode-Stack (wird bei normaler Ausführung verwendet)\nEinen Kernel-Mode-Stack (wird bei System Calls und Interrupts verwendet)",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nKernel-Code benötigt einen sicheren, kontrollierten Speicherbereich (seinen eigenen Stack), um zu vermeiden:\n\nBeschädigung durch Benutzerprozesse\nAbstürze oder Rechteausweitung (Privilege Escalation)\n\nDaher hat jeder Prozess:\n\nEinen User-Mode-Stack (wird bei normaler Ausführung verwendet)\nEinen Kernel-Mode-Stack (wird bei System Calls und Interrupts verwendet)",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
@@ -63,8 +63,8 @@
     "objectID": "sh01/01.html#aufgabe-5",
     "href": "sh01/01.html#aufgabe-5",
     "title": "1  Blatt 01",
-    "section": "1.5 Aufgabe 5",
-    "text": "1.5 Aufgabe 5\nEntfernte Systemaufrufe\n\n\n\n\n\n\n\nSystemaufruf\nGrund für Entfernung\n\n\n\n\ncreat\nEntspricht vollständig open(path, O_CREAT | O_WRONLY | O_TRUNC, mode).\n\n\ndup\nEntspricht vollständig fcntl(fd, F_DUPFD, 0).\n\n\n\nAlle übrigen Systemaufrufe bieten essenzielle Funktionen, die nicht exakt durch andere ersetzt werden können.\nSie decken ab:\n\nDatei- und Verzeichnisoperationen (open, read, write, unlink, mkdir, etc.)\nProzessmanagement (fork, exec, wait, exit, etc.)\nMetadatenverwaltung (chmod, chown, utime, etc.)\nKommunikation und Steuerung (pipe, kill, ioctl, etc.)\nZeit- und Systemabfragen (time, times, stat, etc.)\n\nOhne sie wären bestimmte Kernfunktionen unmöglich.",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nEntfernte Systemaufrufe\n\n\n\n\n\n\n\nSystemaufruf\nGrund für Entfernung\n\n\n\n\ncreat\nEntspricht vollständig open(path, O_CREAT | O_WRONLY | O_TRUNC, mode).\n\n\ndup\nEntspricht vollständig fcntl(fd, F_DUPFD, 0).\n\n\n\nAlle übrigen Systemaufrufe bieten essenzielle Funktionen, die nicht exakt durch andere ersetzt werden können.\nSie decken ab:\n\nDatei- und Verzeichnisoperationen (open, read, write, unlink, mkdir, etc.)\nProzessmanagement (fork, exec, wait, exit, etc.)\nMetadatenverwaltung (chmod, chown, utime, etc.)\nKommunikation und Steuerung (pipe, kill, ioctl, etc.)\nZeit- und Systemabfragen (time, times, stat, etc.)\n\nOhne sie wären bestimmte Kernfunktionen unmöglich.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
@@ -73,8 +73,8 @@
     "objectID": "sh01/01.html#aufgabe-6",
     "href": "sh01/01.html#aufgabe-6",
     "title": "1  Blatt 01",
-    "section": "1.6 Aufgabe 6",
-    "text": "1.6 Aufgabe 6\nscript.sh auch im Zip:\ncd $1\nwhile :\ndo\n    echo \"5 biggest files in $1:\"\n    ls -S | head -5\n    echo \"5 last modified files starting with '$2' in $1:\"\n    ls -t | grep ^$2 | head -5\n    sleep 5\ndone",
+    "section": "Aufgabe 6",
+    "text": "Aufgabe 6\nscript.sh auch im Zip:\ncd $1\nwhile :\ndo\n    echo \"5 biggest files in $1:\"\n    ls -S | head -5\n    echo \"5 last modified files starting with '$2' in $1:\"\n    ls -t | grep ^$2 | head -5\n    sleep 5\ndone",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
@@ -83,8 +83,8 @@
     "objectID": "sh01/01.html#aufgabe-7",
     "href": "sh01/01.html#aufgabe-7",
     "title": "1  Blatt 01",
-    "section": "1.7 Aufgabe 7",
-    "text": "1.7 Aufgabe 7\nVorteile:\n\nKomplexitätsreduktion: Abstraktionen verbergen technische Details und erleichtern das Entwickeln und Verstehen von Systemen.\n\nWiederverwendbarkeit: Einmal geschaffene Abstraktionen (z.B. Dateisystem, Prozesse) können flexibel in verschiedenen Programmen genutzt werden.\n\nNachteile:\n\nLeistungsaufwand: Abstraktionsschichten können zusätzliche Rechenzeit und Speicherverbrauch verursachen.\n\nFehlerverdeckung: Probleme in tieferen Schichten bleiben oft verborgen und erschweren Fehlersuche und Optimierung.",
+    "section": "Aufgabe 7",
+    "text": "Aufgabe 7\nVorteile:\n\nKomplexitätsreduktion: Abstraktionen verbergen technische Details und erleichtern das Entwickeln und Verstehen von Systemen.\n\nWiederverwendbarkeit: Einmal geschaffene Abstraktionen (z.B. Dateisystem, Prozesse) können flexibel in verschiedenen Programmen genutzt werden.\n\nNachteile:\n\nLeistungsaufwand: Abstraktionsschichten können zusätzliche Rechenzeit und Speicherverbrauch verursachen.\n\nFehlerverdeckung: Probleme in tieferen Schichten bleiben oft verborgen und erschweren Fehlersuche und Optimierung.",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
     ]
@@ -97,6 +97,36 @@
     "text": "https://www.wikiwand.com/en/articles/X86-64↩︎\nhttps://www.wikiwand.com/en/articles/Advanced_Vector_Extensions↩︎",
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Blatt 01</span>"
+    ]
+  },
+  {
+    "objectID": "sh02/02.html",
+    "href": "sh02/02.html",
+    "title": "2  Blatt 02",
+    "section": "",
+    "text": "Aufgabe 1\nDie Datenstruktur task_struct ist im Linux-Kernel-Quellcode (Linux kernel Version 6.15.0) definiert unter:\ninclude/linux/sched.h\nDie Definition erstreckt sich über die Zeilen 813 bis 1664.\nDarin befinden sich etwa 320 Member-Variablen.\nBei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe von:\n2.560 Byte \\(\\approx\\) 2,5 KB",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Blatt 02</span>"
+    ]
+  },
+  {
+    "objectID": "sh02/02.html#aufgabe-2",
+    "href": "sh02/02.html#aufgabe-2",
+    "title": "2  Blatt 02",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\nDer Systemaufruf fork() erzeugt einen neuen Prozess, der eine Kopie des aufrufenden Prozesses ist (Kindprozess).\nRückgabewert:\n\n0 im Kindprozess\n\nPID des Kindes im Elternprozess\n\n−1 bei Fehler\n\n\nMit dem program:\n#include &lt;stdio.h&gt;\n\nint main(int argc, char const *argv[])\n{\n    int i = 0;\n    if (fork() != 0) i++;\n    if (i != 1) fork();\n    fork();\n    return 0;\n}\nwerden insgesammt 6 Prozesse erzeugt. Graph der enstehenden Prozess hierarchie:\n\n\n\nA2.a) Prozessgraph\n\n\nDas Programm führt fork() aus, bis ein Kindprozess mit einer durch 10 teilbaren PID entsteht. Jeder fork() erzeugt ein Kind, das sofort endet (die Rückgabe von fork() is 0 bei einem Kind), außer die Bedingung ist erfüllt. Da etwa jede zehnte PID durch 10 teilbar ist, liegt die maximale Prozessanzahl (inkl. Elternprozess) typischerweise bei etwa 11.\nDa PIDs vom Kernel in aufsteigender Reihenfolge als nächste freie Zahl vergeben werden, ist garantiert, dass früher oder später eine durch 10 teilbare PID erzeugt wird. Das Programm terminiert daher immer. Wären PIDs zufällig, könnte es theoretisch unendlich laufen.\nStartende oder endende Prozesse können die PID-Vergabe beeinflussen, da sie die Reihenfolge freier PIDs verändern – dadurch variiert die genaue Prozessanzahl je nach Systemzustand.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Blatt 02</span>"
+    ]
+  },
+  {
+    "objectID": "sh02/02.html#aufgabe-3",
+    "href": "sh02/02.html#aufgabe-3",
+    "title": "2  Blatt 02",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\n\nErklärung zur Ausgabe von ps -T -H\nDas C-Programm:\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include &lt;unistd.h&gt;\n\nint main(int argc, char const *argv[])\n{\n    if (fork() &gt; 0) sleep(1000);\n    else exit(0);\n    return 0;\n}\nerzeugt einen Kindprozess. Das Kind beendet sich sofort (exit(0)), während der Elternprozess 1000 Sekunden schläft (sleep(1000)).\nAblauf der Kommandos:\n\nDas Ausführen von ./test &:\n\nDas Programm läuft im Hintergrund.\nDie Shell gibt [1] 136620 aus → Prozess-ID (PID) 136620.\nDer Kindprozess wird erzeugt und terminiert sofort.\nDer Elternprozess schläft weiter.\nDa wait() nicht aufgerufen wird, wird der Kindprozess zu einem Zombie-Prozess.\n\nDas Ausführen von ./test und das drücken von &lt;Strg&gt;+Z danach:\n\nDas Programm startet im Vordergrund.\nMit &lt;Strg&gt;+Z wird es gestoppt.\nDie Shell zeigt: [2]+  Stopped ./test.\nAuch hier terminiert der Kindprozess sofort → Zombie-Prozess entsteht erneut.\n\n\nAusgabe von ps -T -H:\n    PID TTY      STAT   TIME COMMAND\n   1025 pts/0    Ss     0:00 /bin/bash --posix\n 136620 pts/0    S      0:00   ./test\n 136621 pts/0    Z      0:00     [test] &lt;defunct&gt;\n 136879 pts/0    T      0:00   ./test\n 136880 pts/0    Z      0:00     [test] &lt;defunct&gt;\n 136989 pts/0    R+     0:00   ps T -H\nErklärung:\n\n1025: Die Shell (bash), läuft im Terminal pts/0.\n136620: Erstes ./test-Programm, läuft im Hintergrund, schläft (S).\n136621: Dessen Kindprozess (Zombie, Z), da exit() aufgerufen wurde, aber vom Elternprozess nicht abgeholt.\n136879: Zweites ./test-Programm, wurde mit &lt;Strg+Z&gt; gestoppt (T).\n136880: Auch hier: Kindprozess wurde beendet, aber nicht „abgeholt“ → Zombie.\n136989: Der ps-Prozess selbst, der gerade die Ausgabe erzeugt (R+ = laufend im Vordergrund).\n\nDie Spalten\n\nPID: Prozess-ID.\nTTY: Terminal, dem der Prozess zugeordnet ist.\nSTAT: Prozessstatus:\n\nS: sleeping – schläft.\nT: stopped – gestoppt (z. B. durch SIGSTOP).\nZ: zombie – beendet, aber noch nicht „aufgeräumt“.\nR: running – aktuell laufend auf der CPU.\n+: Teil der Vordergrund-Prozessgruppe im Terminal.\n\nTIME: CPU-Zeit, die der Prozess verbraucht hat.\nCOMMAND: Der auszuführende Befehl.\n\n[test] &lt;defunct&gt; heißt, es handelt sich um einen Zombie-Prozess, dessen Kommandozeile nicht mehr verfügbar ist.\n\n\n\n\nProcess state Codes\nProzesszustände (erste Buchstaben):\n\n\n\n\n\n\n\n\nCode\nMeaning\nDescription\n\n\n\n\nR\nRunning\nCurrently running or ready to run (on CPU)\n\n\nS\nSleeping\nWaiting for an event (e.g., input, timer)\n\n\nD\nUninterruptible sleep\nWaiting for I/O (e.g., disk), cannot be killed easily\n\n\nT\nStopped\nProcess has been stopped (e.g., SIGSTOP, Ctrl+Z)\n\n\nZ\nZombie\nTerminated, but not yet cleaned up by its parent\n\n\nX\nDead\nProcess is terminated and should be gone (rarely shown)\n\n\n\nZusätzliche flags:\n\n\n\nFlag\nMeaning\n\n\n\n\n&lt;\nHigh priority (not nice to others)\n\n\nN\nLow priority (nice value &gt; 0)\n\n\nL\nHas pages locked in memory\n\n\ns\nSession leader\n\n\n+\nIn the foreground process group\n\n\nl\nMulti-threaded (using CLONE_THREAD)\n\n\np\nIn a separate process group\n\n\n\nZ.B. Ss+ beduetet: Sleeping (S), Session leader (s) & Foreground process (+).\n\n\nTiefe der Aktuellen Sitzung\nZuerst finden wir die PID der Aktuellen sitzung mit\necho $$\nheraus. Output: 1025.\nDanch führen wir das Command ps -eH | less aus und suchen im pager nach “1025”. In unserer Sitzung befand sich “bash” unter der Hierarchie:\n1 systemd\n    718 ssdm\n        766 ssdm-helper\n            859 i3\n                884 kitty\n                    1025 bash\nDas entspricht der Tiefe 5 des Prozessbaums.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Blatt 02</span>"
     ]
   }
 ]
