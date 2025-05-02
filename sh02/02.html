@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.6">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>2&nbsp; Blatt 02 – Operating Systems and Networs SoSe 25 Solutions</title>
+<title>Operating Systems and Networs SoSe 25 Solutions - 2&nbsp; Blatt 02</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,7 +33,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -70,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-6c21014d9765ba549c6ebad95917e4d7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-713f883f12444255370e25cd4e90f6b2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -102,7 +102,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -140,13 +140,13 @@ window.Quarto = {
   <header id="quarto-header" class="headroom fixed-top">
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
         <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sh02/02.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Blatt 02</span></a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -207,6 +207,8 @@ window.Quarto = {
   <li><a href="#process-state-codes" id="toc-process-state-codes" class="nav-link" data-scroll-target="#process-state-codes">Process state Codes</a></li>
   <li><a href="#tiefe-der-aktuellen-sitzung" id="toc-tiefe-der-aktuellen-sitzung" class="nav-link" data-scroll-target="#tiefe-der-aktuellen-sitzung">Tiefe der Aktuellen Sitzung</a></li>
   </ul></li>
+  <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
+  <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
   </ul>
 </nav>
     </div>
@@ -265,12 +267,34 @@ Bei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe v
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>werden insgesammt <strong>6</strong> Prozesse erzeugt. Graph der enstehenden Prozess hierarchie:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="./imgs/a2.1-process-tree-no-source.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption>A2.a) Prozessgraph</figcaption>
-</figure>
-</div></li>
+<pre class="text"><code>P1  
+├── P1.1  
+│   └── P1.1.1  
+│       └── P1.1.1.1  
+│   └── P1.1.2  
+└── P1.2  </code></pre>
+<p>Schrittweise Erzeugung der Prozesse:</p>
+<ol type="1">
+<li><p><strong>P1</strong> startet das Programm. Der Wert von <code>i</code> ist anfangs <code>0</code>.</p></li>
+<li><p>Die erste <code>fork()</code>-Anweisung wird ausgeführt:</p>
+<ul>
+<li><strong>P1</strong> ist der Elternprozess, der einen neuen Kindprozess <strong>P1.1</strong> erzeugt.</li>
+<li>Im Elternprozess (<strong>P1</strong>) ist das Rückgabewert von <code>fork()</code> ≠ 0 → <code>i</code> wird auf <code>1</code> gesetzt.</li>
+<li>Im Kindprozess (<strong>P1.1</strong>) ist das Rückgabewert <code>0</code> → <code>i</code> bleibt <code>0</code>.</li>
+</ul></li>
+<li><p>Danach folgt die Bedingung <code>if (i != 1) fork();</code>:</p>
+<ul>
+<li><strong>P1</strong> hat <code>i == 1</code> → keine Aktion.</li>
+<li><strong>P1.1</strong> hat <code>i == 0</code> → führt eine <code>fork()</code> aus → erzeugt <strong>P1.1.1</strong>.</li>
+</ul></li>
+<li><p>Schließlich wird eine letzte <code>fork();</code> von <strong>allen existierenden Prozessen</strong> ausgeführt:</p>
+<ul>
+<li><strong>P1</strong> erzeugt <strong>P1.2</strong></li>
+<li><strong>P1.1</strong> erzeugt <strong>P1.1.2</strong></li>
+<li><strong>P1.1.1</strong> erzeugt <strong>P1.1.1.1</strong></li>
+</ul></li>
+</ol>
+<!-- ![A2.a) Prozessgraph](./imgs/a2.1-process-tree-no-source.png){width="50%"} --></li>
 <li><p>Das Programm führt <code>fork()</code> aus, bis ein Kindprozess mit einer durch 10 teilbaren PID entsteht. Jeder <code>fork()</code> erzeugt ein Kind, das sofort endet (die Rückgabe von <code>fork()</code> is 0 bei einem Kind), außer die Bedingung ist erfüllt. Da etwa jede zehnte PID durch 10 teilbar ist, liegt die <strong>maximale Prozessanzahl</strong> (inkl. Elternprozess) typischerweise bei <strong>etwa 11</strong>.</p>
 <p>Da PIDs vom Kernel <strong>in aufsteigender Reihenfolge als nächste freie Zahl</strong> vergeben werden, ist garantiert, dass früher oder später eine durch 10 teilbare PID erzeugt wird. Das Programm terminiert daher immer. Wären PIDs zufällig, könnte es theoretisch unendlich laufen.</p>
 <p>Startende oder endende Prozesse können die PID-Vergabe beeinflussen, da sie die Reihenfolge freier PIDs verändern – dadurch variiert die genaue Prozessanzahl je nach Systemzustand.</p></li>
@@ -281,16 +305,16 @@ Bei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe v
 <section id="erklärung-zur-ausgabe-von-ps--t--h" class="level3">
 <h3 class="anchored" data-anchor-id="erklärung-zur-ausgabe-von-ps--t--h">Erklärung zur Ausgabe von <code>ps -T -H</code></h3>
 <p>Das C-Programm:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>fork<span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> sleep<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdio.h&gt;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;stdlib.h&gt;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#include </span><span class="im">&lt;unistd.h&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> main<span class="op">(</span><span class="dt">int</span> argc<span class="op">,</span> <span class="dt">char</span> <span class="dt">const</span> <span class="op">*</span>argv<span class="op">[])</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>fork<span class="op">()</span> <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> sleep<span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span> exit<span class="op">(</span><span class="dv">0</span><span class="op">);</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>erzeugt einen Kindprozess. Das Kind beendet sich sofort (<code>exit(0)</code>), während der Elternprozess 1000 Sekunden schläft (<code>sleep(1000)</code>).</p>
 <p><strong>Ablauf der Kommandos:</strong></p>
 <ol type="1">
@@ -349,7 +373,7 @@ Bei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe v
 <section id="process-state-codes" class="level3">
 <h3 class="anchored" data-anchor-id="process-state-codes">Process state Codes</h3>
 <p>Prozesszustände (erste Buchstaben):</p>
-<table class="caption-top table">
+<table class="table">
 <colgroup>
 <col style="width: 6%">
 <col style="width: 26%">
@@ -396,7 +420,7 @@ Bei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe v
 </tbody>
 </table>
 <p>Zusätzliche flags:</p>
-<table class="caption-top table">
+<table class="table">
 <thead>
 <tr class="header">
 <th>Flag</th>
@@ -439,7 +463,7 @@ Bei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe v
 <section id="tiefe-der-aktuellen-sitzung" class="level3">
 <h3 class="anchored" data-anchor-id="tiefe-der-aktuellen-sitzung">Tiefe der Aktuellen Sitzung</h3>
 <p>Zuerst finden wir die PID der Aktuellen sitzung mit</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">echo</span> <span class="va">$$</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>heraus. Output: <code>1025</code>.</p>
 <p>Danch führen wir das Command <code>ps -eH | less</code> aus und suchen im pager nach “1025”. In unserer Sitzung befand sich “bash” unter der Hierarchie:</p>
 <pre><code>1 systemd
@@ -449,9 +473,134 @@ Bei einer Annahme von 8 Byte pro Variable ergibt sich eine geschätzte Größe v
                 884 kitty
                     1025 bash</code></pre>
 <p>Das entspricht der Tiefe <strong>5</strong> des Prozessbaums.</p>
-
-
 </section>
+</section>
+<section id="aufgabe-4" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
+<p>Übersicht der Varianten mit Signaturen:</p>
+<table class="table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 89%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Funktion</th>
+<th>Signatur</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>execl</code></td>
+<td><code>int execl(const char *path, const char *arg0, ..., NULL);</code></td>
+</tr>
+<tr class="even">
+<td><code>execle</code></td>
+<td><code>int execle(const char *path, const char *arg0, ..., NULL, char *const envp[]);</code></td>
+</tr>
+<tr class="odd">
+<td><code>execlp</code></td>
+<td><code>int execlp(const char *file, const char *arg0, ..., NULL);</code></td>
+</tr>
+<tr class="even">
+<td><code>execv</code></td>
+<td><code>int execv(const char *path, char *const argv[]);</code></td>
+</tr>
+<tr class="odd">
+<td><code>execvp</code></td>
+<td><code>int execvp(const char *file, char *const argv[]);</code></td>
+</tr>
+<tr class="even">
+<td><code>execvpe</code></td>
+<td><code>int execvpe(const char *file, char *const argv[], char *const envp[]);</code></td>
+</tr>
+<tr class="odd">
+<td><code>execve</code></td>
+<td><code>int execve(const char *filename, char *const argv[], char *const envp[]);</code></td>
+</tr>
+</tbody>
+</table>
+<p>Wichtige Unterschiede:</p>
+<ul>
+<li><code>l</code> = Argumente als <strong>Liste</strong> (z. B. <code>execl</code>)</li>
+<li><code>v</code> = Argumente als <strong>Array (vector)</strong> (z. B. <code>execv</code>)</li>
+<li><code>p</code> = <strong>PATH-Suche</strong> aktiv (z. B. <code>execvp</code>)</li>
+<li><code>e</code> = <strong>eigene Umgebung (envp[])</strong> möglich (z. B. <code>execle</code>, <code>execvpe</code>)</li>
+<li>Kein <code>p</code> = voller Pfad zur Datei nötig</li>
+<li>Kein <code>e</code> = aktuelle Umgebungsvariablen werden übernommen</li>
+</ul>
+<p>Wann welche Variante?</p>
+<table class="table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 88%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variante</th>
+<th>Typischer Einsatzzweck</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>execl</code></td>
+<td>Fester Pfad und Argumente direkt im Code als Liste</td>
+</tr>
+<tr class="even">
+<td><code>execle</code></td>
+<td>Wie <code>execl</code>, aber mit <strong>eigener Umgebung</strong></td>
+</tr>
+<tr class="odd">
+<td><code>execlp</code></td>
+<td>Wie <code>execl</code>, aber <strong>PATH-Suche</strong> aktiviert (z. B. <code>ls</code> statt <code>/bin/ls</code>)</td>
+</tr>
+<tr class="even">
+<td><code>execv</code></td>
+<td>Pfad bekannt, Argumente liegen <strong>als Array</strong> vor (z. B. aus <code>main</code>)</td>
+</tr>
+<tr class="odd">
+<td><code>execvp</code></td>
+<td>Wie <code>execv</code>, aber <strong>mit PATH-Suche</strong> (typisch für Shells)</td>
+</tr>
+<tr class="even">
+<td><code>execvpe</code></td>
+<td>Wie <code>execvp</code>, aber mit <strong>eigener Umgebung</strong> (GNU-spezifisch)</td>
+</tr>
+<tr class="odd">
+<td><code>execve</code></td>
+<td>Low-Level, <strong>volle Kontrolle</strong> über Pfad, Argumente und Umgebung</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="aufgabe-5" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
+<p>Ein Prozesswechsel (Context Switch) tritt auf, wenn das Betriebssystem (OS) die Ausführung eines Prozesses stoppt und zu einem anderen wechselt. Dabei entsteht Overhead, weil:</p>
+<ul>
+<li>Der aktuelle CPU-Zustand (Register, Programmzähler etc.) gespeichert werden muss</li>
+<li>Dieser Zustand im Prozesskontrollblock (PCB) abgelegt wird</li>
+<li>Der Zustand des neuen Prozesses aus seinem PCB geladen wird</li>
+<li>Die Speicherverwaltungsstrukturen (z. B. Seitentabellen der MMU) aktualisiert werden müssen</li>
+<li>Der TLB (Translation Lookaside Buffer) meist ungültig wird und geleert werden muss</li>
+<li>Weitere OS-Daten wie Datei-Deskriptoren oder Signale angepasst werden müssen</li>
+</ul>
+<p>Der PCB enthält:</p>
+<ul>
+<li>Prozess-ID, Zustand</li>
+<li>Register, Programmzähler</li>
+<li>Speicherinfos, geöffnete Dateien</li>
+<li>Scheduling-Infos</li>
+</ul>
+<p>Beim Prozesswechsel speichert das OS den PCB des alten Prozesses und lädt den neuen, um eine korrekte Fortsetzung zu ermöglichen. Da jeder Prozess einen eigenen Adressraum besitzt, ist der Aufwand für das Umschalten entsprechend hoch.</p>
+<p>Threads desselben Prozesses teilen sich hingegen denselben Adressraum (also denselben Code, Heap, offene Dateien etc.). Das bedeutet:</p>
+<ul>
+<li>Es ist kein Wechsel des Adressraums nötig</li>
+<li>Die MMU- und TLB-Einträge bleiben gültig</li>
+<li>Nur der Thread-spezifische Kontext (Register, Stack-Pointer etc.) muss gespeichert werden</li>
+</ul>
+<p><strong>Fazit:</strong> Ein Threadwechsel ist viel leichter und schneller**, da kein teurer Speicherverwaltungswechsel nötig ist.</p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -490,7 +639,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -522,27 +682,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
       var filterRegex = new RegExp('/' + window.location.host + '/');
@@ -550,7 +690,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }
     // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
@@ -647,6 +787,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
+      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
