@@ -41,8 +41,38 @@ a) Mit dem program:
    ```
    
    werden insgesammt **6** Prozesse erzeugt. Graph der enstehenden Prozess hierarchie:
+
+    ```text
+    P1  
+    ├── P1.1  
+    │   └── P1.1.1  
+    │       └── P1.1.1.1  
+    │   └── P1.1.2  
+    └── P1.2  
+    ```
+
+   Schrittweise Erzeugung der Prozesse: 
    
-   ![A2.a) Prozessgraph](./imgs/a2.1-process-tree-no-source.png){width="50%"}
+   1. **P1** startet das Programm. Der Wert von `i` ist anfangs `0`.
+   
+   2. Die erste `fork()`-Anweisung wird ausgeführt:
+   
+      * **P1** ist der Elternprozess, der einen neuen Kindprozess **P1.1** erzeugt.
+      * Im Elternprozess (**P1**) ist das Rückgabewert von `fork()` ≠ 0 → `i` wird auf `1` gesetzt.
+      * Im Kindprozess (**P1.1**) ist das Rückgabewert `0` → `i` bleibt `0`.
+   
+   3. Danach folgt die Bedingung `if (i != 1) fork();`:
+   
+      * **P1** hat `i == 1` → keine Aktion.
+      * **P1.1** hat `i == 0` → führt eine `fork()` aus → erzeugt **P1.1.1**.
+   
+   4. Schließlich wird eine letzte `fork();` von **allen existierenden Prozessen** ausgeführt:
+   
+      * **P1** erzeugt **P1.2**
+      * **P1.1** erzeugt **P1.1.2**
+      * **P1.1.1** erzeugt **P1.1.1.1**
+   
+   <!-- ![A2.a) Prozessgraph](./imgs/a2.1-process-tree-no-source.png){width="50%"} -->
 
 b) Das Programm führt `fork()` aus, bis ein Kindprozess mit einer durch 10 teilbaren PID entsteht. Jeder `fork()` erzeugt ein Kind, das sofort endet (die Rückgabe von `fork()` is 0 bei einem Kind), außer die Bedingung ist erfüllt. Da etwa jede zehnte PID durch 10 teilbar ist, liegt die **maximale Prozessanzahl** (inkl. Elternprozess) typischerweise bei **etwa 11**.  
 
@@ -182,3 +212,148 @@ befand sich "bash" unter der Hierarchie:
 Das entspricht der Tiefe **5** des Prozessbaums. 
 
 
+## Aufgabe 4
+
+Übersicht der Varianten mit Signaturen:
+
+| Funktion  | Signatur                                                                         |
+| --------- | -------------------------------------------------------------------------------- |
+| `execl`   | `int execl(const char *path, const char *arg0, ..., NULL);`                      |
+| `execle`  | `int execle(const char *path, const char *arg0, ..., NULL, char *const envp[]);` |
+| `execlp`  | `int execlp(const char *file, const char *arg0, ..., NULL);`                     |
+| `execv`   | `int execv(const char *path, char *const argv[]);`                               |
+| `execvp`  | `int execvp(const char *file, char *const argv[]);`                              |
+| `execvpe` | `int execvpe(const char *file, char *const argv[], char *const envp[]);`         |
+| `execve`  | `int execve(const char *filename, char *const argv[], char *const envp[]);`      |
+
+Wichtige Unterschiede:
+
+* `l` = Argumente als **Liste** (z. B. `execl`)
+* `v` = Argumente als **Array (vector)** (z. B. `execv`)
+* `p` = **PATH-Suche** aktiv (z. B. `execvp`)
+* `e` = **eigene Umgebung (envp\[])** möglich (z. B. `execle`, `execvpe`)
+* Kein `p` = voller Pfad zur Datei nötig
+* Kein `e` = aktuelle Umgebungsvariablen werden übernommen
+
+Wann welche Variante?
+
+| Variante  | Typischer Einsatzzweck                                                  |
+| --------- | ----------------------------------------------------------------------- |
+| `execl`   | Fester Pfad und Argumente direkt im Code als Liste                      |
+| `execle`  | Wie `execl`, aber mit **eigener Umgebung**                              |
+| `execlp`  | Wie `execl`, aber **PATH-Suche** aktiviert (z. B. `ls` statt `/bin/ls`) |
+| `execv`   | Pfad bekannt, Argumente liegen **als Array** vor (z. B. aus `main`)     |
+| `execvp`  | Wie `execv`, aber **mit PATH-Suche** (typisch für Shells)               |
+| `execvpe` | Wie `execvp`, aber mit **eigener Umgebung** (GNU-spezifisch)            |
+| `execve`  | Low-Level, **volle Kontrolle** über Pfad, Argumente und Umgebung        |
+
+
+## Aufgabe 5
+
+Ein Prozesswechsel (Context Switch) tritt auf, wenn das Betriebssystem (OS) die Ausführung eines Prozesses stoppt und zu einem anderen wechselt. Dabei entsteht Overhead, weil:
+
+* Der aktuelle CPU-Zustand (Register, Programmzähler etc.) gespeichert werden muss
+* Dieser Zustand im Prozesskontrollblock (PCB) abgelegt wird
+* Der Zustand des neuen Prozesses aus seinem PCB geladen wird
+* Die Speicherverwaltungsstrukturen (z. B. Seitentabellen der MMU) aktualisiert werden müssen
+* Der TLB (Translation Lookaside Buffer) meist ungültig wird und geleert werden muss
+* Weitere OS-Daten wie Datei-Deskriptoren oder Signale angepasst werden müssen
+
+Der PCB enthält:
+
+* Prozess-ID, Zustand
+* Register, Programmzähler
+* Speicherinfos, geöffnete Dateien
+* Scheduling-Infos
+
+Beim Prozesswechsel speichert das OS den PCB des alten Prozesses und lädt den neuen, um eine korrekte Fortsetzung zu ermöglichen.
+Da jeder Prozess einen eigenen Adressraum besitzt, ist der Aufwand für das Umschalten entsprechend hoch.
+
+Threads desselben Prozesses teilen sich hingegen denselben Adressraum (also denselben Code, Heap, offene Dateien etc.). Das bedeutet:
+
+* Es ist kein Wechsel des Adressraums nötig
+* Die MMU- und TLB-Einträge bleiben gültig
+* Nur der Thread-spezifische Kontext (Register, Stack-Pointer etc.) muss gespeichert werden
+
+**Fazit:** Ein Threadwechsel ist viel leichter und schneller**, da kein teurer Speicherverwaltungswechsel nötig ist.
+
+## Aufgabe 6
+
+
+1. In der ursprünglichen Version werden alle Threads schnell hintereinander gestartet, ohne aufeinander zu warten. Da die Ausführung der Threads vom Scheduler (Betriebssystem) abhängt und parallel erfolgt, kann die Ausgabe beliebig vermischt erscheinen – z. B. kann ein Thread seine Nachricht „number: i“ ausgeben, noch bevor die Hauptfunktion „creating thread i“ gedruckt hat.
+
+   In der überarbeiteten Version hingegen wird jeder Thread direkt nach dem Start mit `pthread_join` wieder eingesammelt. Dadurch läuft immer nur ein Thread zur Zeit, und seine Ausgabe erfolgt vollständig, bevor der nächste beginnt. So entsteht eine streng sequentielle Ausgabe:
+
+   * „creating thread i“
+   * „number: i“
+   * „ending thread i“
+
+   Diese einfache Struktur vermeidet Race Conditions und benötigt keine zusätzlichen Synchronisationsmechanismen wie Semaphoren oder Locks.
+
+   Überarbeitete Version (auch im zip als `threads_example.c` enthalten):
+
+   ```{.c filename='threads_example.c'}
+   #include <pthread.h>
+   #include <stdio.h> 
+   #include <stdlib.h>
+   #include <assert.h>
+
+   #define NUM_THREADS 200000
+
+   void* TaskCode (void* argument)
+   {
+      int tid = *((int*) argument);
+      printf("number: %d\n", tid);
+      printf("ending thread %d\n", tid);
+      return NULL;
+   }
+
+   int main()
+   {
+      pthread_t thread;
+      int thread_arg;
+
+      for (int i = 0; i < NUM_THREADS; i++) {
+         thread_arg = i;
+         printf("creating thread %d\n", i);
+         int rc = pthread_create(&thread, NULL, TaskCode, &thread_arg);
+         assert(rc == 0);
+         rc = pthread_join(thread, NULL);
+         assert(rc == 0);
+      }
+
+      return 0;
+   }
+   ```
+
+2. In unserem System $N_{\text{max}} \approx 200000$. 
+3. Im folgenden Program wird `TaskCode()` $N_\text{max}$ mal in einer einfachen Schleife aufgerufen:
+
+   ```c
+   #include <pthread.h>
+   #include <stdio.h> 
+   #include <stdlib.h>
+   #include <assert.h>
+
+   #define NUM_THREADS 200000
+
+   void* TaskCode (void* argument)
+   {
+      int tid = *((int*) argument);
+      printf("number: %d\n", tid);
+      printf("ending thread %d\n", tid);
+      return NULL;
+   }
+
+   int main()
+   {
+      for (int i = 0; i < NUM_THREADS; i++) {
+         TaskCode(&i);
+      }
+
+      return 0;
+   }
+   ```
+   
+   Die Ausführung dieses Programs dauerte c. 2 Sekunden auf unserem System. D.h. die fehlenden zwei `pthread_*` aufrufe kosten
+   c. 8 Sekunden für 200000 Schleifen. Das entspricht c. 20 millisekunden pro `pthread_*` Aufruf.  

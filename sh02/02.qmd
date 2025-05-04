@@ -277,3 +277,83 @@ Threads desselben Prozesses teilen sich hingegen denselben Adressraum (also dens
 
 **Fazit:** Ein Threadwechsel ist viel leichter und schneller**, da kein teurer Speicherverwaltungswechsel nötig ist.
 
+## Aufgabe 6
+
+
+1. In der ursprünglichen Version werden alle Threads schnell hintereinander gestartet, ohne aufeinander zu warten. Da die Ausführung der Threads vom Scheduler (Betriebssystem) abhängt und parallel erfolgt, kann die Ausgabe beliebig vermischt erscheinen – z. B. kann ein Thread seine Nachricht „number: i“ ausgeben, noch bevor die Hauptfunktion „creating thread i“ gedruckt hat.
+
+   In der überarbeiteten Version hingegen wird jeder Thread direkt nach dem Start mit `pthread_join` wieder eingesammelt. Dadurch läuft immer nur ein Thread zur Zeit, und seine Ausgabe erfolgt vollständig, bevor der nächste beginnt. So entsteht eine streng sequentielle Ausgabe:
+
+   * „creating thread i“
+   * „number: i“
+   * „ending thread i“
+
+   Diese einfache Struktur vermeidet Race Conditions und benötigt keine zusätzlichen Synchronisationsmechanismen wie Semaphoren oder Locks.
+
+   Überarbeitete Version (auch im zip als `threads_example.c` enthalten):
+
+   ```{.c filename='threads_example.c'}
+   #include <pthread.h>
+   #include <stdio.h> 
+   #include <stdlib.h>
+   #include <assert.h>
+
+   #define NUM_THREADS 200000
+
+   void* TaskCode (void* argument)
+   {
+      int tid = *((int*) argument);
+      printf("number: %d\n", tid);
+      printf("ending thread %d\n", tid);
+      return NULL;
+   }
+
+   int main()
+   {
+      pthread_t thread;
+      int thread_arg;
+
+      for (int i = 0; i < NUM_THREADS; i++) {
+         thread_arg = i;
+         printf("creating thread %d\n", i);
+         int rc = pthread_create(&thread, NULL, TaskCode, &thread_arg);
+         assert(rc == 0);
+         rc = pthread_join(thread, NULL);
+         assert(rc == 0);
+      }
+
+      return 0;
+   }
+   ```
+
+2. In unserem System $N_{\text{max}} \approx 200000$. 
+3. Im folgenden Program wird `TaskCode()` $N_\text{max}$ mal in einer einfachen Schleife aufgerufen:
+
+   ```c
+   #include <pthread.h>
+   #include <stdio.h> 
+   #include <stdlib.h>
+   #include <assert.h>
+
+   #define NUM_THREADS 200000
+
+   void* TaskCode (void* argument)
+   {
+      int tid = *((int*) argument);
+      printf("number: %d\n", tid);
+      printf("ending thread %d\n", tid);
+      return NULL;
+   }
+
+   int main()
+   {
+      for (int i = 0; i < NUM_THREADS; i++) {
+         TaskCode(&i);
+      }
+
+      return 0;
+   }
+   ```
+   
+   Die Ausführung dieses Programs dauerte c. 2 Sekunden auf unserem System. D.h. die fehlenden zwei `pthread_*` aufrufe kosten
+   c. 8 Sekunden für 200000 Schleifen. Das entspricht c. 20 millisekunden pro `pthread_*` Aufruf.  
