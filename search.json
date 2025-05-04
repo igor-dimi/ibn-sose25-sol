@@ -148,5 +148,15 @@
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Blatt 02</span>"
     ]
+  },
+  {
+    "objectID": "sh02/02.html#aufgabe-6",
+    "href": "sh02/02.html#aufgabe-6",
+    "title": "2  Blatt 02",
+    "section": "Aufgabe 6",
+    "text": "Aufgabe 6\n\nIn der ursprünglichen Version werden alle Threads schnell hintereinander gestartet, ohne aufeinander zu warten. Da die Ausführung der Threads vom Scheduler (Betriebssystem) abhängt und parallel erfolgt, kann die Ausgabe beliebig vermischt erscheinen – z. B. kann ein Thread seine Nachricht „number: i“ ausgeben, noch bevor die Hauptfunktion „creating thread i“ gedruckt hat.\nIn der überarbeiteten Version hingegen wird jeder Thread direkt nach dem Start mit pthread_join wieder eingesammelt. Dadurch läuft immer nur ein Thread zur Zeit, und seine Ausgabe erfolgt vollständig, bevor der nächste beginnt. So entsteht eine streng sequentielle Ausgabe:\n\n„creating thread i“\n„number: i“\n„ending thread i“\n\nDiese einfache Struktur vermeidet Race Conditions und benötigt keine zusätzlichen Synchronisationsmechanismen wie Semaphoren oder Locks.\nÜberarbeitete Version (auch im zip als threads_example.c enthalten):\n\n\nthreads_example.c\n\n#include &lt;pthread.h&gt;\n#include &lt;stdio.h&gt; \n#include &lt;stdlib.h&gt;\n#include &lt;assert.h&gt;\n\n#define NUM_THREADS 200000\n\nvoid* TaskCode (void* argument)\n{\n   int tid = *((int*) argument);\n   printf(\"number: %d\\n\", tid);\n   printf(\"ending thread %d\\n\", tid);\n   return NULL;\n}\n\nint main()\n{\n   pthread_t thread;\n   int thread_arg;\n\n   for (int i = 0; i &lt; NUM_THREADS; i++) {\n      thread_arg = i;\n      printf(\"creating thread %d\\n\", i);\n      int rc = pthread_create(&thread, NULL, TaskCode, &thread_arg);\n      assert(rc == 0);\n      rc = pthread_join(thread, NULL);\n      assert(rc == 0);\n   }\n\n   return 0;\n}\n\nIn unserem System \\(N_{\\text{max}} \\approx 200000\\).\nIm folgenden Program wird TaskCode() \\(N_\\text{max}\\) mal in einer einfachen Schleife aufgerufen:\n#include &lt;pthread.h&gt;\n#include &lt;stdio.h&gt; \n#include &lt;stdlib.h&gt;\n#include &lt;assert.h&gt;\n\n#define NUM_THREADS 200000\n\nvoid* TaskCode (void* argument)\n{\n   int tid = *((int*) argument);\n   printf(\"number: %d\\n\", tid);\n   printf(\"ending thread %d\\n\", tid);\n   return NULL;\n}\n\nint main()\n{\n   for (int i = 0; i &lt; NUM_THREADS; i++) {\n      TaskCode(&i);\n   }\n\n   return 0;\n}\nDie Ausführung dieses Programs dauerte c. 2 Sekunden auf unserem System. D.h. die fehlenden zwei pthread_* aufrufe kosten\n\n8 Sekunden für 200000 Schleifen. Das entspricht c. 20 millisekunden pro pthread_* Aufruf.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Blatt 02</span>"
+    ]
   }
 ]
