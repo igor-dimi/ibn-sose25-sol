@@ -1,0 +1,54 @@
+---
+title: Blatt 3
+---
+
+## Aufgabe 1
+
+a) Die Ausgabe ist **inkonsistent** – bei mehreren Programmausführungen erscheinen unterschiedliche Werte für `counter`. Dies liegt an einer **Race Condition**, da beide Threads gleichzeitig und ohne Synchronisation auf die gemeinsame Variable `counter` zugreifen. Dadurch können Zwischenergebnisse überschrieben oder verloren gehen, je nachdem, wie der Scheduler die Threads abwechselnd ausführt.
+
+
+b) Synchronisierte Lösung (Java-Code):
+
+```java
+public class Counter {
+    static int counter = 0;
+
+    public static class Counter_Thread_A extends Thread {
+        public void run() {
+            synchronized (Counter.class) {
+                counter = 5;
+                counter++;
+                counter++;
+                System.out.println("A-Counter: " + counter);
+            }
+        }
+    }
+
+    public static class Counter_Thread_B extends Thread {
+        public void run() {
+            synchronized (Counter.class) {
+                counter = 6;
+                counter++;
+                counter++;
+                counter++;
+                counter++;
+                System.out.println("B-Counter: " + counter);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Thread a = new Counter_Thread_A();
+        Thread b = new Counter_Thread_B();
+        a.start();
+        b.start();
+    }
+}
+```
+Erklärung:
+
+Dieses Programm vermeidet das Race Condition-Problem, indem beide Threads einen `synchronized`-Block verwenden, der auf `Counter.class` synchronisiert ist. Das bedeutet:
+
+* Nur ein Thread darf gleichzeitig den Block betreten.
+* Der andere Thread muss warten, bis der erste fertig ist und den Lock freigibt.
+* Dadurch wird sichergestellt, dass keine gleichzeitigen Zugriffe auf die gemeinsame Variable `counter` stattfinden.

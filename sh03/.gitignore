@@ -1,0 +1,4 @@
+*
+!*.qmd
+!*.java
+!.gitignore
