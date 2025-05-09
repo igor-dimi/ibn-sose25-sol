@@ -32,7 +32,5 @@ int main(int argc, char const *argv[])
     remove_elem(&list, &rp);
     print_list(&list);
 
-     
-
     return 0;
 }

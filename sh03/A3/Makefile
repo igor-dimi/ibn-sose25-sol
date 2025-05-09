@@ -1,8 +1,8 @@
-
+TARGETS := pc pc2 test_list
 OBJ=pc.o mylist.o
 OBJ2=pc2.o mylist.o
 
-all: pc pc2 test_list
+all: $(TARGETS)
 
 test_list: test_list.o mylist.o
 	gcc -Wall -o $@ $^
@@ -20,5 +20,8 @@ pc2.o: pc2.c mylist.c mylist.h
 
 %.o: %.c
 	gcc -Wall -g -c $<
+	
+clean: 
+	rm $(OBJ) $(TARGETS)
 
 
