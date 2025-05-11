@@ -1,0 +1,27 @@
+Measuring 10 runs of ./pc and ./pc2...
+
+Running ./pc...
+  Run 1: 5.471139729 seconds
+  Run 2: 5.545249360 seconds
+  Run 3: 5.359090183 seconds
+  Run 4: 5.366634866 seconds
+  Run 5: 5.459910579 seconds
+  Run 6: 5.531161091 seconds
+  Run 7: 5.738575161 seconds
+  Run 8: 5.835055657 seconds
+  Run 9: 5.496744966 seconds
+  Run 10: 5.641529848 seconds
+Average runtime of ./pc: 5.5445 seconds
+
+Running ./pc2...
+  Run 1: 5.244080521 seconds
+  Run 2: 5.237442233 seconds
+  Run 3: 5.220517776 seconds
+  Run 4: 5.281094089 seconds
+  Run 5: 5.261722379 seconds
+  Run 6: 5.363685993 seconds
+  Run 7: 5.276107150 seconds
+  Run 8: 5.091557858 seconds
+  Run 9: 5.073267276 seconds
+  Run 10: 5.164472482 seconds
+Average runtime of ./pc2: 5.2213 seconds

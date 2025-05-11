@@ -1,5 +1,5 @@
 ---
-title: Blatt 3
+title: Blatt 03
 ---
 
 ## Aufgabe 1
@@ -230,4 +230,127 @@ int main (int argc, char *argv[])
     return 0;
 }
 ```
-b) 
+
+
+
+b) Laufzeitvergleich von `pc` und `pc2`
+
+   Zur Überprüfung der Effizienzverbesserung durch den Einsatz von Condition Variables wurde folgendes Bash-Skript verwendet, das beide Programme je 10-mal ausführt und die durchschnittliche Laufzeit berechnet:
+   
+   ```bash
+   #!/bin/bash
+   
+   RUNS=10
+   PC="./pc"
+   PC2="./pc2"
+   
+   measure_average_runtime() {
+       PROGRAM=$1
+       TOTAL=0
+       echo "Running $PROGRAM..."
+       for i in $(seq 1 $RUNS); do
+           START=$(date +%s.%N)
+           $PROGRAM > /dev/null
+           END=$(date +%s.%N)
+           RUNTIME=$(echo "$END - $START" | bc)
+           echo "  Run $i: $RUNTIME seconds"
+           TOTAL=$(echo "$TOTAL + $RUNTIME" | bc)
+       done
+       AVG=$(echo "scale=4; $TOTAL / $RUNS" | bc)
+       echo "Average runtime of $PROGRAM: $AVG seconds"
+       echo
+   }
+   
+   echo "Measuring $RUNS runs of $PC and $PC2..."
+   echo
+   measure_average_runtime $PC
+   measure_average_runtime $PC2
+   ```
+   
+   Ausgeführt wurde das Skript mit:
+   
+   ```bash
+   ./benchmark_pc.sh
+   ```
+   
+   Dabei ergaben sich folgende Laufzeiten:
+   
+   ```
+   Measuring 10 runs of ./pc and ./pc2...
+   
+   Running ./pc...
+     Run 1: 5.471139729 seconds
+     Run 2: 5.545249360 seconds
+     Run 3: 5.359090183 seconds
+     Run 4: 5.366634866 seconds
+     Run 5: 5.459910579 seconds
+     Run 6: 5.531161091 seconds
+     Run 7: 5.738575161 seconds
+     Run 8: 5.835055657 seconds
+     Run 9: 5.496744966 seconds
+     Run 10: 5.641529848 seconds
+   Average runtime of ./pc: 5.5445 seconds
+   
+   Running ./pc2...
+     Run 1: 5.244080521 seconds
+     Run 2: 5.237442233 seconds
+     Run 3: 5.220517776 seconds
+     Run 4: 5.281094089 seconds
+     Run 5: 5.261722379 seconds
+     Run 6: 5.363685993 seconds
+     Run 7: 5.276107150 seconds
+     Run 8: 5.091557858 seconds
+     Run 9: 5.073267276 seconds
+     Run 10: 5.164472482 seconds
+   Average runtime of ./pc2: 5.2213 seconds
+   ```
+   
+   Die Ergebnisse zeigen, dass `pc2` im Schnitt etwas schneller ist als `pc` (5.22 s gegenüber 5.54 s), was den Effizienzgewinn durch den Verzicht auf aktives Warten bestätigt.
+   
+   Die Dateien `benchmark_pc.sh` und `benchmark_results.txt` befinden sich im Ordner `A3` des ZIP-Archivs.
+
+
+
+   Zur Veranschaulichung wurde mit dem folgendnen Python script zusätzlich ein Diagramm erstellt, das die Laufzeiten von `pc` und `pc2` über zehn Durchläufe hinweg zeigt. Die Durchschnittslinien verdeutlichen, dass `pc2` im Mittel schneller und konsistenter ist als `pc`.
+
+   ```{python}
+   import matplotlib.pyplot as plt
+
+   # Runtime data for each run (in seconds)
+   pc = [5.471139729, 5.545249360, 5.359090183, 5.366634866, 5.459910579,
+         5.531161091, 5.738575161, 5.835055657, 5.496744966, 5.641529848]
+   
+   pc2 = [5.244080521, 5.237442233, 5.220517776, 5.281094089, 5.261722379,
+          5.363685993, 5.276107150, 5.091557858, 5.073267276, 5.164472482]
+   
+   # X-axis: run numbers
+   runs = list(range(1, 11))
+   
+   # Calculate averages
+   avg_pc = sum(pc) / len(pc)
+   avg_pc2 = sum(pc2) / len(pc2)
+   
+   # Plot configuration
+   plt.figure(figsize=(10, 6))
+   plt.plot(runs, pc, marker='o', label='pc')
+   plt.plot(runs, pc2, marker='o', label='pc2')
+   
+   # Average lines
+   plt.axhline(avg_pc, color='red', linestyle='--', label=f'avg pc ({avg_pc:.3f}s)')
+   plt.axhline(avg_pc2, color='green', linestyle='--', label=f'avg pc2 ({avg_pc2:.3f}s)')
+   
+   # Labels and title
+   plt.xlabel('Run')
+   plt.ylabel('Time (s)')
+   plt.title('Runtime Comparison of pc vs. pc2')
+   plt.xticks(runs)
+   plt.grid(True)
+   plt.legend()
+   plt.tight_layout()
+   
+   # Display the plot
+   plt.show()
+   ```
+
+
+ 
