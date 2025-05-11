@@ -42,14 +42,7 @@ a) Mit dem program:
    
    werden insgesammt **6** Prozesse erzeugt. Graph der enstehenden Prozess hierarchie:
 
-    ```text
-    P1  
-    ├── P1.1  
-    │   └── P1.1.1  
-    │       └── P1.1.1.1  
-    │   └── P1.1.2  
-    └── P1.2  
-    ```
+   ![Prozessbaum](./imgs/a2-process-tree.png){}
 
    Schrittweise Erzeugung der Prozesse: 
    
@@ -214,7 +207,9 @@ Das entspricht der Tiefe **5** des Prozessbaums.
 
 ## Aufgabe 4
 
-Übersicht der Varianten mit Signaturen:
+
+
+Übersicht der Varianten mit Signaturen: 
 
 | Funktion  | Signatur                                                                         |
 | --------- | -------------------------------------------------------------------------------- |
@@ -225,27 +220,30 @@ Das entspricht der Tiefe **5** des Prozessbaums.
 | `execvp`  | `int execvp(const char *file, char *const argv[]);`                              |
 | `execvpe` | `int execvpe(const char *file, char *const argv[], char *const envp[]);`         |
 | `execve`  | `int execve(const char *filename, char *const argv[], char *const envp[]);`      |
+| `fexecve` | `int fexecve(int fd, char *const argv[], char *const envp[]);`                   |
 
 Wichtige Unterschiede:
 
-* `l` = Argumente als **Liste** (z. B. `execl`)
-* `v` = Argumente als **Array (vector)** (z. B. `execv`)
-* `p` = **PATH-Suche** aktiv (z. B. `execvp`)
-* `e` = **eigene Umgebung (envp\[])** möglich (z. B. `execle`, `execvpe`)
-* Kein `p` = voller Pfad zur Datei nötig
-* Kein `e` = aktuelle Umgebungsvariablen werden übernommen
+* `l` = Argumente werden als Liste übergeben (z. B. `execl`)
+* `v` = Argumente als Array (vector) (z. B. `execv`)
+* `p` = Aktiviert die Suche über die Umgebungsvariable `PATH` (z. B. `execvp`)
+* `e` = Übergabe einer eigenen Umgebung über `envp[]` möglich (z. B. `execle`, `execvpe`)
+* Kein `p` = Es muss ein vollständiger Pfad zur ausführbaren Datei angegeben werden
+* Kein `e` = Die aktuelle Umgebung des Prozesses wird verwendet
+* `fexecve` = Statt eines Pfads wird ein offener File Descriptor verwendet; keine `PATH`-Suche; besonders sicher gegen Race Conditions (z. B. bei temporären Dateien oder in sicherheitskritischen Kontexten)
 
-Wann welche Variante?
+Wann welche Variante:
 
-| Variante  | Typischer Einsatzzweck                                                  |
-| --------- | ----------------------------------------------------------------------- |
-| `execl`   | Fester Pfad und Argumente direkt im Code als Liste                      |
-| `execle`  | Wie `execl`, aber mit **eigener Umgebung**                              |
-| `execlp`  | Wie `execl`, aber **PATH-Suche** aktiviert (z. B. `ls` statt `/bin/ls`) |
-| `execv`   | Pfad bekannt, Argumente liegen **als Array** vor (z. B. aus `main`)     |
-| `execvp`  | Wie `execv`, aber **mit PATH-Suche** (typisch für Shells)               |
-| `execvpe` | Wie `execvp`, aber mit **eigener Umgebung** (GNU-spezifisch)            |
-| `execve`  | Low-Level, **volle Kontrolle** über Pfad, Argumente und Umgebung        |
+| Variante  | Typischer Einsatzzweck                                                                                                            |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------: |
+| `execl`   | Wenn der Pfad bekannt ist und Argumente direkt im Code angegeben werden                                                           |
+| `execle`  | Wie `execl`, aber zusätzlich mit expliziter Umgebung                                                                              |
+| `execlp`  | Wie `execl`, aber mit automatischer PATH-Suche                                                                                    |
+| `execv`   | Wenn Argumente in einem Array vorliegen (z. B. aus `main`)                                                                        |
+| `execvp`  | Wie `execv`, aber mit PATH-Suche (z. B. für einfache Shells)                                                                      |
+| `execvpe` | Wie `execvp`, aber mit eigener Umgebung (nicht POSIX, GNU-Erweiterung)                                                            |
+| `execve`  | Low-Level-Version mit voller Kontrolle über Pfad, Argumente und Umgebung                                                          |
+| `fexecve` | Wenn die Datei bereits sicher geöffnet wurde, z. B. mit `openat()`; nützlich in Sandboxen oder zur Vermeidung von Race Conditions |
 
 
 ## Aufgabe 5
