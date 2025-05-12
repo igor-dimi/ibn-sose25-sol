@@ -352,5 +352,75 @@ b) Laufzeitvergleich von `pc` und `pc2`
    plt.show()
    ```
 
+## Aufgabe 3
+
+
+a) Die gegebene Implementierung kann zu einer Verletzung des gegenseitigen Ausschlusses führen, wenn zwei schreibende Threads gleichzeitig in die kritische Sektion gelangen.
+
+   Beispiel: Angenommen `N = 5`.
+   Thread A und Thread B rufen gleichzeitig `lock_write()` auf. Da der `for`-Loop nicht durch einen Mutex geschützt ist, können sich ihre `wait(S)`-Aufrufe gegenseitig durchmischen:
+   A nimmt 1 Token → `S = 4`
+   B nimmt 1 Token → `S = 3`
+   A nimmt 1 → `S = 2`
+   B nimmt 1 → `S = 1`
+   ... und so weiter.
+   Wenn nun zufällig genug Tokens freigegeben werden (z. B. durch `unlock_read()`-Aufrufe), können beide Threads nacheinander die restlichen Semaphore erwerben und ihren Loop abschließen, ohne dass einer von ihnen jemals alle N Tokens exklusiv gehalten hat.
+   Beide betreten anschließend die kritische Sektion, obwohl gegenseitiger Ausschluss nicht mehr gewährleistet ist.
+
+
+b) Das Problem wird behoben, indem ein zusätzlicher Mutex eingeführt wird, der verhindert, dass mehrere schreibende Threads gleichzeitig versuchen, die Semaphore `S` zu erwerben:
+
+   ```python
+   S = Semaphore(N)
+   M = Semaphore(1)  // neuer Mutex
+   
+   def lock_read():
+       wait(S)
+   
+   def unlock_read():
+       signal(S)
+   
+   def lock_write():
+       wait(M)
+       for i in range(N): wait(S)
+       signal(M)
+   
+   def unlock_write():
+       for i in range(N): signal(S)
+   ```
+   
+   Durch den Mutex `M` ist sichergestellt, dass der Erwerb der Semaphore in `lock_write()` **ausschließlich** von einem Thread durchgeführt wird. So wird verhindert, dass mehrere schreibende Threads gleichzeitig in die kritische Sektion gelangen.
+   
+   **Hinweis:** Diese Lösung stellt den gegenseitigen Ausschluss sicher, erlaubt jedoch theoretisch, dass ein schreibender Thread dauerhaft blockiert bleibt, wenn ständig neue Leser auftreten (*Starvation*). Für diese Aufgabe ist jedoch nur die Korrektur der Ausschlussverletzung relevant.
+
+
+c) Die Befehle `upgrade_to_write()` und `downgrade_to_read()` ermöglichen es einem Thread, während des laufenden Zugriffs die Art des Read-Write-Locks dynamisch zu wechseln – ohne dabei den kritischen Abschnitt vollständig zu verlassen. Dies verhindert Race Conditions und potenzielle Starvation.
+
+   Ein Thread, der `upgrade_to_write()` aufruft, hält bereits einen Lesezugriff (also eine Einheit der Semaphore `S`) und möchte exklusiven Schreibzugriff erhalten. Dafür müssen die verbleibenden `N - 1` Einheiten erworben werden.
+   Ein zusätzlicher Mutex `M` sorgt dafür, dass nicht mehrere Threads gleichzeitig versuchen, sich hochzustufen, was zu Deadlocks führen könnte.
+   
+   Ein Thread, der `downgrade_to_read()` aufruft, hält alle `N` Einheiten (Schreibzugriff) und möchte auf geteilten Lesezugriff wechseln. Dazu werden `N - 1` Einheiten freigegeben – eine Einheit bleibt erhalten.
+   
+   **Hinweis**: Das hier verwendete Mutex `M` ist dasselbe wie in Teil b) und stellt sicher, dass nur ein Thread gleichzeitig exklusiven Zugriff auf die Semaphore `S` erwerben kann – sei es über `lock_write()` oder über `upgrade_to_write()`.
+   
+   ### Pseudocode:
+   
+   ```python
+   S = Semaphore(N)     // erlaubt bis zu N gleichzeitige Leser oder 1 Schreiber
+   M = Semaphore(1)     // schützt exklusive Zugriffsversuche
+   
+   def upgrade_to_write():
+       wait(M)
+       for i in range(N - 1):     // hält bereits 1 Einheit als Leser
+           wait(S)
+       signal(M)
+   
+   def downgrade_to_read():
+       for i in range(N - 1):     // gibt N - 1 Einheiten frei, behält 1
+           signal(S)
+   ```
+   
+   **Fazit:** Diese Operationen garantieren einen sicheren Übergang zwischen Lese- und Schreibmodus, ohne Race Conditions oder Deadlocks, und basieren auf derselben Semaphor-Struktur wie in Teil b).
+   
 
  
