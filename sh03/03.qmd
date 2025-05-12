@@ -55,7 +55,7 @@ Dieses Programm vermeidet das Race Condition-Problem, indem beide Threads einen 
 
 ## Aufgabe 3
 
-a) Unten folgt der Quellcode zur verbesserten Lösung des Producer-Consumer-Problems (`pc2.c`) @lst-pc2 . In dieser Version wird Busy Waiting durch eine effiziente Synchronisation mithilfe eines Mutexes und einer Condition Variable ersetzt.
+a) Unten folgt der Quellcode zur verbesserten Lösung des Producer-Consumer-Problems (`pc2.c` am Ende des Dokuments). In dieser Version wird Busy Waiting durch eine effiziente Synchronisation mithilfe eines Mutexes und einer Condition Variable ersetzt.
 
    Der Code befindet sich auch im beigefügten Zip-Archiv im Ordner `A3`. Dort kann das Programm wie folgt kompiliert und ausgeführt werden:
 
@@ -74,7 +74,7 @@ make
    Insgesamt ist diese Lösung robuster und skalierbarer als die ursprüngliche Variante mit Busy Waiting – insbesondere bei mehreren Consumer-Threads und höherer Auslastung.
 
 
-::: {.code-listing #lst-pc2}
+<!-- ::: {.code-listing #lst-pc2} -->
 ```{.c filename="pc2.c"}
 #include <stdio.h>
 #include <stdlib.h>
@@ -198,8 +198,7 @@ int main (int argc, char *argv[])
     return 0;
 }
 ```
-
-:::
+<!-- ::: -->
 
 
 b) Laufzeitvergleich von `pc` und `pc2`
