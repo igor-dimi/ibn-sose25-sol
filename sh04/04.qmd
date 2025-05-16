@@ -190,3 +190,26 @@ Reversed string: tlew ollah
 
    * **Logische Adressen** (auch virtuelle Adressen) werden vom Prozess verwendet und beginnen meist bei 0 – sie sind unabhängig vom realen Speicherlayout.
    * **Physische Adressen** geben die tatsächliche Position im Hauptspeicher (RAM) an. Das Betriebssystem bzw. die Hardware (MMU) wandelt logische Adressen zur Laufzeit in physische Adressen um.
+
+## Aufgabe 7
+
+Da die Seitengröße 1 KB = 1024 Bytes = 2¹⁰ beträgt, entsprechen die unteren 10 Bit des virtuellen Adresse die Offset, die restlichen höheren Bits geben die Seitennummer an.
+
+### Berechnung der Seitennummern und Offsets:
+
+| Adresse | Seitennummer | Offset |
+| ------- | ------------ | ------ |
+| 2456    | 2            | 408    |
+| 16382   | 15           | 1022   |
+| 30000   | 29           | 304    |
+| 4385    | 4            | 289    |
+
+### C-Code:
+
+```c
+// V - virtuelle Addresse, gegeben
+int p = V >> 10;        // Seitennummer
+int offset = V & 0x3FF; // Offset (2^10 - 1 = 1023)
+```
+
+Durch die Verwendung von Bitoperationen ist die Berechnung effizient, da die Seitengröße eine Zweierpotenz ist.
