@@ -198,5 +198,65 @@
     "crumbs": [
       "<span class='chapter-number'>3</span>  <span class='chapter-title'>Blatt 03</span>"
     ]
+  },
+  {
+    "objectID": "sh04/04.html",
+    "href": "sh04/04.html",
+    "title": "4  Blatt 04",
+    "section": "",
+    "text": "Aufgabe 1",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
+  },
+  {
+    "objectID": "sh04/04.html#aufgabe-1",
+    "href": "sh04/04.html#aufgabe-1",
+    "title": "4  Blatt 04",
+    "section": "",
+    "text": "Ein Nachteil benannter Pipes ist, dass sie manuell im Dateisystem erstellt und verwaltet werden müssen (z. B. mit mkfifo). Das macht die Handhabung aufwändiger und erfordert gegebenenfalls zusätzliche Aufräummaßnahmen.\nWenn zwei voneinander unabhängige Prozesse (z. B. zwei Terminals) Daten austauschen sollen, ist eine benannte Pipe erforderlich. Anonyme Pipes funktionieren nur zwischen verwandten Prozessen (z. B. Eltern-Kind).",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
+  },
+  {
+    "objectID": "sh04/04.html#aufgabe-2",
+    "href": "sh04/04.html#aufgabe-2",
+    "title": "4  Blatt 04",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2\n\nIm Win32-API ist ein Handle vom Typ:\ntypedef void* HANDLE;\nEs handelt sich also um einen Zeiger (bzw. zeigerbreiten Wert), der jedoch nicht dereferenziert werden soll. Ein Handle ist ein undurchsichtiger Verweis auf eine Ressource, die vom Windows-Kernel verwaltet wird – etwa eine Datei, ein Prozess, ein Event oder ein Fensterobjekt.\nWenn ein Programm zum Beispiel CreateFile() aufruft, gibt der Kernel einen solchen Handle zurück. Dieser verweist intern auf ein Objekt in der Handle-Tabelle des Prozesses. Diese Tabelle enthält Informationen wie Zugriffsrechte, aktuelle Dateiposition, Typ des Objekts usw.\nIm Unterschied zu Dateideskriptoren unter Unix/Linux (einfache Ganzzahlen) sind Win32-Handles allgemeiner gehalten und dienen zum Zugriff auf viele verschiedene Ressourcentypen – nicht nur auf Dateien.\nDie Umleitung der Standardausgabe erfolgt im Win32-API in zwei Schritten:\n\nEine Datei wird mit CreateFile() geöffnet oder erzeugt.\nDer Handle für STD_OUTPUT_HANDLE wird mit SetStdHandle() auf diesen Datei-Handle gesetzt.\n\nBeispiel:\n#include &lt;windows.h&gt;\n#include &lt;stdio.h&gt;\n\nint main() {\n    HANDLE hFile = CreateFile(\"output.txt\", GENERIC_WRITE, 0, NULL,\n                              CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);\n\n    if (hFile == INVALID_HANDLE_VALUE) {\n        printf(\"Fehler beim Öffnen der Datei.\\n\");\n        return 1;\n    }\n\n    // Standardausgabe umleiten\n    SetStdHandle(STD_OUTPUT_HANDLE, hFile);\n\n    // Alles, was an STD_OUTPUT_HANDLE geschrieben wird, geht nun in die Datei\n    DWORD written;\n    WriteFile(GetStdHandle(STD_OUTPUT_HANDLE),\n              \"Hello redirected world!\\n\", 24, &written, NULL);\n\n    CloseHandle(hFile);\n    return 0;\n}\nDiese Umleitung wirkt sich auf Low-Level-Funktionen wie WriteFile() aus. Wenn man dagegen höhere Funktionen wie printf() oder std::cout umleiten will, muss zusätzlich die Laufzeitumgebung angepasst werden – etwa mit freopen() oder std::ios-Umleitungen.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
+  },
+  {
+    "objectID": "sh04/04.html#aufgabe-3",
+    "href": "sh04/04.html#aufgabe-3",
+    "title": "4  Blatt 04",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\nDas Program: (Auch im Zip unter dem Verzeichniss A3 als reverse_pipechat.c enthalten)\n\n\nreverse_pipechat.c\n\n#include &lt;stdio.h&gt;\n#include &lt;stdlib.h&gt;\n#include &lt;unistd.h&gt;\n#include &lt;string.h&gt;\n#include &lt;sys/wait.h&gt;\n\n#define BUFFER_SIZE 1024\n\n// Utility: reverse a string in place\nvoid reverse_string(char *str) {\n    int len = strlen(str);\n    for (int i = 0; i &lt; len / 2; ++i) {\n        char tmp = str[i];\n        str[i] = str[len - 1 - i];\n        str[len - 1 - i] = tmp;\n    }\n}\n\nint main() {\n    int pipe_a_to_b[2]; // parent writes to child\n    int pipe_b_to_a[2]; // child writes to parent\n\n    if (pipe(pipe_a_to_b) == -1 || pipe(pipe_b_to_a) == -1) {\n        perror(\"pipe\");\n        exit(EXIT_FAILURE);\n    }\n\n    pid_t pid = fork();\n\n    if (pid &lt; 0) {\n        perror(\"fork\");\n        exit(EXIT_FAILURE);\n    }\n    else if (pid == 0) {\n        // Child process: Process B\n        close(pipe_a_to_b[1]); // Close write end of A→B\n        close(pipe_b_to_a[0]); // Close read end of B→A\n\n        char buffer[BUFFER_SIZE];\n\n        // Read message from parent\n        ssize_t bytes_read = read(pipe_a_to_b[0], buffer, BUFFER_SIZE - 1);\n        if (bytes_read &lt;= 0) {\n            perror(\"child read\");\n            exit(EXIT_FAILURE);\n        }\n\n        buffer[bytes_read] = '\\0'; // Null-terminate the string\n\n        reverse_string(buffer); // Reverse the string\n\n        // Send it back to parent\n        write(pipe_b_to_a[1], buffer, strlen(buffer));\n\n        // Close used pipe ends\n        close(pipe_a_to_b[0]);\n        close(pipe_b_to_a[1]);\n\n        exit(EXIT_SUCCESS);\n    } else {\n        // Parent process: Process A\n        close(pipe_a_to_b[0]); // Close read end of A→B\n        close(pipe_b_to_a[1]); // Close write end of B→A\n\n        char input[BUFFER_SIZE];\n        printf(\"Enter a string: \");\n        if (!fgets(input, BUFFER_SIZE, stdin)) {\n            perror(\"fgets\");\n            exit(EXIT_FAILURE);\n        }\n\n        // Remove newline if present\n        input[strcspn(input, \"\\n\")] = '\\0';\n\n        // Send input to child\n        write(pipe_a_to_b[1], input, strlen(input));\n\n        char reversed[BUFFER_SIZE];\n        ssize_t bytes_received = read(pipe_b_to_a[0], reversed, BUFFER_SIZE - 1);\n        if (bytes_received &lt;= 0) {\n            perror(\"parent read\");\n            exit(EXIT_FAILURE);\n        }\n\n        reversed[bytes_received] = '\\0'; // Null-terminate\n\n        printf(\"Reversed string: %s\\n\", reversed);\n\n        // Close used pipe ends\n        close(pipe_a_to_b[1]);\n        close(pipe_b_to_a[0]);\n\n        wait(NULL); // Wait for child to finish\n    }\n\n    return 0;\n}\n\nDas C-Programm demonstriert die Kommunikation zwischen zwei Prozessen über anonyme Pipes. Der Elternprozess (A) liest eine Zeichenkette von der Standardeingabe und sendet sie an den Kindprozess (B). Dieser kehrt die Zeichenkette um und schickt sie zurück. Der Elternprozess gibt das Ergebnis anschließend auf der Standardausgabe aus.\nTechnisch funktioniert das Programm so: Es erstellt zwei Pipes – eine für die Kommunikation von A nach B, die andere für die Rückrichtung. Nach dem Aufruf von fork() schließt jeder Prozess die jeweils nicht benötigten Enden der Pipes. Der Elternprozess sendet die Benutzereingabe an das Kind, das die Zeichenkette verarbeitet und die Antwort zurückschickt. Beide Prozesse verwenden read() und write() zur Datenübertragung und beenden sich danach.\nKompilieren und ausführen kann man das Programm unter Verzeichniss A3 mit:\nmake\n./pipe_example\nBeispielausgabe:\nEnter a string: hallo welt\nReversed string: tlew ollah",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
+  },
+  {
+    "objectID": "sh04/04.html#aufgabe-5",
+    "href": "sh04/04.html#aufgabe-5",
+    "title": "4  Blatt 04",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\n\nInterne vs. externe Fragmentierung:\n\nInterne Fragmentierung entsteht, wenn ein Prozess mehr Speicher zugewiesen bekommt, als er tatsächlich benötigt – z. B. bei festen Block- oder Seitengrößen bleibt ungenutzter Speicher innerhalb des Blocks.\nExterne Fragmentierung tritt auf, wenn der freie Speicher zwar insgesamt groß genug ist, aber in viele kleine, nicht zusammenhängende Stücke aufgeteilt ist, sodass größere Prozesse keinen passenden Platz finden.\n\nLogische vs. physische Adressen:\n\nLogische Adressen (auch virtuelle Adressen) werden vom Prozess verwendet und beginnen meist bei 0 – sie sind unabhängig vom realen Speicherlayout.\nPhysische Adressen geben die tatsächliche Position im Hauptspeicher (RAM) an. Das Betriebssystem bzw. die Hardware (MMU) wandelt logische Adressen zur Laufzeit in physische Adressen um.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
+  },
+  {
+    "objectID": "sh04/04.html#aufgabe-7",
+    "href": "sh04/04.html#aufgabe-7",
+    "title": "4  Blatt 04",
+    "section": "Aufgabe 7",
+    "text": "Aufgabe 7\nDa die Seitengröße 1 KB = 1024 Bytes = 2¹⁰ beträgt, entsprechen die unteren 10 Bit des virtuellen Adresse die Offset, die restlichen höheren Bits geben die Seitennummer an.\n\nBerechnung der Seitennummern und Offsets:\n\n\n\nAdresse\nSeitennummer\nOffset\n\n\n\n\n2456\n2\n408\n\n\n16382\n15\n1022\n\n\n30000\n29\n304\n\n\n4385\n4\n289\n\n\n\n\n\nC-Code:\n// V - virtuelle Addresse, gegeben\nint p = V &gt;&gt; 10;        // Seitennummer\nint offset = V & 0x3FF; // Offset (2^10 - 1 = 1023)\nDurch die Verwendung von Bitoperationen ist die Berechnung effizient, da die Seitengröße eine Zweierpotenz ist.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
   }
 ]
