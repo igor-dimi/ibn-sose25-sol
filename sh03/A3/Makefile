@@ -1,4 +1,5 @@
-TARGETS := pc pc2 test_list
+# TARGETS := pc pc2 test_list
+TARGETS := pc pc2 
 OBJ=pc.o mylist.o
 OBJ2=pc2.o mylist.o
 
@@ -23,5 +24,6 @@ pc2.o: pc2.c mylist.c mylist.h
 	
 clean: 
 	rm $(OBJ) $(TARGETS)
+	rm *.o
 
 

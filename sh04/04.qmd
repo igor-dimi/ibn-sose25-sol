@@ -179,6 +179,22 @@ Enter a string: hallo welt
 Reversed string: tlew ollah
 ```
 
+## Aufgabe 4
+
+a) :
+   * Fragmentiuerung: Intern. (Eine geringe Anzahl von langlebigen Objekten existieren in einem Page, was zur internen Speicherverschwendung führt)
+   * Definition der Internen Fragmentierung (in diesem Kontext): Speicherverschwendung innerhalb der Seite
+b) 
+
+   ![timing diagram](./imgs/A4-time.png){width="75%"}
+
+c) :
+   * sehr häufig: fast immer handelt es sich um einen Tradeoff, z.B. beim best fit vs first fit handelt es sich um das Tradeoff Speichereffizienz vs Zeiteffizienz
+   * Tradeoff: Cache misses vs Interne Fragmentierung (Zeit vs Speicherplatz) 
+     * Kleine Seiten: Wenig interne Fragmentierung aber häufige Cache misses $\Rightarrow$ Zeitverschwendung
+     * Grosse Seiten: Seltene Cach misses aber sehr große interne Fragmentierung (da es häufig langlebige Objekte existieren) $\Rightarrow$ Speicherverscwendung
+     
+
 ## Aufgabe 5
 
 1) Interne vs. externe Fragmentierung:
@@ -190,6 +206,42 @@ Reversed string: tlew ollah
 
    * **Logische Adressen** (auch virtuelle Adressen) werden vom Prozess verwendet und beginnen meist bei 0 – sie sind unabhängig vom realen Speicherlayout.
    * **Physische Adressen** geben die tatsächliche Position im Hauptspeicher (RAM) an. Das Betriebssystem bzw. die Hardware (MMU) wandelt logische Adressen zur Laufzeit in physische Adressen um.
+
+## Aufgabe 6 
+
+Kurze erklärung zur Notation: `A:B` hiesst, dass Segment der Größe `A` wurde der Speicherlücke der Größe `B` zugewiesen. Das ist eindeutig, da
+die Größen der Segmente und der Lücken jeweils eindeutig sind.
+
+Dann:
+
+* First fit:
+
+  ```
+  12:20
+  11:18
+  3:10
+  5:7
+  ```
+
+* Best fit:
+
+  ```
+  12:12
+  11:15
+  3:4
+  5:7
+  ```
+
+* Worst fit
+
+  ```
+  12:20
+  11:18
+  3:15
+  5:12
+  ```
+
+
 
 ## Aufgabe 7
 

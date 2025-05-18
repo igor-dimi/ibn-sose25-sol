@@ -1,5 +1,6 @@
 *
 !*.qmd
+_03.qmd
 !*.java
 !.gitignore
 !A3/

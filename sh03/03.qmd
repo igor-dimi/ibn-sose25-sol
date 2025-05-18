@@ -53,6 +53,7 @@ Dieses Programm vermeidet das Race Condition-Problem, indem beide Threads einen 
 * Der andere Thread muss warten, bis der erste fertig ist und den Lock freigibt.
 * Dadurch wird sichergestellt, dass keine gleichzeitigen Zugriffe auf die gemeinsame Variable `counter` stattfinden.
 
+
 ## Aufgabe 3
 
 a) Unten folgt der Quellcode zur verbesserten Lösung des Producer-Consumer-Problems (`pc2.c` am Ende des Dokuments). In dieser Version wird Busy Waiting durch eine effiziente Synchronisation mithilfe eines Mutexes und einer Condition Variable ersetzt.
@@ -390,5 +391,3 @@ c) Die Befehle `upgrade_to_write()` und `downgrade_to_read()` ermöglichen es ei
    
    **Fazit:** Diese Operationen garantieren einen sicheren Übergang zwischen Lese- und Schreibmodus, ohne Race Conditions oder Deadlocks, und basieren auf derselben Semaphor-Struktur wie in Teil b).
    
-
- 
