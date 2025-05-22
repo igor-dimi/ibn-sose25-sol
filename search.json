@@ -240,11 +240,31 @@
     ]
   },
   {
+    "objectID": "sh04/04.html#aufgabe-4",
+    "href": "sh04/04.html#aufgabe-4",
+    "title": "4  Blatt 04",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\n\n:\n\nFragmentiuerung: Intern. (Eine geringe Anzahl von langlebigen Objekten existieren in einem Page, was zur internen Speicherverschwendung führt)\nDefinition der Internen Fragmentierung (in diesem Kontext): Speicherverschwendung innerhalb der Seite\n\n\n\n\ntiming diagram\n\n\n:\n\nsehr häufig: fast immer handelt es sich um einen Tradeoff, z.B. beim best fit vs first fit handelt es sich um das Tradeoff Speichereffizienz vs Zeiteffizienz\nTradeoff: Cache misses vs Interne Fragmentierung (Zeit vs Speicherplatz)\n\nKleine Seiten: Wenig interne Fragmentierung aber häufige Cache misses \\(\\Rightarrow\\) Zeitverschwendung\nGrosse Seiten: Seltene Cach misses aber sehr große interne Fragmentierung (da es häufig langlebige Objekte existieren) \\(\\Rightarrow\\) Speicherverscwendung",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
+  },
+  {
     "objectID": "sh04/04.html#aufgabe-5",
     "href": "sh04/04.html#aufgabe-5",
     "title": "4  Blatt 04",
     "section": "Aufgabe 5",
     "text": "Aufgabe 5\n\nInterne vs. externe Fragmentierung:\n\nInterne Fragmentierung entsteht, wenn ein Prozess mehr Speicher zugewiesen bekommt, als er tatsächlich benötigt – z. B. bei festen Block- oder Seitengrößen bleibt ungenutzter Speicher innerhalb des Blocks.\nExterne Fragmentierung tritt auf, wenn der freie Speicher zwar insgesamt groß genug ist, aber in viele kleine, nicht zusammenhängende Stücke aufgeteilt ist, sodass größere Prozesse keinen passenden Platz finden.\n\nLogische vs. physische Adressen:\n\nLogische Adressen (auch virtuelle Adressen) werden vom Prozess verwendet und beginnen meist bei 0 – sie sind unabhängig vom realen Speicherlayout.\nPhysische Adressen geben die tatsächliche Position im Hauptspeicher (RAM) an. Das Betriebssystem bzw. die Hardware (MMU) wandelt logische Adressen zur Laufzeit in physische Adressen um.",
+    "crumbs": [
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
+    ]
+  },
+  {
+    "objectID": "sh04/04.html#aufgabe-6",
+    "href": "sh04/04.html#aufgabe-6",
+    "title": "4  Blatt 04",
+    "section": "Aufgabe 6",
+    "text": "Aufgabe 6\nKurze erklärung zur Notation: A:B hiesst, dass Segment der Größe A wurde der Speicherlücke der Größe B zugewiesen. Das ist eindeutig, da die Größen der Segmente und der Lücken jeweils eindeutig sind.\nDann:\n\nFirst fit:\n12:20\n11:18\n3:10\n5:7\nBest fit:\n12:12\n11:15\n3:4\n5:7\nWorst fit\n12:20\n11:18\n3:15\n5:12",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
     ]

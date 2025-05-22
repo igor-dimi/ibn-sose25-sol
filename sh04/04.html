@@ -102,6 +102,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -185,7 +214,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
   <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
   <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
+  <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
   <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
+  <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
   <li><a href="#aufgabe-7" id="toc-aufgabe-7" class="nav-link" data-scroll-target="#aufgabe-7">Aufgabe 7</a>
   <ul class="collapse">
   <li><a href="#berechnung-der-seitennummern-und-offsets" id="toc-berechnung-der-seitennummern-und-offsets" class="nav-link" data-scroll-target="#berechnung-der-seitennummern-und-offsets">Berechnung der Seitennummern und Offsets:</a></li>
@@ -377,6 +408,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <pre><code>Enter a string: hallo welt
 Reversed string: tlew ollah</code></pre>
 </section>
+<section id="aufgabe-4" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
+<ol type="a">
+<li>:
+<ul>
+<li>Fragmentiuerung: Intern. (Eine geringe Anzahl von langlebigen Objekten existieren in einem Page, was zur internen Speicherverschwendung führt)</li>
+<li>Definition der Internen Fragmentierung (in diesem Kontext): Speicherverschwendung innerhalb der Seite</li>
+</ul></li>
+<li><div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./imgs/A4-time.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>timing diagram</figcaption>
+</figure>
+</div></li>
+<li>:
+<ul>
+<li>sehr häufig: fast immer handelt es sich um einen Tradeoff, z.B. beim best fit vs first fit handelt es sich um das Tradeoff Speichereffizienz vs Zeiteffizienz</li>
+<li>Tradeoff: Cache misses vs Interne Fragmentierung (Zeit vs Speicherplatz)
+<ul>
+<li>Kleine Seiten: Wenig interne Fragmentierung aber häufige Cache misses <span class="math inline">\(\Rightarrow\)</span> Zeitverschwendung</li>
+<li>Grosse Seiten: Seltene Cach misses aber sehr große interne Fragmentierung (da es häufig langlebige Objekte existieren) <span class="math inline">\(\Rightarrow\)</span> Speicherverscwendung</li>
+</ul></li>
+</ul></li>
+</ol>
+</section>
 <section id="aufgabe-5" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
 <ol type="1">
@@ -391,6 +447,28 @@ Reversed string: tlew ollah</code></pre>
 <li><strong>Physische Adressen</strong> geben die tatsächliche Position im Hauptspeicher (RAM) an. Das Betriebssystem bzw. die Hardware (MMU) wandelt logische Adressen zur Laufzeit in physische Adressen um.</li>
 </ul></li>
 </ol>
+</section>
+<section id="aufgabe-6" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
+<p>Kurze erklärung zur Notation: <code>A:B</code> hiesst, dass Segment der Größe <code>A</code> wurde der Speicherlücke der Größe <code>B</code> zugewiesen. Das ist eindeutig, da die Größen der Segmente und der Lücken jeweils eindeutig sind.</p>
+<p>Dann:</p>
+<ul>
+<li><p>First fit:</p>
+<pre><code>12:20
+11:18
+3:10
+5:7</code></pre></li>
+<li><p>Best fit:</p>
+<pre><code>12:12
+11:15
+3:4
+5:7</code></pre></li>
+<li><p>Worst fit</p>
+<pre><code>12:20
+11:18
+3:15
+5:12</code></pre></li>
+</ul>
 </section>
 <section id="aufgabe-7" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-7">Aufgabe 7</h2>
@@ -431,9 +509,9 @@ Reversed string: tlew ollah</code></pre>
 </section>
 <section id="c-code" class="level3">
 <h3 class="anchored" data-anchor-id="c-code">C-Code:</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">// V - virtuelle Addresse, gegeben</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> p <span class="op">=</span> V <span class="op">&gt;&gt;</span> <span class="dv">10</span><span class="op">;</span>        <span class="co">// Seitennummer</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> offset <span class="op">=</span> V <span class="op">&amp;</span> <span class="bn">0x3FF</span><span class="op">;</span> <span class="co">// Offset (2^10 - 1 = 1023)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">// V - virtuelle Addresse, gegeben</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> p <span class="op">=</span> V <span class="op">&gt;&gt;</span> <span class="dv">10</span><span class="op">;</span>        <span class="co">// Seitennummer</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dt">int</span> offset <span class="op">=</span> V <span class="op">&amp;</span> <span class="bn">0x3FF</span><span class="op">;</span> <span class="co">// Offset (2^10 - 1 = 1023)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Durch die Verwendung von Bitoperationen ist die Berechnung effizient, da die Seitengröße eine Zweierpotenz ist.</p>
 
 
