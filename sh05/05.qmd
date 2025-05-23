@@ -1,0 +1,326 @@
+---
+title: Blatt 05
+---
+
+## Aufgabe 1
+
+a) 
+   
+   * **Matrikelnummer**: Seitennummer (Virtuelle Addresse)
+   * **Wohnaddresse**: Rahmennummer (Physische Addresse)
+   * **Verzeichniss**: Seitentabelle (Index)
+
+   keine Entsprechung zum Offset
+
+b) Matrikelnummer hat 7 stellen: $10^7$, d.h. 10 Mil Einträge.  
+   Es gibt 4.800 Wohnheimzimmer: relevanter Anteil = $\frac{4.8 \cdot 10^3}{10 \cdot 10^6} \approx 0.5 \cdot 10^{-4} = 0.05 \%$
+
+## Aufgabe 2
+
+### Adressübersetzung bei Paging mit Seitengröße $2^k$
+
+Bei einem Paging-System mit fester Seitengröße von $2^k$ Byte wird die virtuelle Adresse $V$ wie folgt in eine physische Adresse übersetzt:
+
+$$
+\text{Physische Adresse} = \left(F(V \gg k) \ll k\right) + \left(V \& (2^k - 1)\right)
+$$
+
+* $V \gg k$: virtuelle Seitennummer (Integer-Division durch $2^k$)
+* $V \& (2^k - 1)$: Offset innerhalb der Seite
+* $F(n)$: Seitentabelle, die virtuelle Seitennummer $n$ auf Rahmennummer abbildet
+
+
+
+### Umkehrung der Formel
+
+Wenn die virtuelle Adresse $V$ und die zugehörige physische Adresse $P$ gegeben sind, lässt sich der Seitentabelleneintrag rekonstruieren:
+
+$$
+F(V \gg k) = \frac{P - (V \& (2^k - 1))}{2^k}
+$$
+
+Bei Seitengröße von **4 KB** ($2^{12} = 4096$) gilt:
+
+$$
+F(V \gg 12) = \frac{P - (V \& 0xFFF)}{4096}
+$$
+
+
+
+### Gegebene Zuordnungen
+
+* $V = 8203 \rightarrow P = 12229$
+* $V = 4600 \rightarrow P = 25080$
+* $V = 16510 \rightarrow P = 41086$
+
+
+
+1. $V = 8203 \rightarrow P = 12229$
+
+   * Virtuelle Seite:
+     $8203 \gg 12 = \lfloor \frac{8203}{4096} \rfloor = 2$
+   * Offset:
+     $8203 \& 0xFFF = 8203 \mod 4096 = 8203 - 8192 = 11$
+   * Frame-Berechnung:
+   
+     $$
+     F(2) = \frac{12229 - 11}{4096} = \frac{12218}{4096} = 2
+     $$
+
+
+
+2. $V = 4600 \rightarrow P = 25080$
+
+   * Virtuelle Seite:
+     $4600 \gg 12 = 1$
+   * Offset:
+     $4600 \& 0xFFF = 504$
+   * Frame-Berechnung:
+   
+     $$
+     F(1) = \frac{25080 - 504}{4096} = \frac{24576}{4096} = 6
+     $$
+
+
+
+3. $V = 16510 \rightarrow P = 41086$
+
+   * Virtuelle Seite:
+     $16510 \gg 12 = \lfloor \frac{16510}{4096} \rfloor = 4$
+   * Offset:
+     $16510 \& 0xFFF = 16510 - (4 \cdot 4096) = 126$
+   * Frame-Berechnung:
+   
+     $$
+     F(4) = \frac{41086 - 126}{4096} = \frac{40960}{4096} = 10
+     $$
+
+
+### Endgültige rekonstruierte Seitentabelle
+
+| Virtuelle Seitennummer | Physischer Rahmen |
+| ---------------------- | ----------------- |
+| 2                      | 2                 |
+| 1                      | 6                 |
+| 4                      | 10                |
+
+
+### Python Implementierung
+
+Die Rekonstruktion der Tabelle kann mit python wie folgt implementiert werden:
+
+```{python}
+def reconstruct_page_table(k, mappings):
+    page_size = 1 << k  # 2^k
+    page_mask = page_size - 1
+
+    page_table = []
+    for virtual_address, physical_address in mappings:
+        virtual_page_number = virtual_address >> k
+        offset = virtual_address & page_mask
+        frame_number = (physical_address - offset) >> k
+        page_table.append((virtual_page_number, frame_number))
+
+    return page_table
+
+k = 12  # page size = 2^12 = 4096
+mappings = [
+    (8203, 12229),
+    (4600, 25080),
+    (16510, 41086)
+]
+
+page_table = reconstruct_page_table(k, mappings)
+for vpn, frame in page_table:
+    print(f"Virtuelle Seite {vpn} → Rahmen {frame}")
+```
+
+## Aufgabe 3
+
+a) **Ausgangssituation**:
+   
+   Betrachten wir die folgende C-Schleife auf einem System, bei dem gilt:
+   
+   * `int` ist 4 Byte groß
+   * Seitengröße = 4 KB = 4096 Byte
+   * Der TLB (Translation Lookaside Buffer) hat 64 Einträge (d.h. er kann 64 Seiten zwischenspeichern)
+    
+   Jede Seite enthält 1024 Integer, da 4 Byte pro Element. (4096 / 4 = 1024)
+   Jeder Zugriff auf `X[i]` greift auf eine Speicherseite zu:
+   
+   $$
+   \text{Seitenummer}(i) = \left\lfloor \frac{i}{1024} \right\rfloor
+   $$
+
+   Mit den indizes $i$: 
+   
+   $$
+   i = 0, M, 2M, 3M, \dots, \text{solange } i < N
+   $$
+   
+   Setzen wir $T = \left\lfloor \frac{N - 1}{M} \right\rfloor$, so gibt es $T + 1$ Iterationen.
+   
+   
+   Jede Iteration greift also auf die Seite zu:
+   
+   $$
+   \text{Seite}(j) = \left\lfloor \frac{j \cdot M}{1024} \right\rfloor \quad \text{für } j = 0, 1, ..., T
+   $$
+   
+   Die Anzahl der **verschiedenen Seiten**, die beim Schleifendurchlauf berührt werden, ist:
+   
+   $$
+   \text{TLB\_pages}(M, N) = \left| \left\{ \left\lfloor \frac{j \cdot M}{1024} \right\rfloor \;\middle|\; 0 \le j \le \left\lfloor \frac{N - 1}{M} \right\rfloor \right\} \right|
+   $$
+   
+   Dies ist die Anzahl der eindeutig unterschiedlichen Seiten, auf die zugegriffen wird. TLB-Misses treten auf, wenn:
+   
+   $$
+   \text{TLB\_pages}(M, N) > 64
+   $$
+   
+   Das heißt: Es werden mehr als 64 unterschiedliche virtuelle Seiten benötigt – mehr als der TLB speichern kann.
+   
+   
+   **Beispiele und wichtige Beobachtungen**
+   
+   1. **Kleines `M` (z. B. `M = 1`)**:
+   
+   * Aufeinanderfolgende Elemente werden zugegriffen.
+   * Alle 1024 Zugriffe → 1 neue Seite.
+   * Insgesamt: ca. `N / 1024` Seiten.
+   * TLB-Misses bei `N > 64 * 1024 = 65536`.
+   
+   2. **Großes `M` (z. B. `M ≥ 1024`)**:
+   
+   * Jeder Zugriff springt zu einer neuen Seite.
+   * Es werden ca. `N / M` unterschiedliche Seiten berührt.
+   * Wenn `N / M > 64`, treten TLB-Misses auf.
+   
+   3. **`M` teilt 1024 (z. B. `M = 256`, `512`)**:
+   
+   * Mehrere Schleifendurchläufe landen auf derselben Seite.
+   * Beispiel: `M = 256` → 4 Zugriffe pro Seite, bevor zur nächsten gewechselt wird.
+   * Weniger Seiten werden benötigt.
+   * **Weniger TLB-Misses**, auch bei großem `N`.
+   
+   **Schlechtester Fall für den TLB**
+   
+   Tritt auf, wenn:
+   
+   * `M ≥ 1024` (jeder Zugriff auf eine neue Seite)
+   * und `N / M > 64` (mehr als 64 Seiten werden benötigt)
+   
+   Dann wird bei jedem Zugriff eine andere Seite nachgeladen → **viele TLB-Misses**.
+   
+   **Fazit**:
+   
+   Die **Anzahl der verschiedenen Seiten**, auf die beim Schleifendurchlauf zugegriffen wird, lautet:
+   
+   $$
+   \boxed{
+   \text{TLB\_pages}(M, N) = \left| \left\{ \left\lfloor \frac{j \cdot M}{1024} \right\rfloor \;\middle|\; 0 \le j \le \left\lfloor \frac{N - 1}{M} \right\rfloor \right\} \right|
+   }
+   $$
+   
+   * TLB-Misses treten auf, wenn `TLB_pages(M, N) > 64`
+   * Kleine `M` (vor allem wenn `M < 1024` und `M` ein Teiler von 1024 ist) → mehrere Zugriffe pro Seite → **besseres TLB-Verhalten**
+   * Große `M` (≥ 1024) → jeder Zugriff auf neue Seite → **mehr TLB-Misses**
+
+    Dieses Verhalten kann mit der folgenden Python-funktion simuliert werden:
+
+```{python}
+def tlb_pages(M, N, ints_per_page=1024):
+    """
+    Simulates the number of distinct pages accessed in the loop:
+        for (int i = 0; i < N; i += M) X[i]++;
+
+    Parameters:
+    - M: step size
+    - N: total number of elements in the array
+    - ints_per_page: number of integers that fit in a single page (default 4096 bytes / 4 bytes = 1024)
+
+    Returns:
+    - The number of distinct pages accessed
+    """
+    pages = set()
+    for i in range(0, N, M):
+        page = i // ints_per_page
+        pages.add(page)
+    return len(pages)
+```
+
+    Einige Simulationen:
+
+```{python}
+print(tlb_pages(1, 65536))        # Should be 64 → fills exactly 64 pages
+print(tlb_pages(1024, 65536))     # Should be 64 → each access on a new page
+print(tlb_pages(256, 65536))      # Should be 64 / 4 = 16 → reuse of pages
+print(tlb_pages(2048, 65536))     # Should be 32 → skips every second page
+print(tlb_pages(1, 100000))       # result: 98 → causes TLB misses
+```
+
+b) Das Verhalten des TLB ändert sich deutlich, wenn der Code mehrfach oder regelmäßig ausgeführt wird – etwa in einer oft aufgerufenen Funktion oder in einer heißen Schleife.
+
+
+   1. TLB ist zustandsbehaftet und begrenzt
+   
+      * Er kann nur eine bestimmte Anzahl an Seitenadressen speichern (z. B. 64).
+      * Wird die Anzahl der zugreifenden Seiten pro Schleife > 64, kommt es zu Ersetzungen (evictions), meist nach dem LRU-Prinzip.
+   
+   2. Wiederholte Ausführung kann TLB verbessern – oder verschlechtern
+   
+      * Wenn dieselben Seiten wiederverwendet werden (z. B. bei `N ≤ 64 * 1024`), bleiben TLB-Einträge erhalten → nach der ersten Ausführung keine weiteren Misses.
+      * Wenn mehr als 64 Seiten verwendet oder ständig neue Seiten benötigt werden, werden TLB-Einträge ständig ersetzt → TLB-Misses bei jedem Aufruf.
+   
+   3. TLB-Arbeitsmenge (working set)
+   
+      * Die „TLB-Arbeitsmenge“ ist die Menge der Seiten, die eine Funktion während der Ausführung benötigt.
+      * Passt diese Menge vollständig in den TLB, funktioniert alles effizient.
+      * Ist sie größer, kommt es zu wiederholten Zugriffen auf die Page Table → langsam.
+   
+   4. Zugriffsart ist entscheidend
+   
+      * Kleine Schrittweite `M` → viele Zugriffe auf dieselbe Seite → hohe Wiederverwendung → TLB effizient.
+      * Große Schrittweite `M ≥ 1024` → jeder Zugriff auf eine neue Seite → hoher TLB-Druck, vor allem bei vielen Funktionsaufrufen.
+
+## Aufgabe 4
+
+Beim Wechsel zwischen Prozessen wird der TLB in der Regel geleert, da jeder Prozess einen eigenen virtuellen Adressraum mit einer eigenen Seitentabelle besitzt. Die im TLB gespeicherten Einträge des vorherigen Prozesses wären im neuen Kontext ungültig oder sogar sicherheitskritisch.
+
+Beim Wechsel zwischen Threads desselben Prozesses bleibt der TLB hingegen erhalten, da alle Threads denselben Adressraum und dieselbe Seitentabelle nutzen. Die vorhandenen TLB-Einträge bleiben daher gültig.
+
+Moderne Systeme mit *Address Space Identifiers* (ASIDs) können einen vollständigen TLB-Flush beim Prozesswechsel vermeiden, indem sie TLB-Einträge pro Prozess kennzeichnen und nur die jeweils relevanten aktiv halten.
+
+**Kein Flush - Was kann Schiefgehen?**
+
+Wenn der TLB beim Kontextwechsel nicht geleert wird, kann es zu schwerwiegenden Sicherheitsproblemen kommen. Das folgende Beispiel zeigt, was konkret passieren kann:
+
+Angenommen, **Prozess A** greift auf die virtuelle Adresse `0x00400000` zu, welche in seiner Seitentabelle korrekt auf die physische Adresse `0x1A300000` abgebildet wird. Diese Übersetzung wird im TLB zwischengespeichert.
+
+Nun findet ein Kontextwechsel zu **Prozess B** statt. Auch Prozess B verwendet die virtuelle Adresse `0x00400000`, aber in seiner eigenen Seitentabelle sollte sie auf eine völlig andere physische Adresse zeigen, z. B. `0x2B400000`.
+
+Wenn der TLB **nicht geleert** wird, verwendet der Prozessor beim Zugriff durch Prozess B weiterhin die alte TLB-Eintragung von Prozess A. Das führt dazu, dass Prozess B auf den physischen Speicher von Prozess A zugreift.
+
+Die Folgen:
+
+* **Sicherheitslücke**: Prozess B kann sensible Daten von Prozess A einsehen.
+* **Datenkorruption**: Schreibzugriffe von Prozess B verändern versehentlich die Daten von Prozess A.
+* **Verletzung der Speicherisolation**: Ein zentrales Prinzip des Betriebssystems wird untergraben.
+
+Um das zu verhindern, wird der TLB beim Wechsel des Prozesses entweder vollständig geleert oder — bei moderner Hardware — es werden **ASIDs** (Address Space Identifiers) verwendet, die TLB-Einträge pro Prozess kennzeichnen und voneinander trennen.
+
+## Aufgabe 6
+
+1. Es gibt $\frac{2^{32}}{2^{12}} = 2^{20}$ Einträge in der Tabelle. Jeder Eintrag ist 4 Byte groß
+
+$$
+\Rightarrow \text{ca. } 4\,\text{MB} \text{ Größe der Seitentabelle pro Prozess}.
+$$
+
+2. Bei einer invertierten Seitentabelle gibt es genau einen Eintrag **pro Frame**.
+Deshalb entspricht das Verhältnis der Tabellengröße zum physischen Speicher exakt dem Verhältnis der Größe eines Eintrags zur Frame- bzw. Seitengröße:
+
+$$
+\Rightarrow \frac{4\,\text{B}}{4\,\text{KB}} = \frac{1}{1024}
+$$
