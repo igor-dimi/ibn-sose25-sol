@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Operating Systems and Networs SoSe 25 Solutions - 1&nbsp; Blatt 01</title>
+<title>Operating Systems and Networs SoSe 25 Solutions - 5&nbsp; Blatt 05</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,8 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../sh02/02.html" rel="next">
-<link href="../index.html" rel="prev">
+<link href="../sh04/04.html" rel="prev">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -144,7 +143,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sh01/01.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sh05/05.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Blatt 05</span></a></li></ol></nav>
         <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
@@ -180,7 +179,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sh01/01.html" class="sidebar-item-text sidebar-link active">
+  <a href="../sh01/01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span></a>
   </div>
 </li>
@@ -204,7 +203,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../sh05/05.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh05/05.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Blatt 05</span></span></a>
   </div>
 </li>
@@ -219,12 +218,17 @@ window.Quarto = {
    
   <ul>
   <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
-  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
+  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a>
+  <ul class="collapse">
+  <li><a href="#adressübersetzung-bei-paging-mit-seitengröße-2k" id="toc-adressübersetzung-bei-paging-mit-seitengröße-2k" class="nav-link" data-scroll-target="#adressübersetzung-bei-paging-mit-seitengröße-2k">Adressübersetzung bei Paging mit Seitengröße <span class="math inline">\(2^k\)</span></a></li>
+  <li><a href="#umkehrung-der-formel" id="toc-umkehrung-der-formel" class="nav-link" data-scroll-target="#umkehrung-der-formel">Umkehrung der Formel</a></li>
+  <li><a href="#gegebene-zuordnungen" id="toc-gegebene-zuordnungen" class="nav-link" data-scroll-target="#gegebene-zuordnungen">Gegebene Zuordnungen</a></li>
+  <li><a href="#endgültige-rekonstruierte-seitentabelle" id="toc-endgültige-rekonstruierte-seitentabelle" class="nav-link" data-scroll-target="#endgültige-rekonstruierte-seitentabelle">Endgültige rekonstruierte Seitentabelle</a></li>
+  <li><a href="#python-implementierung" id="toc-python-implementierung" class="nav-link" data-scroll-target="#python-implementierung">Python Implementierung</a></li>
+  </ul></li>
   <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
   <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
-  <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
   <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
-  <li><a href="#aufgabe-7" id="toc-aufgabe-7" class="nav-link" data-scroll-target="#aufgabe-7">Aufgabe 7</a></li>
   </ul>
 </nav>
     </div>
@@ -233,7 +237,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></h1>
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Blatt 05</span></h1>
 </div>
 
 
@@ -252,172 +256,315 @@ window.Quarto = {
 
 <section id="aufgabe-1" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
-<p>Learning how to Learn:</p>
-<ul>
-<li><strong>Zwei Denkmodi aus „Learning How to Learn“</strong>
-<ul>
-<li><strong>Fokussierter Modus</strong>: Zielgerichtetes, konzentriertes Denken. Gut für bekannte Aufgaben und Übung.</li>
-<li><strong>Diffuser Modus</strong>: Entspanntes, offenes Denken. Hilft bei neuen Ideen und kreativen Verknüpfungen.</li>
-</ul></li>
-<li><strong>Aufgaben und passende Denkmodi</strong>
 <ol type="a">
-<li>Fokussierter Modus<br>
-<strong>Warum</strong>: Erfordert Konzentration und gezieltes Einprägen.</li>
-<li>Zuerst diffuser, dann fokussierter Modus<br>
-<strong>Warum</strong>: Erst Überblick und Verständnis aufbauen, dann vertiefen.<br>
-</li>
-<li>Fokussierter Modus<br>
-<strong>Warum</strong>: Klare, schrittweise Übung – ideal für fokussiertes Denken.</li>
-<li>Beide Modi<br>
-<strong>Warum</strong>: Fokussiert für Details &amp; Übungen, diffus für Überblick &amp; Vernetzung.</li>
-</ol></li>
+<li><ul>
+<li><strong>Matrikelnummer</strong>: Seitennummer (Virtuelle Addresse)</li>
+<li><strong>Wohnaddresse</strong>: Rahmennummer (Physische Addresse)</li>
+<li><strong>Verzeichniss</strong>: Seitentabelle (Index)</li>
 </ul>
-<p>John Cleese:</p>
-<ul>
-<li><strong>Zwei Denkmodi</strong>:
-<ol type="1">
-<li><strong>Offener Modus</strong>: Locker, spielerisch, kreativ.<br>
-<strong>Beispiel</strong>: Ideen für eine Geschichte sammeln.<br>
-<strong>Warum</strong>: Offenheit fördert neue Einfälle.<br>
-</li>
-<li><strong>Geschlossener Modus</strong>: Zielgerichtet, angespannt, entscheidungsfreudig.<br>
-<strong>Beispiel</strong>: Bericht überarbeiten und fertigstellen.<br>
-<strong>Warum</strong>: Präzises Arbeiten und klare Entscheidungen nötig.<br>
-</li>
-</ol></li>
-<li><strong>Vergleich mit „Learning How to Learn“</strong>
-<ul>
-<li><strong>Offen <span class="math inline">\(\Leftrightarrow\)</span> Diffus</strong>: Für Kreativität und Überblick.<br>
-</li>
-<li><strong>Geschlossen <span class="math inline">\(\Leftrightarrow\)</span> Fokussiert</strong>: Für Detailarbeit und Umsetzung.</li>
-</ul></li>
-<li><strong>Alexander Fleming</strong>:
-<ul>
-<li><strong>Modus</strong>: Offen</li>
-<li><strong>Warum</strong>: Fleming entdeckte Penicillin zufällig, weil er offen und entspannt war – neugierig statt zielgerichtet. Im geschlossenen Modus hätte er die verschimmelte Petrischale wohl einfach weggeschmissen – zu fokussiert für zufällige Entdeckungen.</li>
-</ul></li>
-<li><strong>Alfred Hitchcock</strong>:
-<ul>
-<li><strong>Modus</strong>: Offen<br>
-</li>
-<li><strong>Wie</strong>: Er erzählte lustige Anekdoten, um das Team zum Lachen zu bringen – so schuf er eine entspannte Atmosphäre, die kreatives Denken förderte.</li>
-</ul></li>
-</ul>
+<p>keine Entsprechung zum Offset</p></li>
+<li><p>Matrikelnummer hat 7 stellen: <span class="math inline">\(10^7\)</span>, d.h. 10 Mil Einträge.<br>
+Es gibt 4.800 Wohnheimzimmer: relevanter Anteil = <span class="math inline">\(\frac{4.8 \cdot 10^3}{10 \cdot 10^6} \approx 0.5 \cdot 10^{-4} = 0.05 \%\)</span></p></li>
+</ol>
 </section>
 <section id="aufgabe-2" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
-<ol type="i">
-<li><ul>
-<li>x64: 16 64 Bit GPRs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math inline">\(\Rightarrow\)</span> 16 x 64 b = 16 x 8 B = <span class="math inline">\(2^7\)</span> B.</li>
-<li>AVX2: 16 256 Bit GPRs<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> <span class="math inline">\(\Rightarrow\)</span> 16 x 256 b = 16 x 32 B = <span class="math inline">\(2^9\)</span> B</li>
-</ul></li>
-<li><ul>
-<li>x64: <span class="math inline">\(\frac{2^7}{2^{30}} = \frac{1}{2^{23}}\)</span></li>
-<li>AVX2: <span class="math inline">\(\frac{2^9}{2^{30}} = \frac{1}{2^{21}}\)</span></li>
+<section id="adressübersetzung-bei-paging-mit-seitengröße-2k" class="level3">
+<h3 class="anchored" data-anchor-id="adressübersetzung-bei-paging-mit-seitengröße-2k">Adressübersetzung bei Paging mit Seitengröße <span class="math inline">\(2^k\)</span></h3>
+<p>Bei einem Paging-System mit fester Seitengröße von <span class="math inline">\(2^k\)</span> Byte wird die virtuelle Adresse <span class="math inline">\(V\)</span> wie folgt in eine physische Adresse übersetzt:</p>
+<p><span class="math display">\[
+\text{Physische Adresse} = \left(F(V \gg k) \ll k\right) + \left(V \&amp; (2^k - 1)\right)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(V \gg k\)</span>: virtuelle Seitennummer (Integer-Division durch <span class="math inline">\(2^k\)</span>)</li>
+<li><span class="math inline">\(V \&amp; (2^k - 1)\)</span>: Offset innerhalb der Seite</li>
+<li><span class="math inline">\(F(n)\)</span>: Seitentabelle, die virtuelle Seitennummer <span class="math inline">\(n\)</span> auf Rahmennummer abbildet</li>
 </ul>
-allgemein gilt: <span class="math inline">\(10^3 \approx 2^{10}\)</span>, und <span class="math inline">\(\frac{2^x}{2^y} = \frac{1}{2^{y-x}}\)</span></li>
+</section>
+<section id="umkehrung-der-formel" class="level3">
+<h3 class="anchored" data-anchor-id="umkehrung-der-formel">Umkehrung der Formel</h3>
+<p>Wenn die virtuelle Adresse <span class="math inline">\(V\)</span> und die zugehörige physische Adresse <span class="math inline">\(P\)</span> gegeben sind, lässt sich der Seitentabelleneintrag rekonstruieren:</p>
+<p><span class="math display">\[
+F(V \gg k) = \frac{P - (V \&amp; (2^k - 1))}{2^k}
+\]</span></p>
+<p>Bei Seitengröße von <strong>4 KB</strong> (<span class="math inline">\(2^{12} = 4096\)</span>) gilt:</p>
+<p><span class="math display">\[
+F(V \gg 12) = \frac{P - (V \&amp; 0xFFF)}{4096}
+\]</span></p>
+</section>
+<section id="gegebene-zuordnungen" class="level3">
+<h3 class="anchored" data-anchor-id="gegebene-zuordnungen">Gegebene Zuordnungen</h3>
+<ul>
+<li><span class="math inline">\(V = 8203 \rightarrow P = 12229\)</span></li>
+<li><span class="math inline">\(V = 4600 \rightarrow P = 25080\)</span></li>
+<li><span class="math inline">\(V = 16510 \rightarrow P = 41086\)</span></li>
+</ul>
+<ol type="1">
+<li><p><span class="math inline">\(V = 8203 \rightarrow P = 12229\)</span></p>
+<ul>
+<li><p>Virtuelle Seite: <span class="math inline">\(8203 \gg 12 = \lfloor \frac{8203}{4096} \rfloor = 2\)</span></p></li>
+<li><p>Offset: <span class="math inline">\(8203 \&amp; 0xFFF = 8203 \mod 4096 = 8203 - 8192 = 11\)</span></p></li>
+<li><p>Frame-Berechnung:</p>
+<p><span class="math display">\[
+F(2) = \frac{12229 - 11}{4096} = \frac{12218}{4096} = 2
+\]</span></p></li>
+</ul></li>
+<li><p><span class="math inline">\(V = 4600 \rightarrow P = 25080\)</span></p>
+<ul>
+<li><p>Virtuelle Seite: <span class="math inline">\(4600 \gg 12 = 1\)</span></p></li>
+<li><p>Offset: <span class="math inline">\(4600 \&amp; 0xFFF = 504\)</span></p></li>
+<li><p>Frame-Berechnung:</p>
+<p><span class="math display">\[
+F(1) = \frac{25080 - 504}{4096} = \frac{24576}{4096} = 6
+\]</span></p></li>
+</ul></li>
+<li><p><span class="math inline">\(V = 16510 \rightarrow P = 41086\)</span></p>
+<ul>
+<li><p>Virtuelle Seite: <span class="math inline">\(16510 \gg 12 = \lfloor \frac{16510}{4096} \rfloor = 4\)</span></p></li>
+<li><p>Offset: <span class="math inline">\(16510 \&amp; 0xFFF = 16510 - (4 \cdot 4096) = 126\)</span></p></li>
+<li><p>Frame-Berechnung:</p>
+<p><span class="math display">\[
+F(4) = \frac{41086 - 126}{4096} = \frac{40960}{4096} = 10
+\]</span></p></li>
+</ul></li>
 </ol>
 </section>
-<section id="aufgabe-3" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
-<ul>
-<li>Der Zugriff scheitert, weil der Arbeitsspeicher durch die <strong>Memory Protection</strong> (z. B. Paging mit Zugriffsrechten) vom Betriebssystem isoliert wird. Nur der Kernel darf die Speicherbereiche aller Prozesse sehen und verwalten.</li>
-<li>Ein Prozess kann trotzdem auf Ressourcen anderer Prozesse zugreifen über kontrollierte Schnittstellen wie IPC (Inter-Process Communication), Dateisysteme, Sockets oder Shared Memory, die vom Betriebssystem verwaltet und überwacht werden.</li>
-<li>Welche Risiken entstehen bei höchstem Privileg für alle Prozesse?
-<ul>
-<li><strong>Sicherheitslücken</strong>: Jeder Prozess könnte beliebige Speicherbereiche lesen/schreiben.<br>
-</li>
-<li><strong>Stabilitätsprobleme</strong>: Fehlerhafte Prozesse könnten das System zum Absturz bringen.<br>
-</li>
-<li><strong>Keine Isolation</strong>: Malware hätte vollen Systemzugriff, keine Schutzmechanismen.</li>
-</ul></li>
-</ul>
-</section>
-<section id="aufgabe-4" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
-<p>Kernel-Code benötigt einen sicheren, kontrollierten Speicherbereich (seinen eigenen Stack), um zu vermeiden:</p>
-<ul>
-<li>Beschädigung durch Benutzerprozesse</li>
-<li>Abstürze oder Rechteausweitung (Privilege Escalation)</li>
-</ul>
-<p>Daher hat jeder Prozess:</p>
-<ul>
-<li>Einen User-Mode-Stack (wird bei normaler Ausführung verwendet)</li>
-<li>Einen Kernel-Mode-Stack (wird bei System Calls und Interrupts verwendet)</li>
-</ul>
-</section>
-<section id="aufgabe-5" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
-<p>Entfernte Systemaufrufe</p>
+<section id="endgültige-rekonstruierte-seitentabelle" class="level3">
+<h3 class="anchored" data-anchor-id="endgültige-rekonstruierte-seitentabelle">Endgültige rekonstruierte Seitentabelle</h3>
 <table class="table">
-<colgroup>
-<col style="width: 38%">
-<col style="width: 61%">
-</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;">Systemaufruf</th>
-<th style="text-align: left;">Grund für Entfernung</th>
+<th>Virtuelle Seitennummer</th>
+<th>Physischer Rahmen</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;"><strong>creat</strong></td>
-<td style="text-align: left;">Entspricht vollständig <code>open(path, O_CREAT | O_WRONLY | O_TRUNC, mode)</code>.</td>
+<td>2</td>
+<td>2</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;"><strong>dup</strong></td>
-<td style="text-align: left;">Entspricht vollständig <code>fcntl(fd, F_DUPFD, 0)</code>.</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>10</td>
 </tr>
 </tbody>
 </table>
-<p>Alle übrigen Systemaufrufe bieten <strong>essenzielle Funktionen</strong>, die nicht exakt durch andere ersetzt werden können.<br>
-Sie decken ab:</p>
+</section>
+<section id="python-implementierung" class="level3">
+<h3 class="anchored" data-anchor-id="python-implementierung">Python Implementierung</h3>
+<p>Die Rekonstruktion der Tabelle kann mit python wie folgt implementiert werden:</p>
+<div id="1560be0b" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reconstruct_page_table(k, mappings):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    page_size <span class="op">=</span> <span class="dv">1</span> <span class="op">&lt;&lt;</span> k  <span class="co"># 2^k</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    page_mask <span class="op">=</span> page_size <span class="op">-</span> <span class="dv">1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    page_table <span class="op">=</span> []</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> virtual_address, physical_address <span class="kw">in</span> mappings:</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        virtual_page_number <span class="op">=</span> virtual_address <span class="op">&gt;&gt;</span> k</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        offset <span class="op">=</span> virtual_address <span class="op">&amp;</span> page_mask</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>        frame_number <span class="op">=</span> (physical_address <span class="op">-</span> offset) <span class="op">&gt;&gt;</span> k</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>        page_table.append((virtual_page_number, frame_number))</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> page_table</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">12</span>  <span class="co"># page size = 2^12 = 4096</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>mappings <span class="op">=</span> [</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">8203</span>, <span class="dv">12229</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">4600</span>, <span class="dv">25080</span>),</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">16510</span>, <span class="dv">41086</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>page_table <span class="op">=</span> reconstruct_page_table(k, mappings)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> vpn, frame <span class="kw">in</span> page_table:</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Virtuelle Seite </span><span class="sc">{</span>vpn<span class="sc">}</span><span class="ss"> → Rahmen </span><span class="sc">{</span>frame<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Virtuelle Seite 2 → Rahmen 2
+Virtuelle Seite 1 → Rahmen 6
+Virtuelle Seite 4 → Rahmen 10</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="aufgabe-3" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-3">Aufgabe 3</h2>
+<ol type="a">
+<li><p><strong>Ausgangssituation</strong>:</p>
+<p>Betrachten wir die folgende C-Schleife auf einem System, bei dem gilt:</p>
 <ul>
-<li>Datei- und Verzeichnisoperationen (<code>open</code>, <code>read</code>, <code>write</code>, <code>unlink</code>, <code>mkdir</code>, etc.)</li>
-<li>Prozessmanagement (<code>fork</code>, <code>exec</code>, <code>wait</code>, <code>exit</code>, etc.)</li>
-<li>Metadatenverwaltung (<code>chmod</code>, <code>chown</code>, <code>utime</code>, etc.)</li>
-<li>Kommunikation und Steuerung (<code>pipe</code>, <code>kill</code>, <code>ioctl</code>, etc.)</li>
-<li>Zeit- und Systemabfragen (<code>time</code>, <code>times</code>, <code>stat</code>, etc.)</li>
+<li><code>int</code> ist 4 Byte groß</li>
+<li>Seitengröße = 4 KB = 4096 Byte</li>
+<li>Der TLB (Translation Lookaside Buffer) hat 64 Einträge (d.h. er kann 64 Seiten zwischenspeichern)</li>
 </ul>
-<p>Ohne sie wären bestimmte Kernfunktionen unmöglich.</p>
+<p>Jede Seite enthält 1024 Integer, da 4 Byte pro Element. (4096 / 4 = 1024) Jeder Zugriff auf <code>X[i]</code> greift auf eine Speicherseite zu:</p>
+<p><span class="math display">\[
+\text{Seitenummer}(i) = \left\lfloor \frac{i}{1024} \right\rfloor
+\]</span></p>
+<p>Mit den indizes <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
+i = 0, M, 2M, 3M, \dots, \text{solange } i &lt; N
+\]</span></p>
+<p>Setzen wir <span class="math inline">\(T = \left\lfloor \frac{N - 1}{M} \right\rfloor\)</span>, so gibt es <span class="math inline">\(T + 1\)</span> Iterationen.</p>
+<p>Jede Iteration greift also auf die Seite zu:</p>
+<p><span class="math display">\[
+\text{Seite}(j) = \left\lfloor \frac{j \cdot M}{1024} \right\rfloor \quad \text{für } j = 0, 1, ..., T
+\]</span></p>
+<p>Die Anzahl der <strong>verschiedenen Seiten</strong>, die beim Schleifendurchlauf berührt werden, ist:</p>
+<p><span class="math display">\[
+\text{TLB\_pages}(M, N) = \left| \left\{ \left\lfloor \frac{j \cdot M}{1024} \right\rfloor \;\middle|\; 0 \le j \le \left\lfloor \frac{N - 1}{M} \right\rfloor \right\} \right|
+\]</span></p>
+<p>Dies ist die Anzahl der eindeutig unterschiedlichen Seiten, auf die zugegriffen wird. TLB-Misses treten auf, wenn:</p>
+<p><span class="math display">\[
+\text{TLB\_pages}(M, N) &gt; 64
+\]</span></p>
+<p>Das heißt: Es werden mehr als 64 unterschiedliche virtuelle Seiten benötigt – mehr als der TLB speichern kann.</p>
+<p><strong>Beispiele und wichtige Beobachtungen</strong></p>
+<ol type="1">
+<li><strong>Kleines <code>M</code> (z. B. <code>M = 1</code>)</strong>:</li>
+</ol>
+<ul>
+<li>Aufeinanderfolgende Elemente werden zugegriffen.</li>
+<li>Alle 1024 Zugriffe → 1 neue Seite.</li>
+<li>Insgesamt: ca. <code>N / 1024</code> Seiten.</li>
+<li>TLB-Misses bei <code>N &gt; 64 * 1024 = 65536</code>.</li>
+</ul>
+<ol start="2" type="1">
+<li><strong>Großes <code>M</code> (z. B. <code>M ≥ 1024</code>)</strong>:</li>
+</ol>
+<ul>
+<li>Jeder Zugriff springt zu einer neuen Seite.</li>
+<li>Es werden ca. <code>N / M</code> unterschiedliche Seiten berührt.</li>
+<li>Wenn <code>N / M &gt; 64</code>, treten TLB-Misses auf.</li>
+</ul>
+<ol start="3" type="1">
+<li><strong><code>M</code> teilt 1024 (z. B. <code>M = 256</code>, <code>512</code>)</strong>:</li>
+</ol>
+<ul>
+<li>Mehrere Schleifendurchläufe landen auf derselben Seite.</li>
+<li>Beispiel: <code>M = 256</code> → 4 Zugriffe pro Seite, bevor zur nächsten gewechselt wird.</li>
+<li>Weniger Seiten werden benötigt.</li>
+<li><strong>Weniger TLB-Misses</strong>, auch bei großem <code>N</code>.</li>
+</ul>
+<p><strong>Schlechtester Fall für den TLB</strong></p>
+<p>Tritt auf, wenn:</p>
+<ul>
+<li><code>M ≥ 1024</code> (jeder Zugriff auf eine neue Seite)</li>
+<li>und <code>N / M &gt; 64</code> (mehr als 64 Seiten werden benötigt)</li>
+</ul>
+<p>Dann wird bei jedem Zugriff eine andere Seite nachgeladen → <strong>viele TLB-Misses</strong>.</p>
+<p><strong>Fazit</strong>:</p>
+<p>Die <strong>Anzahl der verschiedenen Seiten</strong>, auf die beim Schleifendurchlauf zugegriffen wird, lautet:</p>
+<p><span class="math display">\[
+\boxed{
+\text{TLB\_pages}(M, N) = \left| \left\{ \left\lfloor \frac{j \cdot M}{1024} \right\rfloor \;\middle|\; 0 \le j \le \left\lfloor \frac{N - 1}{M} \right\rfloor \right\} \right|
+}
+\]</span></p>
+<ul>
+<li>TLB-Misses treten auf, wenn <code>TLB_pages(M, N) &gt; 64</code></li>
+<li>Kleine <code>M</code> (vor allem wenn <code>M &lt; 1024</code> und <code>M</code> ein Teiler von 1024 ist) → mehrere Zugriffe pro Seite → <strong>besseres TLB-Verhalten</strong></li>
+<li>Große <code>M</code> (≥ 1024) → jeder Zugriff auf neue Seite → <strong>mehr TLB-Misses</strong></li>
+</ul>
+<p>Dieses Verhalten kann mit der folgenden Python-funktion simuliert werden:</p></li>
+</ol>
+<div id="514bd306" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tlb_pages(M, N, ints_per_page<span class="op">=</span><span class="dv">1024</span>):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Simulates the number of distinct pages accessed in the loop:</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">        for (int i = 0; i &lt; N; i += M) X[i]++;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">    Parameters:</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">    - M: step size</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">    - N: total number of elements in the array</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">    - ints_per_page: number of integers that fit in a single page (default 4096 bytes / 4 bytes = 1024)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns:</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">    - The number of distinct pages accessed</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    pages <span class="op">=</span> <span class="bu">set</span>()</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, N, M):</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>        page <span class="op">=</span> i <span class="op">//</span> ints_per_page</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        pages.add(page)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<pre><code>Einige Simulationen:</code></pre>
+<div id="013b158c" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">1</span>, <span class="dv">65536</span>))        <span class="co"># Should be 64 → fills exactly 64 pages</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">1024</span>, <span class="dv">65536</span>))     <span class="co"># Should be 64 → each access on a new page</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">256</span>, <span class="dv">65536</span>))      <span class="co"># Should be 64 / 4 = 16 → reuse of pages</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">2048</span>, <span class="dv">65536</span>))     <span class="co"># Should be 32 → skips every second page</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">1</span>, <span class="dv">100000</span>))       <span class="co"># result: 98 → causes TLB misses</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>64
+64
+64
+32
+98</code></pre>
+</div>
+</div>
+<ol start="2" type="a">
+<li><p>Das Verhalten des TLB ändert sich deutlich, wenn der Code mehrfach oder regelmäßig ausgeführt wird – etwa in einer oft aufgerufenen Funktion oder in einer heißen Schleife.</p>
+<ol type="1">
+<li><p>TLB ist zustandsbehaftet und begrenzt</p>
+<ul>
+<li>Er kann nur eine bestimmte Anzahl an Seitenadressen speichern (z. B. 64).</li>
+<li>Wird die Anzahl der zugreifenden Seiten pro Schleife &gt; 64, kommt es zu Ersetzungen (evictions), meist nach dem LRU-Prinzip.</li>
+</ul></li>
+<li><p>Wiederholte Ausführung kann TLB verbessern – oder verschlechtern</p>
+<ul>
+<li>Wenn dieselben Seiten wiederverwendet werden (z. B. bei <code>N ≤ 64 * 1024</code>), bleiben TLB-Einträge erhalten → nach der ersten Ausführung keine weiteren Misses.</li>
+<li>Wenn mehr als 64 Seiten verwendet oder ständig neue Seiten benötigt werden, werden TLB-Einträge ständig ersetzt → TLB-Misses bei jedem Aufruf.</li>
+</ul></li>
+<li><p>TLB-Arbeitsmenge (working set)</p>
+<ul>
+<li>Die „TLB-Arbeitsmenge“ ist die Menge der Seiten, die eine Funktion während der Ausführung benötigt.</li>
+<li>Passt diese Menge vollständig in den TLB, funktioniert alles effizient.</li>
+<li>Ist sie größer, kommt es zu wiederholten Zugriffen auf die Page Table → langsam.</li>
+</ul></li>
+<li><p>Zugriffsart ist entscheidend</p>
+<ul>
+<li>Kleine Schrittweite <code>M</code> → viele Zugriffe auf dieselbe Seite → hohe Wiederverwendung → TLB effizient.</li>
+<li>Große Schrittweite <code>M ≥ 1024</code> → jeder Zugriff auf eine neue Seite → hoher TLB-Druck, vor allem bei vielen Funktionsaufrufen.</li>
+</ul></li>
+</ol></li>
+</ol>
+</section>
+<section id="aufgabe-4" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
+<p>Beim Wechsel zwischen Prozessen wird der TLB in der Regel geleert, da jeder Prozess einen eigenen virtuellen Adressraum mit einer eigenen Seitentabelle besitzt. Die im TLB gespeicherten Einträge des vorherigen Prozesses wären im neuen Kontext ungültig oder sogar sicherheitskritisch.</p>
+<p>Beim Wechsel zwischen Threads desselben Prozesses bleibt der TLB hingegen erhalten, da alle Threads denselben Adressraum und dieselbe Seitentabelle nutzen. Die vorhandenen TLB-Einträge bleiben daher gültig.</p>
+<p>Moderne Systeme mit <em>Address Space Identifiers</em> (ASIDs) können einen vollständigen TLB-Flush beim Prozesswechsel vermeiden, indem sie TLB-Einträge pro Prozess kennzeichnen und nur die jeweils relevanten aktiv halten.</p>
+<p><strong>Kein Flush - Was kann Schiefgehen?</strong></p>
+<p>Wenn der TLB beim Kontextwechsel nicht geleert wird, kann es zu schwerwiegenden Sicherheitsproblemen kommen. Das folgende Beispiel zeigt, was konkret passieren kann:</p>
+<p>Angenommen, <strong>Prozess A</strong> greift auf die virtuelle Adresse <code>0x00400000</code> zu, welche in seiner Seitentabelle korrekt auf die physische Adresse <code>0x1A300000</code> abgebildet wird. Diese Übersetzung wird im TLB zwischengespeichert.</p>
+<p>Nun findet ein Kontextwechsel zu <strong>Prozess B</strong> statt. Auch Prozess B verwendet die virtuelle Adresse <code>0x00400000</code>, aber in seiner eigenen Seitentabelle sollte sie auf eine völlig andere physische Adresse zeigen, z. B. <code>0x2B400000</code>.</p>
+<p>Wenn der TLB <strong>nicht geleert</strong> wird, verwendet der Prozessor beim Zugriff durch Prozess B weiterhin die alte TLB-Eintragung von Prozess A. Das führt dazu, dass Prozess B auf den physischen Speicher von Prozess A zugreift.</p>
+<p>Die Folgen:</p>
+<ul>
+<li><strong>Sicherheitslücke</strong>: Prozess B kann sensible Daten von Prozess A einsehen.</li>
+<li><strong>Datenkorruption</strong>: Schreibzugriffe von Prozess B verändern versehentlich die Daten von Prozess A.</li>
+<li><strong>Verletzung der Speicherisolation</strong>: Ein zentrales Prinzip des Betriebssystems wird untergraben.</li>
+</ul>
+<p>Um das zu verhindern, wird der TLB beim Wechsel des Prozesses entweder vollständig geleert oder — bei moderner Hardware — es werden <strong>ASIDs</strong> (Address Space Identifiers) verwendet, die TLB-Einträge pro Prozess kennzeichnen und voneinander trennen.</p>
 </section>
 <section id="aufgabe-6" class="level2">
 <h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
-<p><code>script.sh</code> auch im Zip:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="bu">cd</span> <span class="va">$1</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="bu">:</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">do</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"5 biggest files in </span><span class="va">$1</span><span class="st">:"</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span> <span class="at">-S</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">echo</span> <span class="st">"5 last modified files starting with '</span><span class="va">$2</span><span class="st">' in </span><span class="va">$1</span><span class="st">:"</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ls</span> <span class="at">-t</span> <span class="kw">|</span> <span class="fu">grep</span> ^<span class="va">$2</span> <span class="kw">|</span> <span class="fu">head</span> <span class="at">-5</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sleep</span> 5</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">done</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="aufgabe-7" class="level2">
-<h2 class="anchored" data-anchor-id="aufgabe-7">Aufgabe 7</h2>
-<p>Vorteile:</p>
-<ul>
-<li><strong>Komplexitätsreduktion:</strong> Abstraktionen verbergen technische Details und erleichtern das Entwickeln und Verstehen von Systemen.<br>
-</li>
-<li><strong>Wiederverwendbarkeit:</strong> Einmal geschaffene Abstraktionen (z.B. Dateisystem, Prozesse) können flexibel in verschiedenen Programmen genutzt werden.</li>
-</ul>
-<p>Nachteile:</p>
-<ul>
-<li><strong>Leistungsaufwand:</strong> Abstraktionsschichten können zusätzliche Rechenzeit und Speicherverbrauch verursachen.<br>
-</li>
-<li><strong>Fehlerverdeckung:</strong> Probleme in tieferen Schichten bleiben oft verborgen und erschweren Fehlersuche und Optimierung.</li>
-</ul>
-
-
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>https://www.wikiwand.com/en/articles/X86-64<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>https://www.wikiwand.com/en/articles/Advanced_Vector_Extensions<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<ol type="1">
+<li>Es gibt <span class="math inline">\(\frac{2^{32}}{2^{12}} = 2^{20}\)</span> Einträge in der Tabelle. Jeder Eintrag ist 4 Byte groß</li>
 </ol>
+<p><span class="math display">\[
+\Rightarrow \text{ca. } 4\,\text{MB} \text{ Größe der Seitentabelle pro Prozess}.
+\]</span></p>
+<ol start="2" type="1">
+<li>Bei einer invertierten Seitentabelle gibt es genau einen Eintrag <strong>pro Frame</strong>. Deshalb entspricht das Verhältnis der Tabellengröße zum physischen Speicher exakt dem Verhältnis der Größe eines Eintrags zur Frame- bzw. Seitengröße:</li>
+</ol>
+<p><span class="math display">\[
+\Rightarrow \frac{4\,\text{B}}{4\,\text{KB}} = \frac{1}{1024}
+\]</span></p>
+
+
 </section>
 
 </main> <!-- /main -->
@@ -832,14 +979,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../index.html" class="pagination-link" aria-label="Preface">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="../sh04/04.html" class="pagination-link" aria-label="Blatt 04">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Blatt 04</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../sh02/02.html" class="pagination-link" aria-label="Blatt 02">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Blatt 02</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->
