@@ -6,7 +6,7 @@ DIR := /home/igord/Seafile/HD-Informatik/SS25/IBN/sol/$(NR)
 # all: $(PROGS)
 
 
-sol : _$(NR).qmd A3/*.c A3/*.h A3/Makefile
+sol : _$(NR).qmd A3/*.c A3/Makefile
 	cp _$(NR).qmd $(NAME).qmd
 	quarto render $(NAME).qmd --to pdf 
 	cp $(NAME).pdf $(DIR)
