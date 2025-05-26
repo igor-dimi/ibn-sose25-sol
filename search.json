@@ -264,7 +264,7 @@
     "href": "sh04/04.html#aufgabe-6",
     "title": "4  Blatt 04",
     "section": "Aufgabe 6",
-    "text": "Aufgabe 6\nKurze erklärung zur Notation: A:B hiesst, dass Segment der Größe A wurde der Speicherlücke der Größe B zugewiesen. Das ist eindeutig, da die Größen der Segmente und der Lücken jeweils eindeutig sind.\nDann:\n\nFirst fit:\n12:20\n11:18\n3:10\n5:7\nBest fit:\n12:12\n11:15\n3:4\n5:7\nWorst fit\n12:20\n11:18\n3:15\n5:12",
+    "text": "Aufgabe 6\nKurze erklärung zur Notation A:B: Der Segment der Größe A wurde der Speicherlücke der Größe B zugewiesen. (Das ist eindeutig, da die Größen der Segmente und der Lücken jeweils eindeutig sind.)\nDann:\n\nFirst fit:\n12:20\n11:18\n3:10\n5:7\nBest fit:\n12:12\n11:15\n3:4\n5:7\nWorst fit\n12:20\n11:18\n3:15\n5:12",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
     ]
@@ -274,7 +274,7 @@
     "href": "sh04/04.html#aufgabe-7",
     "title": "4  Blatt 04",
     "section": "Aufgabe 7",
-    "text": "Aufgabe 7\nDa die Seitengröße 1 KB = 1024 Bytes = 2¹⁰ beträgt, entsprechen die unteren 10 Bit des virtuellen Adresse die Offset, die restlichen höheren Bits geben die Seitennummer an.\n\nBerechnung der Seitennummern und Offsets:\n\n\n\nAdresse\nSeitennummer\nOffset\n\n\n\n\n2456\n2\n408\n\n\n16382\n15\n1022\n\n\n30000\n29\n304\n\n\n4385\n4\n289\n\n\n\n\n\nC-Code:\n// V - virtuelle Addresse, gegeben\nint p = V &gt;&gt; 10;        // Seitennummer\nint offset = V & 0x3FF; // Offset (2^10 - 1 = 1023)\nDurch die Verwendung von Bitoperationen ist die Berechnung effizient, da die Seitengröße eine Zweierpotenz ist.",
+    "text": "Aufgabe 7\nDa die Seitengröße 1 KB = 1024 Bytes = \\(2^{10}\\) beträgt, entsprechen die unteren 10 Bit des virtuellen Adresse die Offset, die restlichen höheren Bits geben die Seitennummer an.\n\nBerechnung der Seitennummern und Offsets:\n\n\n\nAdresse\nSeitennummer\nOffset\n\n\n\n\n2456\n2\n408\n\n\n16382\n15\n1022\n\n\n30000\n29\n304\n\n\n4385\n4\n289\n\n\n\n\n\nC-Code:\n// V - virtuelle Addresse, gegeben\nint p = V &gt;&gt; 10;        // Seitennummer\nint offset = V & 0x3FF; // Offset (2^10 - 1 = 1023)\nDurch die Verwendung von Bitoperationen ist die Berechnung effizient, da die Seitengröße eine Zweierpotenz ist.",
     "crumbs": [
       "<span class='chapter-number'>4</span>  <span class='chapter-title'>Blatt 04</span>"
     ]
@@ -335,6 +335,26 @@
     "title": "5  Blatt 05",
     "section": "Aufgabe 6",
     "text": "Aufgabe 6\n\nEs gibt \\(\\frac{2^{32}}{2^{12}} = 2^{20}\\) Einträge in der Tabelle. Jeder Eintrag ist 4 Byte groß\n\n\\[\n\\Rightarrow \\text{ca. } 4\\,\\text{MB} \\text{ Größe der Seitentabelle pro Prozess}.\n\\]\n\nBei einer invertierten Seitentabelle gibt es genau einen Eintrag pro Frame. Deshalb entspricht das Verhältnis der Tabellengröße zum physischen Speicher exakt dem Verhältnis der Größe eines Eintrags zur Frame- bzw. Seitengröße:\n\n\\[\n\\Rightarrow \\frac{4\\,\\text{B}}{4\\,\\text{KB}} = \\frac{1}{1024}\n\\]",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Blatt 05</span>"
+    ]
+  },
+  {
+    "objectID": "sh05/05.html#aufgabe-7",
+    "href": "sh05/05.html#aufgabe-7",
+    "title": "5  Blatt 05",
+    "section": "Aufgabe 7",
+    "text": "Aufgabe 7\nGeg. sei ein System mit einem TLB und einer hierarchischen Seitentabelle mit \\(k\\) Stufen. Die TLB-Trefferquote sei \\(h\\), die Zugriffszeit auf den TLB sei \\(t_{\\text{TLB}}\\), und ein RAM-Zugriff dauere \\(t_{\\text{RAM}}\\). Um eine Seite im Speicher zu lesen, muss zunächst die Adresse übersetzt und anschließend auf die eigentlichen Daten zugegriffen werden. Es gibt zwei Fälle:\n\nBei einem TLB-Treffer (Wahrscheinlichkeit \\(h\\)) erfolgt die Übersetzung über den TLB, was \\(t_{\\text{TLB}}\\) dauert, gefolgt von einem Datenzugriff mit \\(t_{\\text{RAM}}\\). Gesamtzeit: \\(t_{\\text{TLB}} + t_{\\text{RAM}}\\)\nBei einem TLB-Fehlzugriff (Wahrscheinlichkeit \\(1 - h\\)) muss die Seitentabelle durchlaufen werden, wobei \\(k\\) RAM-Zugriffe nötig sind. Anschließend folgt der Zugriff auf die Daten mit weiteren \\(t_{\\text{RAM}}\\). Gesamtzeit: \\((k + 1) \\cdot t_{\\text{RAM}}\\)\n\nDie erwartete Zugriffszeit ergibt sich zu:\n\\[\nE = h(t_{\\text{TLB}} + t_{\\text{RAM}}) + (1 - h)(k + 1)t_{\\text{RAM}}\n\\]\nWenn \\(h\\) klein ist, dominiert der zweite Term, und der Zugriff ist im Mittel etwa \\((k + 1)\\)-mal so teuer wie bei einem TLB-Treffer.\nIn der Praxis tritt dieses Problem jedoch kaum auf, da reale Programme ausgeprägte Lokalität aufweisen. Aufgrund temporaler Lokalität (wiederholte Zugriffe auf kürzlich genutzte Seiten) und spatialer Lokalität (benachbarte Adressen werden gemeinsam genutzt, z. B. in Arrays) ist die TLB-Trefferquote typischerweise sehr hoch (oft über 95 %). Deshalb amortisiert sich die Existenz eines TLB deutlich.\nDas zugrunde liegende Modell ist jedoch in mehreren Punkten idealisiert und in der Praxis eingeschränkt:\n\nEs nimmt gleichverteilte Zugriffe auf alle Seitentabelleneinträge an, ignoriert also die reale Zugriffslokalität.\nSeitentabelleneinträge werden ggf. auch intern gecacht, was die Zahl tatsächlicher RAM-Zugriffe reduziert.\nEs berücksichtigt keine Nebeneffekte wie TLB-Flushes bei Kontextwechseln, Prefetching, oder andere Optimierungen der Speicherhierarchie.\n\nDaher ist das Modell gut geeignet für eine theoretische Analyse, aber es bildet die tatsächliche Effizienz realer Systeme nur vereinfacht ab.",
+    "crumbs": [
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>Blatt 05</span>"
+    ]
+  },
+  {
+    "objectID": "sh05/05.html#aufgabe-8",
+    "href": "sh05/05.html#aufgabe-8",
+    "title": "5  Blatt 05",
+    "section": "Aufgabe 8",
+    "text": "Aufgabe 8\n\n\n\n3-level Seitentabelle\n\n\n\nDas Diagramm zeigt die Übersetzung einer 32-Bit-Adressierung in einem hypothetischen System mit einer dreistufigen Seitentabellenhierarchie und einer Seitengröße von 256 Byte (also \\(2^8\\)). Die logische Adresse wird dabei in vier gleich große Abschnitte zu je 8 Bit aufgeteilt:\n\nBits 31–24: Index in die oberste Tabelle (PD1)\nBits 23–16: Index in die zweite Tabelle (PD2)\nBits 15–8: Index in die dritte Tabelle (PT)\nBits 7–0: Offset innerhalb der Seite\n\nJede Tabelle hat \\(2^8 = 256\\) Einträge. Dies ergibt sich daraus, dass jeder Tabellenindex 8 Bit umfasst und damit 256 mögliche Positionen adressieren kann. Da alle drei Tabellenebenen mit 8-Bit-Indizes angesprochen werden, besitzen alle drei Stufen genau 256 Einträge. Die Offset-Breite von 8 Bit entspricht der Seitengröße von 256 Byte.\nDie 32-Bit-Adresse wird in vier Abschnitte zu je 8 Bit unterteilt. Jeder dieser Abschnitte dient als Index in eine bestimmte Stufe der Seitentabellenhierarchie:\n\nDer erste Abschnitt (Bits 31–24) indexiert einen Eintrag in der obersten Tabelle (PD1).\nDer zweite Abschnitt (Bits 23–16) indexiert die mittlere Tabelle (PD2).\nDer dritte Abschnitt (Bits 15–8) indexiert die unterste Tabelle (PT).\nDer vierte Abschnitt (Bits 7–0) ist der Offset innerhalb der Zielseite.\n\nJeder Eintrag in den Tabellen enthält eine physische Adresse, die zur nächsten Stufe führt:\n\nEin PD1-Eintrag enthält die physische Startadresse eines PD2-Tabellenrahmens.\nEin PD2-Eintrag enthält die Adresse eines PT-Tabellenrahmens.\nEin PT-Eintrag enthält die Adresse eines tatsächlichen physischen Seitenrahmens, also einer 256-Byte-Seite im Speicher.\n\nDurch schrittweises Nachschlagen entlang der drei Tabellenstufen wird so der physische Rahmen gefunden, in dem sich die gewünschte Adresse befindet. Der Offset gibt schließlich die genaue Position innerhalb dieser Seite an.\nGibt es signifikante Unterschiede zwischen den Stufen?\nJa, in der Funktion der Stufen:\n\nDie ersten beiden Stufen (PD1 und PD2) dienen rein der Navigation: Sie verweisen jeweils auf weitere Tabellen.\nErst die dritte Stufe (PT) enthält den tatsächlichen Verweis auf den physischen Speicherrahmen mit den Daten.\nAuch bei der Interpretation der Einträge kann es Unterschiede geben (z. B. zusätzliche Statusbits oder Flags auf unteren Ebenen), aber im Grundprinzip enthalten alle Einträge physische Adressen von Seitenrahmen — entweder von Tabellen oder von Daten.\n\nJede Tabelle hat maximal \\(2^8 = 256\\) Einträge pro Instanz. Da es sich um eine 3-stufige Hierarchie handelt, ergibt sich im Extremfall (voll belegter Adressraum):\n\nStufe 1 (PD1): 1 Tabelle × 256 Einträge\nStufe 2 (PD2): 256 Tabellen × 256 Einträge = 65 536\nStufe 3 (PT): 256 × 256 Tabellen × 256 Einträge = 16 777 216\n\nKumulative Maximalanzahl:\n\\[\n256 + 65\\,536 + 16\\,777\\,216 = 16\\,843\\,008 \\text{ Einträge}\n\\]\nSpeicherverbrauch bei 4 Byte pro Eintrag:\n\\[\n16\\,843\\,008 \\times 4\\ \\text{Bytes} = 67\\,372\\,032\\ \\text{Bytes} \\approx 64{,}25\\ \\text{MiB}\n\\]",
     "crumbs": [
       "<span class='chapter-number'>5</span>  <span class='chapter-title'>Blatt 05</span>"
     ]

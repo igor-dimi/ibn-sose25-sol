@@ -229,6 +229,8 @@ window.Quarto = {
   <li><a href="#aufgabe-3" id="toc-aufgabe-3" class="nav-link" data-scroll-target="#aufgabe-3">Aufgabe 3</a></li>
   <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
   <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
+  <li><a href="#aufgabe-7" id="toc-aufgabe-7" class="nav-link" data-scroll-target="#aufgabe-7">Aufgabe 7</a></li>
+  <li><a href="#aufgabe-8" id="toc-aufgabe-8" class="nav-link" data-scroll-target="#aufgabe-8">Aufgabe 8</a></li>
   </ul>
 </nav>
     </div>
@@ -357,7 +359,7 @@ F(4) = \frac{41086 - 126}{4096} = \frac{40960}{4096} = 10
 <section id="python-implementierung" class="level3">
 <h3 class="anchored" data-anchor-id="python-implementierung">Python Implementierung</h3>
 <p>Die Rekonstruktion der Tabelle kann mit python wie folgt implementiert werden:</p>
-<div id="1560be0b" class="cell" data-execution_count="1">
+<div id="b5e9989d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reconstruct_page_table(k, mappings):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    page_size <span class="op">=</span> <span class="dv">1</span> <span class="op">&lt;&lt;</span> k  <span class="co"># 2^k</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    page_mask <span class="op">=</span> page_size <span class="op">-</span> <span class="dv">1</span></span>
@@ -469,7 +471,7 @@ i = 0, M, 2M, 3M, \dots, \text{solange } i &lt; N
 </ul>
 <p>Dieses Verhalten kann mit der folgenden Python-funktion simuliert werden:</p></li>
 </ol>
-<div id="514bd306" class="cell" data-execution_count="2">
+<div id="46a73f70" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tlb_pages(M, N, ints_per_page<span class="op">=</span><span class="dv">1024</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Simulates the number of distinct pages accessed in the loop:</span></span>
@@ -490,7 +492,7 @@ i = 0, M, 2M, 3M, \dots, \text{solange } i &lt; N
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>Einige Simulationen:</code></pre>
-<div id="013b158c" class="cell" data-execution_count="3">
+<div id="4f0c5cec" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">1</span>, <span class="dv">65536</span>))        <span class="co"># Should be 64 → fills exactly 64 pages</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">1024</span>, <span class="dv">65536</span>))     <span class="co"># Should be 64 → each access on a new page</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">256</span>, <span class="dv">65536</span>))      <span class="co"># Should be 64 / 4 = 16 → reuse of pages</span></span>
@@ -563,6 +565,81 @@ i = 0, M, 2M, 3M, \dots, \text{solange } i &lt; N
 <p><span class="math display">\[
 \Rightarrow \frac{4\,\text{B}}{4\,\text{KB}} = \frac{1}{1024}
 \]</span></p>
+</section>
+<section id="aufgabe-7" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-7">Aufgabe 7</h2>
+<p>Geg. sei ein System mit einem TLB und einer hierarchischen Seitentabelle mit <span class="math inline">\(k\)</span> Stufen. Die TLB-Trefferquote sei <span class="math inline">\(h\)</span>, die Zugriffszeit auf den TLB sei <span class="math inline">\(t_{\text{TLB}}\)</span>, und ein RAM-Zugriff dauere <span class="math inline">\(t_{\text{RAM}}\)</span>. Um eine Seite im Speicher zu lesen, muss zunächst die Adresse übersetzt und anschließend auf die eigentlichen Daten zugegriffen werden. Es gibt zwei Fälle:</p>
+<ul>
+<li>Bei einem TLB-Treffer (Wahrscheinlichkeit <span class="math inline">\(h\)</span>) erfolgt die Übersetzung über den TLB, was <span class="math inline">\(t_{\text{TLB}}\)</span> dauert, gefolgt von einem Datenzugriff mit <span class="math inline">\(t_{\text{RAM}}\)</span>. Gesamtzeit: <span class="math inline">\(t_{\text{TLB}} + t_{\text{RAM}}\)</span></li>
+<li>Bei einem TLB-Fehlzugriff (Wahrscheinlichkeit <span class="math inline">\(1 - h\)</span>) muss die Seitentabelle durchlaufen werden, wobei <span class="math inline">\(k\)</span> RAM-Zugriffe nötig sind. Anschließend folgt der Zugriff auf die Daten mit weiteren <span class="math inline">\(t_{\text{RAM}}\)</span>. Gesamtzeit: <span class="math inline">\((k + 1) \cdot t_{\text{RAM}}\)</span></li>
+</ul>
+<p>Die erwartete Zugriffszeit ergibt sich zu:</p>
+<p><span class="math display">\[
+E = h(t_{\text{TLB}} + t_{\text{RAM}}) + (1 - h)(k + 1)t_{\text{RAM}}
+\]</span></p>
+<p>Wenn <span class="math inline">\(h\)</span> klein ist, dominiert der zweite Term, und der Zugriff ist im Mittel etwa <span class="math inline">\((k + 1)\)</span>-mal so teuer wie bei einem TLB-Treffer.</p>
+<p>In der Praxis tritt dieses Problem jedoch kaum auf, da reale Programme ausgeprägte Lokalität aufweisen. Aufgrund <strong>temporaler Lokalität</strong> (wiederholte Zugriffe auf kürzlich genutzte Seiten) und <strong>spatialer Lokalität</strong> (benachbarte Adressen werden gemeinsam genutzt, z. B. in Arrays) ist die TLB-Trefferquote typischerweise sehr hoch (oft über 95 %). Deshalb amortisiert sich die Existenz eines TLB deutlich.</p>
+<p>Das zugrunde liegende Modell ist jedoch in mehreren Punkten idealisiert und in der Praxis eingeschränkt:</p>
+<ul>
+<li>Es nimmt <strong>gleichverteilte Zugriffe</strong> auf alle Seitentabelleneinträge an, ignoriert also die reale Zugriffslokalität.</li>
+<li><strong>Seitentabelleneinträge werden ggf. auch intern gecacht</strong>, was die Zahl tatsächlicher RAM-Zugriffe reduziert.</li>
+<li>Es berücksichtigt keine Nebeneffekte wie <strong>TLB-Flushes bei Kontextwechseln</strong>, <strong>Prefetching</strong>, oder andere Optimierungen der Speicherhierarchie.</li>
+</ul>
+<p>Daher ist das Modell gut geeignet für eine theoretische Analyse, aber es bildet die tatsächliche Effizienz realer Systeme nur vereinfacht ab.</p>
+</section>
+<section id="aufgabe-8" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-8">Aufgabe 8</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./imgs/3level-pt.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>3-level Seitentabelle</figcaption>
+</figure>
+</div>
+<ol type="a">
+<li><p>Das Diagramm zeigt die Übersetzung einer 32-Bit-Adressierung in einem hypothetischen System mit einer dreistufigen Seitentabellenhierarchie und einer Seitengröße von 256 Byte (also <span class="math inline">\(2^8\)</span>). Die logische Adresse wird dabei in vier gleich große Abschnitte zu je 8 Bit aufgeteilt:</p>
+<ul>
+<li>Bits 31–24: Index in die oberste Tabelle (PD1)</li>
+<li>Bits 23–16: Index in die zweite Tabelle (PD2)</li>
+<li>Bits 15–8: Index in die dritte Tabelle (PT)</li>
+<li>Bits 7–0: Offset innerhalb der Seite</li>
+</ul>
+<p>Jede Tabelle hat <span class="math inline">\(2^8 = 256\)</span> Einträge. Dies ergibt sich daraus, dass jeder Tabellenindex 8 Bit umfasst und damit 256 mögliche Positionen adressieren kann. Da alle drei Tabellenebenen mit 8-Bit-Indizes angesprochen werden, besitzen alle drei Stufen genau 256 Einträge. Die Offset-Breite von 8 Bit entspricht der Seitengröße von 256 Byte.</p></li>
+<li><p>Die 32-Bit-Adresse wird in vier Abschnitte zu je 8 Bit unterteilt. Jeder dieser Abschnitte dient als Index in eine bestimmte Stufe der Seitentabellenhierarchie:</p>
+<ul>
+<li>Der erste Abschnitt (Bits 31–24) indexiert einen Eintrag in der obersten Tabelle (PD1).</li>
+<li>Der zweite Abschnitt (Bits 23–16) indexiert die mittlere Tabelle (PD2).</li>
+<li>Der dritte Abschnitt (Bits 15–8) indexiert die unterste Tabelle (PT).</li>
+<li>Der vierte Abschnitt (Bits 7–0) ist der Offset innerhalb der Zielseite.</li>
+</ul>
+<p>Jeder Eintrag in den Tabellen enthält eine physische Adresse, die zur nächsten Stufe führt:</p>
+<ul>
+<li>Ein <strong>PD1-Eintrag</strong> enthält die physische Startadresse eines PD2-Tabellenrahmens.</li>
+<li>Ein <strong>PD2-Eintrag</strong> enthält die Adresse eines PT-Tabellenrahmens.</li>
+<li>Ein <strong>PT-Eintrag</strong> enthält die Adresse eines tatsächlichen physischen Seitenrahmens, also einer 256-Byte-Seite im Speicher.</li>
+</ul>
+<p>Durch schrittweises Nachschlagen entlang der drei Tabellenstufen wird so der physische Rahmen gefunden, in dem sich die gewünschte Adresse befindet. Der Offset gibt schließlich die genaue Position innerhalb dieser Seite an.</p>
+<p><strong>Gibt es signifikante Unterschiede zwischen den Stufen?</strong></p>
+<p>Ja, in der Funktion der Stufen:</p>
+<ul>
+<li>Die ersten beiden Stufen (PD1 und PD2) dienen rein der Navigation: Sie verweisen jeweils auf weitere Tabellen.</li>
+<li>Erst die dritte Stufe (PT) enthält den tatsächlichen Verweis auf den physischen Speicherrahmen mit den Daten.</li>
+<li>Auch bei der Interpretation der Einträge kann es Unterschiede geben (z. B. zusätzliche Statusbits oder Flags auf unteren Ebenen), aber im Grundprinzip enthalten alle Einträge physische Adressen von Seitenrahmen — entweder von Tabellen oder von Daten.</li>
+</ul></li>
+<li><p>Jede Tabelle hat maximal <span class="math inline">\(2^8 = 256\)</span> Einträge pro Instanz. Da es sich um eine 3-stufige Hierarchie handelt, ergibt sich im <strong>Extremfall</strong> (voll belegter Adressraum):</p>
+<ul>
+<li><strong>Stufe 1 (PD1):</strong> 1 Tabelle × 256 Einträge</li>
+<li><strong>Stufe 2 (PD2):</strong> 256 Tabellen × 256 Einträge = 65 536</li>
+<li><strong>Stufe 3 (PT):</strong> 256 × 256 Tabellen × 256 Einträge = 16 777 216</li>
+</ul>
+<p><strong>Kumulative Maximalanzahl:</strong></p>
+<p><span class="math display">\[
+256 + 65\,536 + 16\,777\,216 = 16\,843\,008 \text{ Einträge}
+\]</span></p>
+<p><strong>Speicherverbrauch bei 4 Byte pro Eintrag:</strong></p>
+<p><span class="math display">\[
+16\,843\,008 \times 4\ \text{Bytes} = 67\,372\,032\ \text{Bytes} \approx 64{,}25\ \text{MiB}
+\]</span></p></li>
+</ol>
 
 
 </section>
