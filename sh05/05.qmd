@@ -324,3 +324,82 @@ Deshalb entspricht das Verhältnis der Tabellengröße zum physischen Speicher e
 $$
 \Rightarrow \frac{4\,\text{B}}{4\,\text{KB}} = \frac{1}{1024}
 $$
+
+## Aufgabe 7
+
+Geg. sei ein System mit einem TLB und einer hierarchischen Seitentabelle mit $k$ Stufen. Die TLB-Trefferquote sei $h$, die Zugriffszeit auf den TLB sei $t_{\text{TLB}}$, und ein RAM-Zugriff dauere $t_{\text{RAM}}$. Um eine Seite im Speicher zu lesen, muss zunächst die Adresse übersetzt und anschließend auf die eigentlichen Daten zugegriffen werden. Es gibt zwei Fälle:
+
+* Bei einem TLB-Treffer (Wahrscheinlichkeit $h$) erfolgt die Übersetzung über den TLB, was $t_{\text{TLB}}$ dauert, gefolgt von einem Datenzugriff mit $t_{\text{RAM}}$. Gesamtzeit: $t_{\text{TLB}} + t_{\text{RAM}}$
+* Bei einem TLB-Fehlzugriff (Wahrscheinlichkeit $1 - h$) muss die Seitentabelle durchlaufen werden, wobei $k$ RAM-Zugriffe nötig sind. Anschließend folgt der Zugriff auf die Daten mit weiteren $t_{\text{RAM}}$. Gesamtzeit: $(k + 1) \cdot t_{\text{RAM}}$
+
+Die erwartete Zugriffszeit ergibt sich zu:
+
+$$
+E = h(t_{\text{TLB}} + t_{\text{RAM}}) + (1 - h)(k + 1)t_{\text{RAM}}
+$$
+
+Wenn $h$ klein ist, dominiert der zweite Term, und der Zugriff ist im Mittel etwa $(k + 1)$-mal so teuer wie bei einem TLB-Treffer.
+
+In der Praxis tritt dieses Problem jedoch kaum auf, da reale Programme ausgeprägte Lokalität aufweisen. Aufgrund **temporaler Lokalität** (wiederholte Zugriffe auf kürzlich genutzte Seiten) und **spatialer Lokalität** (benachbarte Adressen werden gemeinsam genutzt, z. B. in Arrays) ist die TLB-Trefferquote typischerweise sehr hoch (oft über 95 %). Deshalb amortisiert sich die Existenz eines TLB deutlich.
+
+Das zugrunde liegende Modell ist jedoch in mehreren Punkten idealisiert und in der Praxis eingeschränkt:
+
+* Es nimmt **gleichverteilte Zugriffe** auf alle Seitentabelleneinträge an, ignoriert also die reale Zugriffslokalität.
+* **Seitentabelleneinträge werden ggf. auch intern gecacht**, was die Zahl tatsächlicher RAM-Zugriffe reduziert.
+* Es berücksichtigt keine Nebeneffekte wie **TLB-Flushes bei Kontextwechseln**, **Prefetching**, oder andere Optimierungen der Speicherhierarchie.
+
+Daher ist das Modell gut geeignet für eine theoretische Analyse, aber es bildet die tatsächliche Effizienz realer Systeme nur vereinfacht ab.
+
+## Aufgabe 8
+
+![3-level Seitentabelle](./imgs/3level-pt.png){width="90%"}
+
+a) Das Diagramm zeigt die Übersetzung einer 32-Bit-Adressierung in einem hypothetischen System mit einer dreistufigen Seitentabellenhierarchie und einer Seitengröße von 256 Byte (also $2^8$). Die logische Adresse wird dabei in vier gleich große Abschnitte zu je 8 Bit aufgeteilt:
+
+   * Bits 31–24: Index in die oberste Tabelle (PD1)
+   * Bits 23–16: Index in die zweite Tabelle (PD2)
+   * Bits 15–8: Index in die dritte Tabelle (PT)
+   * Bits 7–0: Offset innerhalb der Seite
+   
+   Jede Tabelle hat $2^8 = 256$ Einträge. Dies ergibt sich daraus, dass jeder Tabellenindex 8 Bit umfasst und damit 256 mögliche Positionen adressieren kann. Da alle drei Tabellenebenen mit 8-Bit-Indizes angesprochen werden, besitzen alle drei Stufen genau 256 Einträge. Die Offset-Breite von 8 Bit entspricht der Seitengröße von 256 Byte.
+
+b) Die 32-Bit-Adresse wird in vier Abschnitte zu je 8 Bit unterteilt. Jeder dieser Abschnitte dient als Index in eine bestimmte Stufe der Seitentabellenhierarchie:
+
+   * Der erste Abschnitt (Bits 31–24) indexiert einen Eintrag in der obersten Tabelle (PD1).
+   * Der zweite Abschnitt (Bits 23–16) indexiert die mittlere Tabelle (PD2).
+   * Der dritte Abschnitt (Bits 15–8) indexiert die unterste Tabelle (PT).
+   * Der vierte Abschnitt (Bits 7–0) ist der Offset innerhalb der Zielseite.
+   
+   Jeder Eintrag in den Tabellen enthält eine physische Adresse, die zur nächsten Stufe führt:
+   
+   * Ein **PD1-Eintrag** enthält die physische Startadresse eines PD2-Tabellenrahmens.
+   * Ein **PD2-Eintrag** enthält die Adresse eines PT-Tabellenrahmens.
+   * Ein **PT-Eintrag** enthält die Adresse eines tatsächlichen physischen Seitenrahmens, also einer 256-Byte-Seite im Speicher.
+   
+   Durch schrittweises Nachschlagen entlang der drei Tabellenstufen wird so der physische Rahmen gefunden, in dem sich die gewünschte Adresse befindet. Der Offset gibt schließlich die genaue Position innerhalb dieser Seite an.
+   
+   **Gibt es signifikante Unterschiede zwischen den Stufen?**
+   
+   Ja, in der Funktion der Stufen:
+   
+   * Die ersten beiden Stufen (PD1 und PD2) dienen rein der Navigation: Sie verweisen jeweils auf weitere Tabellen.
+   * Erst die dritte Stufe (PT) enthält den tatsächlichen Verweis auf den physischen Speicherrahmen mit den Daten.
+   * Auch bei der Interpretation der Einträge kann es Unterschiede geben (z. B. zusätzliche Statusbits oder Flags auf unteren Ebenen), aber im Grundprinzip enthalten alle Einträge physische Adressen von Seitenrahmen — entweder von Tabellen oder von Daten.
+
+c) Jede Tabelle hat maximal $2^8 = 256$ Einträge pro Instanz. Da es sich um eine 3-stufige Hierarchie handelt, ergibt sich im **Extremfall** (voll belegter Adressraum):
+
+   * **Stufe 1 (PD1):** 1 Tabelle × 256 Einträge
+   * **Stufe 2 (PD2):** 256 Tabellen × 256 Einträge = 65 536
+   * **Stufe 3 (PT):** 256 × 256 Tabellen × 256 Einträge = 16 777 216
+   
+   **Kumulative Maximalanzahl:**
+   
+   $$
+   256 + 65\,536 + 16\,777\,216 = 16\,843\,008 \text{ Einträge}
+   $$
+   
+   **Speicherverbrauch bei 4 Byte pro Eintrag:**
+   
+   $$
+   16\,843\,008 \times 4\ \text{Bytes} = 67\,372\,032\ \text{Bytes} \approx 64{,}25\ \text{MiB}
+   $$
