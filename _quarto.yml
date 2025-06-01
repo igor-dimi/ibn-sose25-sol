@@ -12,6 +12,7 @@ book:
     - sh03/03.qmd
     - sh04/04.qmd
     - sh05/05.qmd
+    - sh06/06.qmd
   downloads: ["pdf"]
   page-navigation: true
 

@@ -1,0 +1,415 @@
+---
+title: Blatt 06
+---
+
+## Aufgabe 1
+
+a) : 
+
+
+   **FIFO (First-In, First-Out)**
+   
+   | Step | Accessed Page | Frame State   | FIFO Queue    | Action                       |
+   | ---- | ------------- | ------------- | ------------- | ---------------------------- |
+   | 1    | 0             | \[0]          | \[0]          | Page fault (load 0)          |
+   | 2    | 1             | \[0, 1]       | \[0, 1]       | Page fault (load 1)          |
+   | 3    | 7             | \[0, 1, 7]    | \[0, 1, 7]    | Page fault (load 7)          |
+   | 4    | 2             | \[0, 1, 7, 2] | \[0, 1, 7, 2] | Page fault (load 2)          |
+   | 5    | 3             | \[3, 1, 7, 2] | \[1, 7, 2, 3] | Page fault (evict 0, load 3) |
+   | 6    | 2             | \[3, 1, 7, 2] | \[1, 7, 2, 3] | No fault                     |
+   | 7    | 7             | \[3, 1, 7, 2] | \[1, 7, 2, 3] | No fault                     |
+   | 8    | 1             | \[3, 1, 7, 2] | \[1, 7, 2, 3] | No fault                     |
+   | 9    | 0             | \[3, 0, 7, 2] | \[7, 2, 3, 0] | Page fault (evict 1, load 0) |
+   | 10   | 3             | \[3, 0, 7, 2] | \[7, 2, 3, 0] | No fault                     |
+   
+   **Erklärung:**
+   Der FIFO-Algorithmus verwaltet Seiten nach dem Prinzip „First-In, First-Out“. Wenn der Speicher voll ist, wird stets die älteste Seite (ganz vorne in der Queue) entfernt.
+   Hier entstehen **6 Seitenfehler** bei den Zugriffen: 1, 2, 3, 4, 5, 9.
+   
+   
+   **LRU (Least Recently Used)**:
+   
+   | Step | Accessed Page | Frame State   | Action                       |
+   | ---- | ------------- | ------------- | ---------------------------- |
+   | 1    | 0             | \[0]          | Page fault (load 0)          |
+   | 2    | 1             | \[0, 1]       | Page fault (load 1)          |
+   | 3    | 7             | \[0, 1, 7]    | Page fault (load 7)          |
+   | 4    | 2             | \[0, 1, 7, 2] | Page fault (load 2)          |
+   | 5    | 3             | \[3, 1, 7, 2] | Page fault (evict 0, load 3) |
+   | 6    | 2             | \[3, 1, 7, 2] | No fault                     |
+   | 7    | 7             | \[3, 1, 7, 2] | No fault                     |
+   | 8    | 1             | \[3, 1, 7, 2] | No fault                     |
+   | 9    | 0             | \[0, 1, 7, 2] | Page fault (evict 3, load 0) |
+   | 10   | 3             | \[0, 1, 7, 3] | Page fault (evict 2, load 3) |
+   
+   **Erklärung:**
+   Der LRU-Algorithmus entfernt immer die Seite, die am längsten **nicht verwendet** wurde.
+   Er berücksichtigt dabei die Reihenfolge der letzten Zugriffe.
+   In diesem Beispiel entstehen **7 Seitenfehler** bei den Zugriffen: 1, 2, 3, 4, 5, 9, 10.
+
+b) :
+
+   **Vergleich: LRU vs. Clock – Erstes unterschiedliches Opfer**
+   
+   Wir suchen eine möglichst kurze Zugriffssequenz, bei der LRU und Clock beim ersten Page-Fault mit Ersetzung unterschiedliche Seiten auslagern. Dies zeigt konkret, wie Clock als Annäherung an LRU funktioniert, aber nicht exakt gleich entscheidet.
+   
+   
+   **Rahmenbedingungen**:
+   
+   * Anzahl Frames: 3
+   * Zugriffssequenz: `1, 2, 3, 1, 4`
+   * Seitenzahlen stammen aus `{1, ..., 9}`
+   
+   
+   **LRU (Least Recently Used)**
+   
+   LRU wählt die Seite aus, die am längsten nicht mehr verwendet wurde.
+   
+   | Step | Accessed Page | Frame State (after access) | Action                  |
+   | ---- | ------------- | -------------------------- | ----------------------- |
+   | 1    | 1             | \[1]                       | Page fault              |
+   | 2    | 2             | \[1, 2]                    | Page fault              |
+   | 3    | 3             | \[1, 2, 3]                 | Page fault              |
+   | 4    | 1             | \[1, 2, 3]                 | No fault (update usage) |
+   | 5    | 4             | \[1, 4, 3]                 | Page fault → evict 2    |
+   
+   Erklärung: LRU entfernt Seite 2, da sie seit Schritt 2 nicht mehr verwendet wurde.
+   
+   
+   **Clock (Second-Chance)**
+   
+   Clock gibt Seiten mit gesetztem R-Bit eine „zweite Chance“. Der Zeiger dreht sich zirkulär durch die Frames.
+   
+   * Neue Seiten: R = 1
+   * Zugriff: R ← 1
+   * Beim Ersetzen:
+   
+     * Wenn R = 1: R ← 0, weiter
+     * Wenn R = 0: auslagern
+   
+   Anfangszustand vor Schritt 5:
+   
+   * Frame: \[1, 2, 3]
+   * R bits: \[1, 1, 1]
+   * Pointer: → 3 (zeigt auf Seite 3)
+   
+   | Step | Accessed Page | Frame State (after access) | R Bits     | Pointer | Action               |
+   | ---- | ------------- | -------------------------- | ---------- | ------- | -------------------- |
+   | 1    | 1             | \[1]                       | \[1]       | →1      | Page fault           |
+   | 2    | 2             | \[1, 2]                    | \[1, 1]    | →2      | Page fault           |
+   | 3    | 3             | \[1, 2, 3]                 | \[1, 1, 1] | →3      | Page fault           |
+   | 4    | 1             | \[1, 2, 3]                 | \[1, 1, 1] | →3      | No fault             |
+   | 5    | 4             | \[1, 2, 4]                 | \[0, 0, 1] | →1      | Page fault → evict 3 |
+   
+   Erklärung: Clock entfernt Seite 3, da beim Durchlauf alle R-Bits auf 1 gesetzt waren und beim zweiten Umlauf zuerst Seite 3 mit R = 0 erreicht wurde.
+   
+   
+   **Vergleich**
+   
+   | Algorithmus | Erste ersetzte Seite |
+   | ----------- | -------------------- |
+   | LRU         | 2                    |
+   | Clock       | 3                    |
+   
+   Diese kurze Sequenz zeigt präzise, wie Clock trotz ähnlicher Zielsetzung (ältere Seiten auslagern) durch seine heuristische Umsetzung (R-Bits und Zeiger) zu anderen Entscheidungen als LRU kommt.
+
+## Aufgabe 2
+
+Obwohl LRU – im Gegensatz zu OPT – die Zukunft nicht kennt, kann es mit exakten Zeitstempeln vergangener Seitenzugriffe fundierte Entscheidungen treffen. OPT hingegen nutzt zukünftige Zugriffe zur Minimierung der Seitenfehler und stellt damit die theoretisch beste Strategie dar. Zwischen beiden Algorithmen besteht ein enger mathematischer Zusammenhang: **Die Anzahl der Seitenfehler von LRU ist im schlimmsten Fall höchstens `k`-mal so groß wie die von OPT**, wobei `k` die Anzahl der verfügbaren Seitenrahmen ist. Dieser Zusammenhang stammt aus der kompetitiven Analyse von Online-Algorithmen und ist zwar theoretisch interessant, jedoch **nicht praktisch nutzbar**, da er keine konkreten Verbesserungen im realen Betrieb ermöglicht.
+
+## Aufgabe 3
+
+
+Im folgenden Python-programm haben wir den **LRU-Algorithmus** implementiert (auch im Zip als 'lru_sim.py' enthalten):
+
+```{.python}
+import sys
+
+def print_frame_state(step, page, frames, action):
+    print(f"Step {step:2}: Page {page:2} → {action:6} | Frames: {frames}")
+
+def simulate_lru(num_frames, access_sequence):
+    frames = []
+    lru_order = []  # Tracks least to most recently used pages
+
+    for step, page in enumerate(access_sequence, 1):
+        if page in frames:
+            action = "Hit"
+            # Move page to most recently used
+            lru_order.remove(page)
+            lru_order.append(page)
+        else:
+            action = "Fault"
+            if len(frames) < num_frames:
+                # Free space available
+                frames.append(page)
+            else:
+                # Evict least recently used page
+                lru_page = lru_order.pop(0)
+                index = frames.index(lru_page)
+                frames[index] = page
+            lru_order.append(page)
+        print_frame_state(step, page, frames.copy(), action)
+
+if __name__ == "__main__":
+    if len(sys.argv) < 3:
+        print("Usage: python lru_sim.py <num_frames> <page1> <page2> ...")
+        sys.exit(1)
+
+    try:
+        num_frames = int(sys.argv[1])
+        access_sequence = list(map(int, sys.argv[2:]))
+    except ValueError:
+        print("Error: All inputs must be integers.")
+        sys.exit(1)
+
+    simulate_lru(num_frames, access_sequence)
+```
+
+
+**Algorithmusprinzip (LRU)**
+
+Beim LRU-Verfahren wird stets die **am längsten nicht benutzte Seite** entfernt, wenn ein neuer Seitenzugriff erfolgt und kein freier Rahmen mehr verfügbar ist. Das Verfahren benötigt daher eine Struktur, um die **Zugriffshistorie** zu verfolgen.
+
+
+**Umsetzung in Python**:
+
+Für die Python-Implementierung wurden folgende Datenstrukturen verwendet:
+
+* `frames`: Eine Liste, die den aktuellen Inhalt der Seitenrahmen repräsentiert.
+* `lru_order`: Eine separate Liste, die die Zugriffsreihenfolge der Seiten hält – von **ältestem** zu **jüngstem** Zugriff.
+
+Ablauf:
+
+* Bei einem **Treffer (Hit)** wird die Seite in `lru_order` nach hinten verschoben (neuester Zugriff).
+* Bei einem **Seitenfehler (Fault)**:
+
+  * Wenn Platz frei ist → Seite wird einfach geladen.
+  * Wenn kein Platz mehr frei ist → Die Seite ganz vorne in `lru_order` wird entfernt (am längsten unbenutzt) und im Rahmen ersetzt.
+
+**Beispielaufruf**:
+
+```bash
+python lru_sim.py 3 7 0 1 2 0 3 0 4 2 3
+```
+
+Der erste Input ist die Anzahl der Rahmen und die restlichen Zahlen stellen die Referenzfolge dar.
+
+**Hinweis**:
+
+Die Implementierung nutzt bewusst nur grundlegende Datenstrukturen (`list`), um die LRU-Logik transparent und nachvollziehbar zu gestalten. Für größere Datenmengen könnten effizientere Strukturen wie `collections.OrderedDict` verwendet werden.
+
+**Ausgabelogs für Referenzfolgen A und B**:
+
+* **A**:
+  
+  ```bash
+  A="7 0 1 2 0 3 0 4 2 3 0 3 2 1 2 0 1 7 0 1"
+  python lru_sim.py 3 $A
+  ```
+
+  **output** (auch im ZIP als A-log.txt enthalten):
+
+  ```bash
+  Step  1: Page  7 → Fault  | Frames: [7]
+  Step  2: Page  0 → Fault  | Frames: [7, 0]
+  Step  3: Page  1 → Fault  | Frames: [7, 0, 1]
+  Step  4: Page  2 → Fault  | Frames: [2, 0, 1]
+  Step  5: Page  0 → Hit    | Frames: [2, 0, 1]
+  Step  6: Page  3 → Fault  | Frames: [2, 0, 3]
+  Step  7: Page  0 → Hit    | Frames: [2, 0, 3]
+  Step  8: Page  4 → Fault  | Frames: [4, 0, 3]
+  Step  9: Page  2 → Fault  | Frames: [4, 0, 2]
+  Step 10: Page  3 → Fault  | Frames: [4, 3, 2]
+  Step 11: Page  0 → Fault  | Frames: [0, 3, 2]
+  Step 12: Page  3 → Hit    | Frames: [0, 3, 2]
+  Step 13: Page  2 → Hit    | Frames: [0, 3, 2]
+  Step 14: Page  1 → Fault  | Frames: [1, 3, 2]
+  Step 15: Page  2 → Hit    | Frames: [1, 3, 2]
+  Step 16: Page  0 → Fault  | Frames: [1, 0, 2]
+  Step 17: Page  1 → Hit    | Frames: [1, 0, 2]
+  Step 18: Page  7 → Fault  | Frames: [1, 0, 7]
+  Step 19: Page  0 → Hit    | Frames: [1, 0, 7]
+  Step 20: Page  1 → Hit    | Frames: [1, 0, 7]
+  ```
+
+* **B**:
+
+   ```bash
+   B="2 3 2 1 5 2 4 5 3 2 5 2"
+   python lru_sim.py 3 $B
+   ```
+
+   **output** (auch zim als B-log.txt enthalten):
+
+   ```bash
+   Step  1: Page  2 → Fault  | Frames: [2]
+   Step  2: Page  3 → Fault  | Frames: [2, 3]
+   Step  3: Page  2 → Hit    | Frames: [2, 3]
+   Step  4: Page  1 → Fault  | Frames: [2, 3, 1]
+   Step  5: Page  5 → Fault  | Frames: [2, 5, 1]
+   Step  6: Page  2 → Hit    | Frames: [2, 5, 1]
+   Step  7: Page  4 → Fault  | Frames: [2, 5, 4]
+   Step  8: Page  5 → Hit    | Frames: [2, 5, 4]
+   Step  9: Page  3 → Fault  | Frames: [3, 5, 4]
+   Step 10: Page  2 → Fault  | Frames: [3, 5, 2]
+   Step 11: Page  5 → Hit    | Frames: [3, 5, 2]
+   Step 12: Page  2 → Hit    | Frames: [3, 5, 2]
+   ```
+
+
+## Aufgabe 4
+
+a) Im Worst Case sind alle 20 Prozesse aktiv und belegen jeweils den gesamten virtuellen Adressraum des IA32-Systems. Bei einer Seitengröße von 4 KiB ergibt sich für jeden Prozess eine Seitentabelle mit
+   
+   $$
+   \frac{2^{32}}{2^{12}} = 2^{20} = 1{.}048{.}576 \text{ Seiten}
+   $$
+   
+   Insgesamt müssen also
+   
+   $$
+   20 \times 2^{20} = 20{.}971{.}520 \text{ Seiteneinträge}
+   $$
+   
+   betrachtet werden. Da laut Aufgabenstellung das Lesen und Zurücksetzen des R-Bits pro Eintrag im Mittel 10 Taktzyklen benötigt, ergibt sich ein Gesamtaufwand von
+   
+   $$
+   20{.}971{.}520 \times 10 = 209{.}715{.}200 \text{ Taktzyklen}
+   $$
+   
+   Bei einem Prozessor mit 1 GHz Taktfrequenz entspricht das einer Zeitdauer von
+   
+   $$
+   \frac{209{.}715{.}200}{1{.}000{.}000{.}000} = 0{,}2097\ \text{Sekunden} \approx 210\ \text{ms}
+   $$
+   
+   Im Worst Case benötigt das System also rund **210 ms pro Epoche**, um alle R-Bits der Seitentabellen zu überprüfen und zurückzusetzen.
+
+
+b) Damit das regelmäßige Scannen der R-Bits die Gesamtleistung des Systems nicht spürbar beeinträchtigt, sollte die Epochendauer so gewählt werden, dass der dabei entstehende Rechenaufwand nur einen kleinen Teil der Zeit ausmacht. Eine sinnvolle Faustregel ist, dass **der Verwaltungsaufwand maximal etwa 10 % der gesamten Rechenzeit** betragen sollte.
+
+   Wenn das Scannen der R-Bits im Worst Case rund 210 ms dauert, ergibt sich daraus eine minimale sinnvolle Epochendauer von:
+   
+   $$
+   \frac{210\ \text{ms}}{0{,}1} = 2100\ \text{ms}
+   $$
+   
+   Eine Epoche von etwa **2 Sekunden** ist somit eine sinnvolle Wahl. Dadurch bleibt der relative Aufwand für die Speicherverwaltung auch im ungünstigsten Fall moderat. In der Praxis würde dieser Aufwand meist noch deutlich geringer ausfallen, da typischerweise weniger Prozesse aktiv sind und nicht alle Seitentabellen vollständig gefüllt sind.
+
+
+
+## Aufgabe 5
+
+Ja, eine Seite kann gleichzeitig zu mehreren Working Sets gehören, allerdings nur, wenn es sich um eine gemeinsam genutzte Seite handelt (zum Beispiel bei Shared Memory oder gemappten Dateien) und sie von jedem der betreffenden Prozesse kürzlich verwendet wurde.
+Da das Working Set prozessbezogen ist, enthält es nur Seiten, die der jeweilige Prozess innerhalb des festgelegten Zeitfensters selbst genutzt hat. Wird eine geteilte Seite von mehreren Prozessen aktiv verwendet, so gehört sie gleichzeitig zu den Working Sets dieser Prozesse.
+
+## Aufgabe 6
+
+
+**Problemstellung**
+
+Gegeben ist:
+
+* eine Referenzfolge von Seitenzugriffen (z. B. als Datei gespeichert),
+* eine natürliche Zahl ∆ (Delta), die die Größe des betrachteten Fensters angibt.
+
+Gesucht ist:
+
+> Ein größtes Working Set, d. h. eine Menge von Seiten, die in einem **beliebigen** Fenster der letzten ∆ Speicherzugriffe aufgetreten sind, wobei das Fenster über die gesamte Referenzfolge verschoben wird.
+
+Das Ziel ist also nicht das Working Set **am Ende** der Referenzfolge, sondern das Working Set, das an **irgendeiner Stelle** die **größte Anzahl unterschiedlicher Seiten** enthält.
+
+**Pseudocode**:
+
+```python
+funktion berechne_groesstes_working_set(delta, dateiname):
+    initialisiere leere Liste window
+    initialisiere leere Hashtabelle page_count
+    initialisiere leere Menge current_ws
+    initialisiere leere Menge max_ws_snapshot
+
+    lese Inhalt der Datei mit Dateiname in ein Array pageAccesses ein
+
+    für jede Seite page in pageAccesses:
+        // Seite zum Fenster hinzufügen
+        window.append(page)
+        falls page nicht in page_count:
+            page_count[page] = 1
+            current_ws.add(page)
+        sonst:
+            page_count[page] += 1
+
+        // Wenn das Fenster zu groß wird, älteste Seite entfernen
+        falls window.größe > delta:
+            oldest = window.pop_links()
+            page_count[oldest] -= 1
+            falls page_count[oldest] == 0:
+                entferne page_count[oldest]
+                current_ws.remove(oldest)
+
+        // Maximales Working Set ggf. aktualisieren
+        falls current_ws.größe > max_ws_snapshot.größe:
+            max_ws_snapshot = kopie_von(current_ws)
+
+    gib max_ws_snapshot aus
+```
+
+**Verwendete Datenstrukturen und Variablen**:
+
+| Name              | Typ                          | Beschreibung                                                        |
+| ----------------- | ---------------------------- | ------------------------------------------------------------------- |
+| `window`          | Warteschlange / Liste        | Enthält die letzten ∆ Seitenzugriffe                                |
+| `page_count`      | Hashtabelle (Seite → Anzahl) | Speichert, wie oft jede Seite im aktuellen Fenster vorkommt         |
+| `current_ws`      | Menge (Set)                  | Enthält die aktuell im Fenster vorhandenen unterschiedlichen Seiten |
+| `max_ws_snapshot` | Menge (Set)                  | Enthält ein Working Set mit der maximalen bisher gefundenen Größe   |
+
+### Beispielausührung
+
+**Eingabeparameter:**
+
+* ∆ = 5
+* Referenzfolge (z. B. in Datei gespeichert):
+
+```
+1
+2
+3
+4
+2
+1
+5
+2
+6
+7
+2
+3
+```
+
+**Schritt-für-Schritt-Auswertung**:
+
+Wir verschieben ein Fenster der Größe 5 über die Folge und bestimmen dabei das Working Set (WS), also die Menge der **verschiedenen** Seiten im aktuellen Fenster.
+
+| Fenster (Position) | Fensterinhalt    | Aktuelles WS    | Größe | Größtes WS bisher     |
+| ------------------ | ---------------- | --------------- | ----- | --------------------- |
+| 1–5                | \[1, 2, 3, 4, 2] | {1, 2, 3, 4}    | 4     | {1, 2, 3, 4}          |
+| 2–6                | \[2, 3, 4, 2, 1] | {1, 2, 3, 4}    | 4     | —                     |
+| 3–7                | \[3, 4, 2, 1, 5] | {1, 2, 3, 4, 5} | 5     | **{1, 2, 3, 4, 5}**  |
+| 4–8                | \[4, 2, 1, 5, 2] | {1, 2, 4, 5}    | 4     | —                     |
+| 5–9                | \[2, 1, 5, 2, 6] | {1, 2, 5, 6}    | 4     | —                     |
+| 6–10               | \[1, 5, 2, 6, 7] | {1, 2, 5, 6, 7} | 5     | — (ebenfalls max.)    |
+| 7–11               | \[5, 2, 6, 7, 2] | {2, 5, 6, 7}    | 4     | —                     |
+| 8–12               | \[2, 6, 7, 2, 3] | {2, 3, 6, 7}    | 4     | —                     |
+
+
+**Ausgabe des Programms**:
+
+Das Programm gibt eines der größten Working Sets aus, z. B.:
+
+```plaintext
+{1, 2, 3, 4, 5}
+```
+
+Größe = 5
+
+Das entspricht der ersten Stelle im Verlauf, an der ein Fenster mit 5 verschiedenen Seiten auftritt.
