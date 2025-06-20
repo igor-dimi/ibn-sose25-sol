@@ -13,6 +13,7 @@ book:
     - sh04/04.qmd
     - sh05/05.qmd
     - sh06/06.qmd
+    - sh08/08.qmd
   downloads: ["pdf"]
   page-navigation: true
 

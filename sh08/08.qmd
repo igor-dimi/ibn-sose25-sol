@@ -1,0 +1,113 @@
+---
+title: Blatt 8
+---
+
+## Aufgabe 1
+
+a) **Allgemeiner Beweis: Es kann kein Deadlock auftreten**
+  
+   Gegeben sind:
+   
+   * Ein Ressourcentyp mit insgesamt $E = 4$ Instanzen,
+   * Drei Prozesse $P_1, P_2, P_3$,
+   * Jeder Prozess kann maximal 2 Instanzen der Ressource anfordern.
+   
+   Sei $C_i$ die Anzahl der aktuell einem Prozess $P_i$ zugeteilten Ressourceninstanzen, und $R_i$ der verbleibende Bedarf, so dass gilt:
+   
+   $$
+   C_i + R_i \leq 2 \quad \text{für alle } i = 1, 2, 3
+   $$
+   
+   und
+   
+   $$
+   \sum_{i=1}^{3} C_i \leq 4
+   $$
+   
+   Es soll gezeigt werden, dass **unter diesen Bedingungen kein Deadlock entstehen kann**.
+   
+   **Fall 1: Mindestens ein Prozess wartet nicht**
+   Falls für ein $i$ gilt: $R_i = 0$, dann kann $P_i$ sofort fertigstellen und bis zu 2 Ressourcen freigeben. Dadurch erhöht sich die Anzahl der verfügbaren Instanzen $A$, was anderen wartenden Prozessen die Fortsetzung erlaubt. Durch Induktion führt dies zu einer vollständigen Abarbeitung aller Prozesse. Ein Deadlock ist somit ausgeschlossen.
+   
+   **Fall 2: Alle Prozesse warten auf Ressourcen**
+   Angenommen, jeder Prozess hält mindestens eine Instanz und fordert eine weitere an, also:
+   
+   $$
+   C = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}, \quad
+   R = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}, \quad
+   A = \begin{bmatrix} 1 \end{bmatrix}
+   $$
+   
+   Dies ist die **kritischste zulässige Konfiguration**: Alle 4 Ressourcen sind verteilt (3 belegt, 1 frei), und jeder Prozess wartet auf eine weitere Instanz.
+   
+   In diesem Fall kann das System dennoch einer Anfrage (z. B. von $P_1$) nachkommen, sodass dieser Prozess abschließen kann. Danach gibt er seine 2 gehaltenen Ressourcen frei, und $A$ steigt auf 3. Damit können die verbleibenden Prozesse nacheinander ebenfalls fertigstellen. Es kommt also **auch im schlimmsten Fall nicht zu einem Deadlock**.
+   
+   **Schlussfolgerung**
+   In allen gültigen Konfigurationen – ob mindestens ein Prozess direkt fertigstellen kann oder alle warten – hat das System stets genug Ressourcen, um zumindest einem Prozess die Beendigung zu ermöglichen. Dadurch ist Fortschritt immer möglich, und eine zirkuläre Wartebedingung kann nie entstehen. Es folgt: **Ein Deadlock ist unter den gegebenen Voraussetzungen ausgeschlossen.**
+
+b) **Aufgabe 1b – Beispiel mit erfüllten Deadlock-Bedingungen, aber ohne Deadlock**
+  
+   Dieses Beispiel stammt direkt aus den Vorlesungsfolien und illustriert eine Systemkonfiguration, in der **alle vier notwendigen Coffman-Bedingungen für einen Deadlock erfüllt sind**, jedoch **kein Deadlock vorliegt**. Der Bankieralgorithmus bestätigt, dass der Zustand sicher ist.
+  
+   **Systemdefinition**
+   
+   **Ressourcentypen:** $R_1$ und $R_2$
+   **Gesamtressourcenvektor:** $E = (2, 2)$
+   **Verfügbarkeitsvektor:** $A = (0, 0)$
+   
+   Alle Ressourcen sind momentan vollständig vergeben.
+   
+   **Zuteilungsmatrix $C$:**
+   
+   $$
+   C = \begin{bmatrix}
+   0 & 1 \\
+   1 & 0 \\
+   1 & 0 \\
+   0 & 1
+   \end{bmatrix}
+   $$
+   
+   $P_1$ hält $R_2$, $P_2$ und $P_3$ halten jeweils $R_1$, $P_4$ hält $R_2$.
+   
+   **Anforderungsmatrix $R$:**
+   
+   $$
+   R = \begin{bmatrix}
+   1 & 0 \\
+   0 & 0 \\
+   0 & 1 \\
+   0 & 0
+   \end{bmatrix}
+   $$
+   
+   $P_1$ fordert $R_1$, $P_3$ fordert $R_2$.
+   
+   **Überprüfung der Coffman-Bedingungen**
+   
+   **1. Wechselseitiger Ausschluss:** Ressourcen können nicht gemeinsam genutzt werden.
+   **2. Hold-and-Wait:** Prozesse halten Ressourcen und fordern weitere an (z. B. $P_1$ hält $R_2$, fordert $R_1$).
+   **3. Keine Präemption:** Ressourcen können Prozessen nicht zwangsweise entzogen werden.
+   **4. Zyklisches Warten:** Es existiert ein Zyklus im Ressourcen-Wartegraphen:
+   $P_1 \rightarrow R_1 \rightarrow P_3 \rightarrow R_2 \rightarrow P_1$.
+   
+   → **Alle vier Bedingungen sind erfüllt.**
+   
+   **Anwendung des Bankieralgorithmus**
+   
+   | Schritt | Prozess $i$ | $R_i$  | Verfügbar $A$ | Belegt $C_i$ | Markierte Prozesse (P1, P2, P3, P4) |
+   | ------: | ----------- | ------ | ------------- | ------------ | ----------------------------------- |
+   |       1 | 1           | (1, 0) | (0, 0)        | (0, 1)       | × × × ×                             |
+   |       2 | 2           | (0, 0) | (0, 0)        | (1, 0)       | × ✓ × ×                             |
+   |       3 | 3           | (0, 1) | (1, 0)        | (1, 0)       | × ✓ × ×                             |
+   |       4 | 4           | (0, 0) | (1, 0)        | (0, 1)       | × ✓ × ✓                             |
+   |       5 | 1           | (1, 0) | (1, 1)        | (0, 1)       | ✓ ✓ × ✓                             |
+   |       6 | 3           | (0, 1) | (1, 2)        | (1, 0)       | ✓ ✓ ✓ ✓                             |
+   
+   Nach jedem Schritt wird der Verfügbarkeitsvektor $A$ aktualisiert, sobald ein markierter Prozess seine gehaltenen Ressourcen freigibt. Am Ende sind alle Prozesse markiert → der Zustand ist **sicher**.
+   
+   **Schlussfolgerung**
+   
+   Trotz erfüllter Coffman-Bedingungen und zyklischer Abhängigkeiten liegt **kein Deadlock vor**, da der Bankieralgorithmus eine vollständige Abarbeitungsreihenfolge findet. Dieses Beispiel erfüllt somit exakt die Aufgabenstellung: Ein System mit potenzieller Deadlock-Struktur, das sich jedoch als sicher herausstellt.
+ 
+ 
