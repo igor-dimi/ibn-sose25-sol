@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Igor Dimitrov">
-<meta name="dcterms.date" content="2024-12-18">
 
-<title>Operating Systems and Networs SoSe 25 Solutions</title>
+<title>8&nbsp; Blatt 8 – Operating Systems and Networs SoSe 25 Solutions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -25,24 +23,24 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<link href="./sh01/01.html" rel="next">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d558773541b75318fdba2db46f940219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../sh07/07.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-d558773541b75318fdba2db46f940219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -71,6 +69,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -83,7 +110,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Preface</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../sh08/08.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Blatt 8</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -98,9 +125,9 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">Operating Systems and Networs SoSe 25 Solutions</a> 
+      <a href="../">Operating Systems and Networs SoSe 25 Solutions</a> 
         <div class="sidebar-tools-main">
-    <a href="./Operating-Systems-and-Networs-SoSe-25-Solutions.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
+    <a href="../Operating-Systems-and-Networs-SoSe-25-Solutions.pdf" title="Download PDF" class="quarto-navigation-tool px-1" aria-label="Download PDF"><i class="bi bi-file-pdf"></i></a>
 </div>
     </div>
       </div>
@@ -113,55 +140,55 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
+  <a href="../index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Preface</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh01/01.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh01/01.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh02/02.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh02/02.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Blatt 02</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh03/03.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh03/03.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Blatt 03</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh04/04.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh04/04.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Blatt 04</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh05/05.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh05/05.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Blatt 05</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh06/06.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh06/06.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Blatt 06</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh07/07.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh07/07.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Blatt 07</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./sh08/08.html" class="sidebar-item-text sidebar-link">
+  <a href="../sh08/08.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Blatt 8</span></span></a>
   </div>
 </li>
@@ -175,7 +202,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#preface" id="toc-preface" class="nav-link active" data-scroll-target="#preface">Preface</a></li>
+  <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
   </ul>
 </nav>
     </div>
@@ -184,26 +211,14 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Operating Systems and Networs SoSe 25 Solutions</h1>
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Blatt 8</span></h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>Igor Dimitrov </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">December 18, 2024</p>
-    </div>
-  </div>
   
     
   </div>
@@ -213,8 +228,138 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="preface" class="level1 unnumbered">
-<h1 class="unnumbered">Preface</h1>
+<section id="aufgabe-1" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-1">Aufgabe 1</h2>
+<ol type="a">
+<li><p><strong>Allgemeiner Beweis: Es kann kein Deadlock auftreten</strong></p>
+<p>Gegeben sind:</p>
+<ul>
+<li>Ein Ressourcentyp mit insgesamt <span class="math inline">\(E = 4\)</span> Instanzen,</li>
+<li>Drei Prozesse <span class="math inline">\(P_1, P_2, P_3\)</span>,</li>
+<li>Jeder Prozess kann maximal 2 Instanzen der Ressource anfordern.</li>
+</ul>
+<p>Sei <span class="math inline">\(C_i\)</span> die Anzahl der aktuell einem Prozess <span class="math inline">\(P_i\)</span> zugeteilten Ressourceninstanzen, und <span class="math inline">\(R_i\)</span> der verbleibende Bedarf, so dass gilt:</p>
+<p><span class="math display">\[
+C_i + R_i \leq 2 \quad \text{für alle } i = 1, 2, 3
+\]</span></p>
+<p>und</p>
+<p><span class="math display">\[
+\sum_{i=1}^{3} C_i \leq 4
+\]</span></p>
+<p>Es soll gezeigt werden, dass <strong>unter diesen Bedingungen kein Deadlock entstehen kann</strong>.</p>
+<p><strong>Fall 1: Mindestens ein Prozess wartet nicht</strong> Falls für ein <span class="math inline">\(i\)</span> gilt: <span class="math inline">\(R_i = 0\)</span>, dann kann <span class="math inline">\(P_i\)</span> sofort fertigstellen und bis zu 2 Ressourcen freigeben. Dadurch erhöht sich die Anzahl der verfügbaren Instanzen <span class="math inline">\(A\)</span>, was anderen wartenden Prozessen die Fortsetzung erlaubt. Durch Induktion führt dies zu einer vollständigen Abarbeitung aller Prozesse. Ein Deadlock ist somit ausgeschlossen.</p>
+<p><strong>Fall 2: Alle Prozesse warten auf Ressourcen</strong> Angenommen, jeder Prozess hält mindestens eine Instanz und fordert eine weitere an, also:</p>
+<p><span class="math display">\[
+C = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}, \quad
+R = \begin{bmatrix} 1 \\ 1 \\ 1 \end{bmatrix}, \quad
+A = \begin{bmatrix} 1 \end{bmatrix}
+\]</span></p>
+<p>Dies ist die <strong>kritischste zulässige Konfiguration</strong>: Alle 4 Ressourcen sind verteilt (3 belegt, 1 frei), und jeder Prozess wartet auf eine weitere Instanz.</p>
+<p>In diesem Fall kann das System dennoch einer Anfrage (z. B. von <span class="math inline">\(P_1\)</span>) nachkommen, sodass dieser Prozess abschließen kann. Danach gibt er seine 2 gehaltenen Ressourcen frei, und <span class="math inline">\(A\)</span> steigt auf 3. Damit können die verbleibenden Prozesse nacheinander ebenfalls fertigstellen. Es kommt also <strong>auch im schlimmsten Fall nicht zu einem Deadlock</strong>.</p>
+<p><strong>Schlussfolgerung</strong> In allen gültigen Konfigurationen – ob mindestens ein Prozess direkt fertigstellen kann oder alle warten – hat das System stets genug Ressourcen, um zumindest einem Prozess die Beendigung zu ermöglichen. Dadurch ist Fortschritt immer möglich, und eine zirkuläre Wartebedingung kann nie entstehen. Es folgt: <strong>Ein Deadlock ist unter den gegebenen Voraussetzungen ausgeschlossen.</strong></p></li>
+<li><p><strong>Aufgabe 1b – Beispiel mit erfüllten Deadlock-Bedingungen, aber ohne Deadlock</strong></p>
+<p>Dieses Beispiel stammt direkt aus den Vorlesungsfolien und illustriert eine Systemkonfiguration, in der <strong>alle vier notwendigen Coffman-Bedingungen für einen Deadlock erfüllt sind</strong>, jedoch <strong>kein Deadlock vorliegt</strong>. Der Bankieralgorithmus bestätigt, dass der Zustand sicher ist.</p>
+<p><strong>Systemdefinition</strong></p>
+<p><strong>Ressourcentypen:</strong> <span class="math inline">\(R_1\)</span> und <span class="math inline">\(R_2\)</span> <strong>Gesamtressourcenvektor:</strong> <span class="math inline">\(E = (2, 2)\)</span> <strong>Verfügbarkeitsvektor:</strong> <span class="math inline">\(A = (0, 0)\)</span></p>
+<p>Alle Ressourcen sind momentan vollständig vergeben.</p>
+<p><strong>Zuteilungsmatrix <span class="math inline">\(C\)</span>:</strong></p>
+<p><span class="math display">\[
+C = \begin{bmatrix}
+0 &amp; 1 \\
+1 &amp; 0 \\
+1 &amp; 0 \\
+0 &amp; 1
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(P_1\)</span> hält <span class="math inline">\(R_2\)</span>, <span class="math inline">\(P_2\)</span> und <span class="math inline">\(P_3\)</span> halten jeweils <span class="math inline">\(R_1\)</span>, <span class="math inline">\(P_4\)</span> hält <span class="math inline">\(R_2\)</span>.</p>
+<p><strong>Anforderungsmatrix <span class="math inline">\(R\)</span>:</strong></p>
+<p><span class="math display">\[
+R = \begin{bmatrix}
+1 &amp; 0 \\
+0 &amp; 0 \\
+0 &amp; 1 \\
+0 &amp; 0
+\end{bmatrix}
+\]</span></p>
+<p><span class="math inline">\(P_1\)</span> fordert <span class="math inline">\(R_1\)</span>, <span class="math inline">\(P_3\)</span> fordert <span class="math inline">\(R_2\)</span>.</p>
+<p><strong>Überprüfung der Coffman-Bedingungen</strong></p>
+<p><strong>1. Wechselseitiger Ausschluss:</strong> Ressourcen können nicht gemeinsam genutzt werden. <strong>2. Hold-and-Wait:</strong> Prozesse halten Ressourcen und fordern weitere an (z. B. <span class="math inline">\(P_1\)</span> hält <span class="math inline">\(R_2\)</span>, fordert <span class="math inline">\(R_1\)</span>). <strong>3. Keine Präemption:</strong> Ressourcen können Prozessen nicht zwangsweise entzogen werden. <strong>4. Zyklisches Warten:</strong> Es existiert ein Zyklus im Ressourcen-Wartegraphen: <span class="math inline">\(P_1 \rightarrow R_1 \rightarrow P_3 \rightarrow R_2 \rightarrow P_1\)</span>.</p>
+<p>→ <strong>Alle vier Bedingungen sind erfüllt.</strong></p>
+<p><strong>Anwendung des Bankieralgorithmus</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 13%">
+<col style="width: 7%">
+<col style="width: 15%">
+<col style="width: 14%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Schritt</th>
+<th>Prozess <span class="math inline">\(i\)</span></th>
+<th><span class="math inline">\(R_i\)</span></th>
+<th>Verfügbar <span class="math inline">\(A\)</span></th>
+<th>Belegt <span class="math inline">\(C_i\)</span></th>
+<th>Markierte Prozesse (P1, P2, P3, P4)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td>1</td>
+<td>(1, 0)</td>
+<td>(0, 0)</td>
+<td>(0, 1)</td>
+<td>× × × ×</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td>2</td>
+<td>(0, 0)</td>
+<td>(0, 0)</td>
+<td>(1, 0)</td>
+<td>× ✓ × ×</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td>3</td>
+<td>(0, 1)</td>
+<td>(1, 0)</td>
+<td>(1, 0)</td>
+<td>× ✓ × ×</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td>4</td>
+<td>(0, 0)</td>
+<td>(1, 0)</td>
+<td>(0, 1)</td>
+<td>× ✓ × ✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td>1</td>
+<td>(1, 0)</td>
+<td>(1, 1)</td>
+<td>(0, 1)</td>
+<td>✓ ✓ × ✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td>3</td>
+<td>(0, 1)</td>
+<td>(1, 2)</td>
+<td>(1, 0)</td>
+<td>✓ ✓ ✓ ✓</td>
+</tr>
+</tbody>
+</table>
+<p>Nach jedem Schritt wird der Verfügbarkeitsvektor <span class="math inline">\(A\)</span> aktualisiert, sobald ein markierter Prozess seine gehaltenen Ressourcen freigibt. Am Ende sind alle Prozesse markiert → der Zustand ist <strong>sicher</strong>.</p>
+<p><strong>Schlussfolgerung</strong></p>
+<p>Trotz erfüllter Coffman-Bedingungen und zyklischer Abhängigkeiten liegt <strong>kein Deadlock vor</strong>, da der Bankieralgorithmus eine vollständige Abarbeitungsreihenfolge findet. Dieses Beispiel erfüllt somit exakt die Aufgabenstellung: Ein System mit potenzieller Deadlock-Struktur, das sich jedoch als sicher herausstellt.</p></li>
+</ol>
 
 
 </section>
@@ -621,11 +766,11 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
+      <a href="../sh07/07.html" class="pagination-link" aria-label="Blatt 07">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Blatt 07</span></span>
+      </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./sh01/01.html" class="pagination-link" aria-label="Blatt 01">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Blatt 01</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

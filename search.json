@@ -428,5 +428,125 @@
     "crumbs": [
       "<span class='chapter-number'>6</span>  <span class='chapter-title'>Blatt 06</span>"
     ]
+  },
+  {
+    "objectID": "sh07/07.html",
+    "href": "sh07/07.html",
+    "title": "7  Blatt 07",
+    "section": "",
+    "text": "Aufgabe 1",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-1",
+    "href": "sh07/07.html#aufgabe-1",
+    "title": "7  Blatt 07",
+    "section": "",
+    "text": "Vorteil von Hard Links: Bleiben gültig, auch wenn die Originaldatei gelöscht wird, da sie direkt auf die Inode verweisen.\nVorteil von Soft Links: Können Dateien über verschiedene Dateisysteme hinweg verlinken, da sie den Pfad statt der Inode speichern.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-2",
+    "href": "sh07/07.html#aufgabe-2",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 2",
+    "text": "Aufgabe 2",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-3",
+    "href": "sh07/07.html#aufgabe-3",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 3",
+    "text": "Aufgabe 3\n\nAnalogien:\n\nlogische Seiten (logische Adressen) ↔︎ Datei-Block-Offsets (logische Datei-Adressen) : Eine logische Adresse besteht aus einer Seitennummer und einem Offset innerhalb der Seite; ebenso wird eine Datei über Blocknummer und Offset adressiert. Beide sind abstrakte Adressen, die auf reale Speicherorte abgebildet werden.\nphysische Frames (physische Adressen) ↔︎ Festplattenblöcke : Ein Frame im RAM und ein Block auf der Festplatte sind physische Einheiten fester Größe (z. B. 4 KB), in denen tatsächliche Daten gespeichert werden.\nFrame-Nummer ↔︎ Blocknummer : Die Seitentabelle enthält Frame-Nummern (Index im physischen RAM); der i-node enthält Blocknummern (Index auf der Festplatte). Beide zeigen, wo genau sich die Daten physisch befinden.\nSeitentabelle ↔︎ i-node : Die Seitentabelle eines Prozesses ordnet virtuelle Seiten physischen Frames zu; der i-node einer Datei ordnet logische Blöcke physischen Festplattenblöcken zu. Beide sind zentrale Strukturen für die Adressübersetzung.\n\nDas Problem der übergroßen Seitentabellen entspricht bei I-Nodes dem Problem, dass große Dateien nicht allein mit direkten Blockzeigern adressiert werden können, da die I-Nodes sonst zu groß würden. Die Lösung ist in beiden Fällen ähnlich: Hierarchische Seitentabellen in der Speicherverwaltung entsprechen ein- oder mehrstufigen indirekten Blöcken bei I-Nodes. Welche Form der „Seitentabelle“ (direkt oder indirekt) verwendet wird, hängt bei I-Nodes von der Dateigröße ab – kleine Dateien nutzen nur direkte Zeiger, große benötigen zusätzliche Indirektion.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-4",
+    "href": "sh07/07.html#aufgabe-4",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 4",
+    "text": "Aufgabe 4\nJeder Zeiger adressiert Blöcke der Größe 1024 Byte, und jede Blockadresse belegt 4 Byte.\nDie 14 direkten Zeiger verweisen direkt auf Datenblöcke und ermöglichen somit den Zugriff auf 14 × 1024 = 14.336 Byte.\nJeder der beiden indirekten Zeiger zeigt auf einen weiteren Block, der ausschließlich Blockadressen enthält. Da ein Block 1024 Byte groß ist und jede Adresse 4 Byte belegt, passen 1024 / 4 = 256 Adressen in einen solchen Block. Diese 256 Adressen verweisen jeweils auf Datenblöcke zu je 1024 Byte, sodass pro indirektem Zeiger 256 × 1024 = 262.144 Byte adressiert werden können. Zwei indirekte Zeiger ergeben somit 2 × 262.144 = 524.288 Byte.\nDie maximale Dateigröße beträgt daher 14.336 + 524.288 = 538.624 Byte \\(\\approx\\) 0.5 MB.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-5",
+    "href": "sh07/07.html#aufgabe-5",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 5",
+    "text": "Aufgabe 5\nZur Auflösung des Pfades /usr/aa/lehre/ibn/ueb7-ibn-2017.pdf müssen nacheinander die Verzeichniseinträge gelesen und die entsprechenden I-Nodes geladen werden. Der Pfad besteht aus fünf Komponenten: usr, aa, lehre, ibn und ueb7-ibn-2017.pdf.\nDa der I-Node des Wurzelverzeichnisses bereits im Hauptspeicher liegt, entfällt dafür eine Operation. Für jede der übrigen Komponenten müssen jedoch:\n\nDer Plattenblock des Verzeichnisses gelesen werden (um den Dateinamen → I-Node-Nummer zu finden),\nDer entsprechende I-Node geladen werden (um zum nächsten Element zu gelangen).\n\nSomit fallen für jede der 5 Komponenten 2 Plattenoperationen an: einmal Lesen des Verzeichnisblocks, einmal Lesen des I-Nodes.\n\\(\\Rightarrow\\) Es werden insgesamt 5 × 2 = 10 Plattenoperationen benötigt.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-6",
+    "href": "sh07/07.html#aufgabe-6",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 6",
+    "text": "Aufgabe 6\n\nDie Drehzahl beträgt 1500 Umdrehungen pro Minute, also dauert eine vollständige Umdrehung 60 s / 1500 = 0,04 s = 40 ms. Da die mittlere Drehlatenz einer halben Umdrehung entspricht, ergibt sich 40 ms / 2 = 20 ms. Die mittlere Drehlatenz beträgt somit 20 Millisekunden.\nUm diese Aufgabe zu lösen, gilt: Die durchschnittliche Zugriffszeit ergibt sich aus der Summe von mittlerer Spurwechselzeit und mittlerer Drehlatenz.\nGegeben ist eine mittlere Spurwechselzeit von 85 ms und eine mittlere Drehlatenz von 20 ms. Damit ergibt sich eine durchschnittliche Zugriffszeit von 85 ms + 20 ms = 105 ms.\nFür den Zugriff auf 10 unabhängig und zufällig ausgewählte Datenblöcke ergibt sich eine mittlere Gesamtdauer von 10 × 105 ms = 1050 ms = 1,05 s.\nGegeben ist eine mittlere Drehlatenz von 8,333 ms. Da dies der Hälfte einer Umdrehung entspricht, dauert eine vollständige Umdrehung 2 × 8,333 ms = 16,666 ms.\nDie Anzahl der Umdrehungen pro Sekunde beträgt daher 1 s / 0,016666 s ≈ 60. Das entspricht 60 Umdrehungen pro Sekunde bzw. 60 × 60 = 3600 U/min.\nDie Platten drehten sich also mit 3600 Umdrehungen pro Minute.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-7",
+    "href": "sh07/07.html#aufgabe-7",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 7",
+    "text": "Aufgabe 7\nWir haben:\n\nZylinderbereich: 0 bis 4999\nStartposition: Kopf ist aktuell bei 143, kam gerade von 125 (d. h. aktuelle Bewegungsrichtung ist aufwärts)\nAnfragen in Ankunftsreihenfolge: 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130\n\nWir berechnen nun für jeden Algorithmus:\n\nReihenfolge der bedienten Zylinder\nGesamte Bewegung des Kopfes (in Zylindern)\n\n\nFCFS (First-Come, First-Serve)\nVerarbeitung in Ankunftsreihenfolge, egal wie weit entfernt:\n\nStart bei 143\nFolge: 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130\n\nBerechnung der Bewegungen:\n\n|143 - 86| = 57\n|86 - 1470| = 1384\n|1470 - 913| = 557\n|913 - 1774| = 861\n|1774 - 948| = 826\n|948 - 1509| = 561\n|1509 - 1022| = 487\n|1022 - 1750| = 728\n|1750 - 130| = 1620\n\nSumme: 57 + 1384 + 557 + 861 + 826 + 561 + 487 + 728 + 1620 = 7081 Zylinder\n\n\nSSTF (Shortest Seek Time First)\nHier wird immer die nächstgelegene Anfrage (bezogen auf aktuelle Kopfposition) bedient.\n\nStartposition: 143\nOffene Anfragen: 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130\n\nWir wählen immer den nächstgelegenen Zylinder zur aktuellen Position. Schritte:\n\nAktuell bei 143 Nächster: 130 (|143–130| = 13)\n→ neue Position: 130\nÜbrig: 86, 1470, 913, 1774, 948, 1509, 1022, 1750\nAktuell bei 130\nNächster: 86 (|130–86| = 44)\n→ neue Position: 86\nÜbrig: 1470, 913, 1774, 948, 1509, 1022, 1750\nAktuell bei 86\nNächster: 913 (|86–913| = 827)\n→ neue Position: 913\nÜbrig: 1470, 1774, 948, 1509, 1022, 1750\nAktuell bei 913\nNächster: 948 (|913–948| = 35)\n→ neue Position: 948\nÜbrig: 1470, 1774, 1509, 1022, 1750\nAktuell bei 948\nNächster: 1022 (|948–1022| = 74)\n→ neue Position: 1022\nÜbrig: 1470, 1774, 1509, 1750\nAktuell bei 1022\nNächster: 1470 (|1022–1470| = 448)\n→ neue Position: 1470\nÜbrig: 1774, 1509, 1750\nAktuell bei 1470\nNächster: 1509 (|1470–1509| = 39)\n→ neue Position: 1509\nÜbrig: 1774, 1750\nAktuell bei 1509\nNächster: 1750 (|1509–1750| = 241)\n→ neue Position: 1750\nÜbrig: 1774\nAktuell bei 1750\nNächster: 1774 (|1750–1774| = 24)\n→ neue Position: 1774\nÜbrig: —\n\nReihenfolge: 143 → 130 → 86 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774\nBewegungen:\n\n|143–130| = 13\n|130–86| = 44\n|86–913| = 827\n|913–948| = 35\n|948–1022| = 74\n|1022–1470| = 448\n|1470–1509| = 39\n|1509–1750| = 241\n|1750–1774| = 24\n\nSumme: 13 + 44 + 827 + 35 + 74 + 448 + 39 + 241 + 24 = 1745 Zylinder\n\n\nSCAN (Fahrstuhl-Algorithmus)\nDer Lesekopf bewegt sich in eine Richtung (hier: aufwärts, weil er von 125 nach 143 kam), bedient dabei alle Anfragen auf dem Weg, und kehrt dann am Ende um.\n\nStartposition: 143\nBewegungsrichtung: aufwärts\nAnfragen: 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130\n\nWir teilen in zwei Gruppen:\n\nAufwärts (≥143): 1470, 913, 1774, 948, 1509, 1022\nAbwärts (&lt;143): 86, 130\n\nZuerst behandeln wir alle Anfragen in aufsteigender Reihenfolge ≥143: → 913, 948, 1022, 1470, 1509, 1774 Dann kehrt der Kopf um und bedient absteigend: → 130, 86\nReihenfolge des Besuchs: 143 → 913 → 948 → 1022 → 1470 → 1509 → 1774 → 130 → 86\nBewegungen:\n\n|143–913| = 770\n|913–948| = 35\n|948–1022| = 74\n|1022–1470| = 448\n|1470–1509| = 39\n|1509–1774| = 265\n|1774–130| = 1644\n|130–86| = 44\n\nSumme: 770 + 35 + 74 + 448 + 39 + 265 + 1644 + 44 = 3319 Zylinder\n\n\nC-SCAN (Circular SCAN)\nDer Kopf bewegt sich in eine Richtung (hier: aufwärts) und bedient alle Anfragen auf dem Weg. Am Ende (bei höchstem Zylinder) springt der Kopf ohne Bedienung zurück zum Anfang und beginnt erneut.\n\nStartposition: 143\nBewegungsrichtung: aufwärts\nAnfragen: 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130\n\nAnfragen ≥143 (in aufsteigender Reihenfolge): → 913, 948, 1022, 1470, 1509, 1750, 1774\nAnfragen &lt;143 (werden erst nach Rücksprung behandelt, ebenfalls aufsteigend): → 86, 130\nReihenfolge des Besuchs: 143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774 → Sprung zu 0 → 86 → 130\nBewegungen:\n\n|143–913| = 770\n|913–948| = 35\n|948–1022| = 74\n|1022–1470| = 448\n|1470–1509| = 39\n|1509–1750| = 241\n|1750–1774| = 24\n|1774–0| = 1774 (Sprung ohne Bedienung)\n|0–86| = 86\n|86–130| = 44\n\nSumme: 770 + 35 + 74 + 448 + 39 + 241 + 24 + 1774 + 86 + 44 = 3535 Zylinder\n\n\nC-LOOK (Circular LOOK)\n\nStartposition: 143\nBewegungsrichtung: aufwärts\nAnfragen: 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130\n\nZuerst alle Anfragen ≥143 (sortiert): → 913, 948, 1022, 1470, 1509, 1750, 1774\nDann Sprung zurück zum niedrigsten angefragten Zylinder (&lt;143): → 86, 130 (ebenfalls aufsteigend)\nReihenfolge des Besuchs: 143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774 → 86 → 130\nBewegungen:\n\n|143–913| = 770\n|913–948| = 35\n|948–1022| = 74\n|1022–1470| = 448\n|1470–1509| = 39\n|1509–1750| = 241\n|1750–1774| = 24\n|1774–86| = 1688 (Sprung zurück)\n|86–130| = 44\n\nSumme: 770 + 35 + 74 + 448 + 39 + 241 + 24 + 1688 + 44 = 3363 Zylinder\n\n\nVergleichstabelle: Disk Scheduling\n\n\n\n\n\n\n\n\nAlgorithmus\nReihenfolge der besuchten Zylinder\nGesamtdistanz (Zylinder)\n\n\n\n\nFCFS\n143 → 86 → 1470 → 913 → 1774 → 948 → 1509 → 1022 → 1750 → 130\n7081\n\n\nSSTF\n143 → 130 → 86 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774\n1897\n\n\nSCAN\n143 → 913 → 948 → 1022 → 1470 → 1509 → 1774 → 130 → 86\n3319\n\n\nC-SCAN\n143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774 → 0 → 86 → 130\n3535\n\n\nC-LOOK\n143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774 → 86 → 130\n3363",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-8",
+    "href": "sh07/07.html#aufgabe-8",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 8",
+    "text": "Aufgabe 8\nEin RAID 0-System verteilt die Daten ohne Redundanz auf zwei Platten. Fällt auch nur eine Platte aus, ist das gesamte System unbrauchbar. Die Wahrscheinlichkeit, dass beide Platten überleben, beträgt 0,9 × 0,9 = 0,81. Daraus ergibt sich eine Ausfallwahrscheinlichkeit von 1 – 0,81 = 0,19, also 19 %.\nEin RAID 1-System spiegelt die Daten auf zwei Platten. Es bleibt funktionsfähig, solange mindestens eine Platte intakt ist. Nur wenn beide gleichzeitig ausfallen (0,1 × 0,1 = 0,01), kommt es zum Datenverlust. Die Ausfallwahrscheinlichkeit liegt also bei 1 %.\nEine weitere Reduktion der Ausfallwahrscheinlichkeit ist nur bei RAID 1 sinnvoll möglich. Dies gelingt z. B. durch den Einsatz von mehr als zwei Festplatten: Bei drei Platten beträgt die Wahrscheinlichkeit, dass alle gleichzeitig ausfallen, nur 0,1³ = 0,001. Auch sogenannte Hot-Spare-Platten können automatisch einspringen, wenn eine Platte ausfällt.\nBei RAID 0 hingegen erhöht jede zusätzliche Platte sogar das Risiko, da das System schon beim Ausfall einer einzigen Platte versagt. Eine Verbesserung der Sicherheit ist daher hier nicht möglich.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh07/07.html#aufgabe-9",
+    "href": "sh07/07.html#aufgabe-9",
+    "title": "7  Blatt 07",
+    "section": "Aufgabe 9",
+    "text": "Aufgabe 9\nJa, in bestimmten Szenarien kann ein RAID 1-System eine höhere Leseleistung erreichen als RAID 0. Da die Daten auf mehreren Platten identisch vorliegen, kann der Controller parallele Lesezugriffe auf verschiedene Platten verteilen oder jeweils die am schnellsten zugängliche Platte nutzen.\nDies bringt Vorteile bei vielen gleichzeitigen, verteilten Lesezugriffen – etwa bei Datenbankanfragen oder Webservern. Vorausgesetzt ist, dass der Controller intelligentes Load Balancing unterstützt.\nBei rein sequentiellem Lesen großer Dateien ist RAID 0 meist schneller, da Striping die Datenrate erhöht.\n\\(\\Rightarrow\\) RAID 1 kann bei paralleler Last schneller sein, RAID 0 eher bei sequenziellen Zugriffen.",
+    "crumbs": [
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>Blatt 07</span>"
+    ]
+  },
+  {
+    "objectID": "sh08/08.html",
+    "href": "sh08/08.html",
+    "title": "8  Blatt 8",
+    "section": "",
+    "text": "Aufgabe 1",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Blatt 8</span>"
+    ]
+  },
+  {
+    "objectID": "sh08/08.html#aufgabe-1",
+    "href": "sh08/08.html#aufgabe-1",
+    "title": "8  Blatt 8",
+    "section": "",
+    "text": "Allgemeiner Beweis: Es kann kein Deadlock auftreten\nGegeben sind:\n\nEin Ressourcentyp mit insgesamt \\(E = 4\\) Instanzen,\nDrei Prozesse \\(P_1, P_2, P_3\\),\nJeder Prozess kann maximal 2 Instanzen der Ressource anfordern.\n\nSei \\(C_i\\) die Anzahl der aktuell einem Prozess \\(P_i\\) zugeteilten Ressourceninstanzen, und \\(R_i\\) der verbleibende Bedarf, so dass gilt:\n\\[\nC_i + R_i \\leq 2 \\quad \\text{für alle } i = 1, 2, 3\n\\]\nund\n\\[\n\\sum_{i=1}^{3} C_i \\leq 4\n\\]\nEs soll gezeigt werden, dass unter diesen Bedingungen kein Deadlock entstehen kann.\nFall 1: Mindestens ein Prozess wartet nicht Falls für ein \\(i\\) gilt: \\(R_i = 0\\), dann kann \\(P_i\\) sofort fertigstellen und bis zu 2 Ressourcen freigeben. Dadurch erhöht sich die Anzahl der verfügbaren Instanzen \\(A\\), was anderen wartenden Prozessen die Fortsetzung erlaubt. Durch Induktion führt dies zu einer vollständigen Abarbeitung aller Prozesse. Ein Deadlock ist somit ausgeschlossen.\nFall 2: Alle Prozesse warten auf Ressourcen Angenommen, jeder Prozess hält mindestens eine Instanz und fordert eine weitere an, also:\n\\[\nC = \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\end{bmatrix}, \\quad\nR = \\begin{bmatrix} 1 \\\\ 1 \\\\ 1 \\end{bmatrix}, \\quad\nA = \\begin{bmatrix} 1 \\end{bmatrix}\n\\]\nDies ist die kritischste zulässige Konfiguration: Alle 4 Ressourcen sind verteilt (3 belegt, 1 frei), und jeder Prozess wartet auf eine weitere Instanz.\nIn diesem Fall kann das System dennoch einer Anfrage (z. B. von \\(P_1\\)) nachkommen, sodass dieser Prozess abschließen kann. Danach gibt er seine 2 gehaltenen Ressourcen frei, und \\(A\\) steigt auf 3. Damit können die verbleibenden Prozesse nacheinander ebenfalls fertigstellen. Es kommt also auch im schlimmsten Fall nicht zu einem Deadlock.\nSchlussfolgerung In allen gültigen Konfigurationen – ob mindestens ein Prozess direkt fertigstellen kann oder alle warten – hat das System stets genug Ressourcen, um zumindest einem Prozess die Beendigung zu ermöglichen. Dadurch ist Fortschritt immer möglich, und eine zirkuläre Wartebedingung kann nie entstehen. Es folgt: Ein Deadlock ist unter den gegebenen Voraussetzungen ausgeschlossen.\nAufgabe 1b – Beispiel mit erfüllten Deadlock-Bedingungen, aber ohne Deadlock\nDieses Beispiel stammt direkt aus den Vorlesungsfolien und illustriert eine Systemkonfiguration, in der alle vier notwendigen Coffman-Bedingungen für einen Deadlock erfüllt sind, jedoch kein Deadlock vorliegt. Der Bankieralgorithmus bestätigt, dass der Zustand sicher ist.\nSystemdefinition\nRessourcentypen: \\(R_1\\) und \\(R_2\\) Gesamtressourcenvektor: \\(E = (2, 2)\\) Verfügbarkeitsvektor: \\(A = (0, 0)\\)\nAlle Ressourcen sind momentan vollständig vergeben.\nZuteilungsmatrix \\(C\\):\n\\[\nC = \\begin{bmatrix}\n0 & 1 \\\\\n1 & 0 \\\\\n1 & 0 \\\\\n0 & 1\n\\end{bmatrix}\n\\]\n\\(P_1\\) hält \\(R_2\\), \\(P_2\\) und \\(P_3\\) halten jeweils \\(R_1\\), \\(P_4\\) hält \\(R_2\\).\nAnforderungsmatrix \\(R\\):\n\\[\nR = \\begin{bmatrix}\n1 & 0 \\\\\n0 & 0 \\\\\n0 & 1 \\\\\n0 & 0\n\\end{bmatrix}\n\\]\n\\(P_1\\) fordert \\(R_1\\), \\(P_3\\) fordert \\(R_2\\).\nÜberprüfung der Coffman-Bedingungen\n1. Wechselseitiger Ausschluss: Ressourcen können nicht gemeinsam genutzt werden. 2. Hold-and-Wait: Prozesse halten Ressourcen und fordern weitere an (z. B. \\(P_1\\) hält \\(R_2\\), fordert \\(R_1\\)). 3. Keine Präemption: Ressourcen können Prozessen nicht zwangsweise entzogen werden. 4. Zyklisches Warten: Es existiert ein Zyklus im Ressourcen-Wartegraphen: \\(P_1 \\rightarrow R_1 \\rightarrow P_3 \\rightarrow R_2 \\rightarrow P_1\\).\n→ Alle vier Bedingungen sind erfüllt.\nAnwendung des Bankieralgorithmus\n\n\n\n\n\n\n\n\n\n\n\nSchritt\nProzess \\(i\\)\n\\(R_i\\)\nVerfügbar \\(A\\)\nBelegt \\(C_i\\)\nMarkierte Prozesse (P1, P2, P3, P4)\n\n\n\n\n1\n1\n(1, 0)\n(0, 0)\n(0, 1)\n× × × ×\n\n\n2\n2\n(0, 0)\n(0, 0)\n(1, 0)\n× ✓ × ×\n\n\n3\n3\n(0, 1)\n(1, 0)\n(1, 0)\n× ✓ × ×\n\n\n4\n4\n(0, 0)\n(1, 0)\n(0, 1)\n× ✓ × ✓\n\n\n5\n1\n(1, 0)\n(1, 1)\n(0, 1)\n✓ ✓ × ✓\n\n\n6\n3\n(0, 1)\n(1, 2)\n(1, 0)\n✓ ✓ ✓ ✓\n\n\n\nNach jedem Schritt wird der Verfügbarkeitsvektor \\(A\\) aktualisiert, sobald ein markierter Prozess seine gehaltenen Ressourcen freigibt. Am Ende sind alle Prozesse markiert → der Zustand ist sicher.\nSchlussfolgerung\nTrotz erfüllter Coffman-Bedingungen und zyklischer Abhängigkeiten liegt kein Deadlock vor, da der Bankieralgorithmus eine vollständige Abarbeitungsreihenfolge findet. Dieses Beispiel erfüllt somit exakt die Aufgabenstellung: Ein System mit potenzieller Deadlock-Struktur, das sich jedoch als sicher herausstellt.",
+    "crumbs": [
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>Blatt 8</span>"
+    ]
   }
 ]
