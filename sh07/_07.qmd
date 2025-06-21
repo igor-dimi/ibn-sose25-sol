@@ -1,0 +1,309 @@
+---
+title: Blatt 07
+---
+
+## Aufgabe 1
+
+* **Vorteil von Hard Links**:
+  Bleiben gültig, auch wenn die Originaldatei gelöscht wird, da sie direkt auf die Inode verweisen.
+
+* **Vorteil von Soft Links**:
+  Können Dateien über verschiedene Dateisysteme hinweg verlinken, da sie den Pfad statt der Inode speichern.
+
+
+## Aufgabe 2
+
+## Aufgabe 3
+
+
+a) Analogien:
+
+   * **logische Seiten (logische Adressen) ↔ Datei-Block-Offsets (logische Datei-Adressen)** : Eine logische Adresse besteht aus einer Seitennummer und einem Offset innerhalb der Seite; ebenso wird eine Datei über Blocknummer und Offset adressiert. Beide sind abstrakte Adressen, die auf reale Speicherorte abgebildet werden.
+   
+   * **physische Frames (physische Adressen) ↔ Festplattenblöcke** : Ein Frame im RAM und ein Block auf der Festplatte sind physische Einheiten fester Größe (z. B. 4 KB), in denen tatsächliche Daten gespeichert werden.
+   
+   * **Frame-Nummer ↔ Blocknummer** : Die Seitentabelle enthält Frame-Nummern (Index im physischen RAM); der i-node enthält Blocknummern (Index auf der Festplatte). Beide zeigen, wo genau sich die Daten physisch befinden.
+   
+   * **Seitentabelle ↔ i-node** : Die Seitentabelle eines Prozesses ordnet virtuelle Seiten physischen Frames zu; der i-node einer Datei ordnet logische Blöcke physischen Festplattenblöcken zu. Beide sind zentrale Strukturen für die Adressübersetzung.
+
+b) Das Problem der übergroßen Seitentabellen entspricht bei I-Nodes dem Problem, dass große Dateien nicht allein mit direkten Blockzeigern adressiert werden können, da die I-Nodes sonst zu groß würden. Die Lösung ist in beiden Fällen ähnlich: Hierarchische Seitentabellen in der Speicherverwaltung entsprechen ein- oder mehrstufigen indirekten Blöcken bei I-Nodes. Welche Form der „Seitentabelle“ (direkt oder indirekt) verwendet wird, hängt bei I-Nodes von der Dateigröße ab – kleine Dateien nutzen nur direkte Zeiger, große benötigen zusätzliche Indirektion.
+
+
+## Aufgabe 4
+
+Jeder Zeiger adressiert Blöcke der Größe 1024 Byte, und jede Blockadresse belegt 4 Byte.
+
+Die 14 direkten Zeiger verweisen direkt auf Datenblöcke und ermöglichen somit den Zugriff auf 14 × 1024 = 14.336 Byte.
+
+Jeder der beiden indirekten Zeiger zeigt auf einen weiteren Block, der ausschließlich Blockadressen enthält. Da ein Block 1024 Byte groß ist und jede Adresse 4 Byte belegt, passen 1024 / 4 = 256 Adressen in einen solchen Block. Diese 256 Adressen verweisen jeweils auf Datenblöcke zu je 1024 Byte, sodass pro indirektem Zeiger 256 × 1024 = 262.144 Byte adressiert werden können. Zwei indirekte Zeiger ergeben somit 2 × 262.144 = 524.288 Byte.
+
+Die maximale Dateigröße beträgt daher 14.336 + 524.288 = **538.624 Byte** $\approx$ 0.5 MB.
+
+## Aufgabe 5
+
+
+Zur Auflösung des Pfades `/usr/aa/lehre/ibn/ueb7-ibn-2017.pdf` müssen nacheinander die Verzeichniseinträge gelesen und die entsprechenden I-Nodes geladen werden. Der Pfad besteht aus fünf Komponenten: `usr`, `aa`, `lehre`, `ibn` und `ueb7-ibn-2017.pdf`.
+
+Da der I-Node des Wurzelverzeichnisses bereits im Hauptspeicher liegt, entfällt dafür eine Operation. Für jede der übrigen Komponenten müssen jedoch:
+
+1. Der Plattenblock des Verzeichnisses gelesen werden (um den Dateinamen → I-Node-Nummer zu finden),
+2. Der entsprechende I-Node geladen werden (um zum nächsten Element zu gelangen).
+
+Somit fallen für jede der 5 Komponenten **2 Plattenoperationen** an: einmal Lesen des Verzeichnisblocks, einmal Lesen des I-Nodes.
+
+
+$\Rightarrow$  Es werden insgesamt 5 × 2 = 10 Plattenoperationen benötigt.
+
+## Aufgabe 6
+
+a) Die Drehzahl beträgt 1500 Umdrehungen pro Minute, also dauert eine vollständige Umdrehung 60 s / 1500 = 0,04 s = 40 ms. Da die mittlere Drehlatenz einer halben Umdrehung entspricht, ergibt sich 40 ms / 2 = **20 ms**. Die mittlere Drehlatenz beträgt somit **20 Millisekunden**.
+b) Um diese Aufgabe zu lösen, gilt: Die durchschnittliche Zugriffszeit ergibt sich aus der Summe von mittlerer Spurwechselzeit und mittlerer Drehlatenz.
+
+   Gegeben ist eine mittlere Spurwechselzeit von 85 ms und eine mittlere Drehlatenz von 20 ms. Damit ergibt sich eine durchschnittliche Zugriffszeit von 85 ms + 20 ms = 105 ms.
+
+   Für den Zugriff auf 10 unabhängig und zufällig ausgewählte Datenblöcke ergibt sich eine mittlere Gesamtdauer von 10 × 105 ms = 1050 ms = 1,05 s.
+c) Gegeben ist eine mittlere Drehlatenz von 8,333 ms. Da dies der Hälfte einer Umdrehung entspricht, dauert eine vollständige Umdrehung 2 × 8,333 ms = 16,666 ms.
+
+   Die Anzahl der Umdrehungen pro Sekunde beträgt daher 1 s / 0,016666 s ≈ 60.
+   Das entspricht 60 Umdrehungen pro Sekunde bzw. 60 × 60 = 3600 U/min.
+   
+   Die Platten drehten sich also mit 3600 Umdrehungen pro Minute.
+
+## Aufgabe 7
+
+Wir haben:
+
+* **Zylinderbereich**: 0 bis 4999
+* **Startposition**: Kopf ist aktuell bei **143**, kam gerade von **125** (d. h. aktuelle Bewegungsrichtung ist **aufwärts**)
+* **Anfragen in Ankunftsreihenfolge**:
+  `86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130`
+
+Wir berechnen nun für jeden Algorithmus:
+
+1. **Reihenfolge der bedienten Zylinder**
+2. **Gesamte Bewegung des Kopfes (in Zylindern)**
+
+### FCFS (First-Come, First-Serve)
+
+**Verarbeitung in Ankunftsreihenfolge**, egal wie weit entfernt:
+
+* Start bei 143
+* Folge: 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130
+
+**Berechnung der Bewegungen**:
+
+* |143 - 86| = 57
+* |86 - 1470| = 1384
+* |1470 - 913| = 557
+* |913 - 1774| = 861
+* |1774 - 948| = 826
+* |948 - 1509| = 561
+* |1509 - 1022| = 487
+* |1022 - 1750| = 728
+* |1750 - 130| = 1620
+
+**Summe**:
+57 + 1384 + 557 + 861 + 826 + 561 + 487 + 728 + 1620 = **7081 Zylinder**
+
+
+### SSTF (Shortest Seek Time First)
+
+Hier wird immer die **nächstgelegene** Anfrage (bezogen auf aktuelle Kopfposition) bedient.
+
+* **Startposition:** 143
+* **Offene Anfragen:** 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130
+
+Wir wählen immer den **nächstgelegenen Zylinder** zur aktuellen Position. Schritte:
+
+1. Aktuell bei 143
+   Nächster: 130 (|143–130| = 13)  
+   → neue Position: 130  
+   Übrig: 86, 1470, 913, 1774, 948, 1509, 1022, 1750  
+
+2. Aktuell bei 130  
+   Nächster: 86 (|130–86| = 44)  
+   → neue Position: 86  
+   Übrig: 1470, 913, 1774, 948, 1509, 1022, 1750  
+  
+3. Aktuell bei 86  
+   Nächster: 913 (|86–913| = 827)  
+   → neue Position: 913  
+   Übrig: 1470, 1774, 948, 1509, 1022, 1750  
+  
+4. Aktuell bei 913  
+   Nächster: 948 (|913–948| = 35)  
+   → neue Position: 948  
+   Übrig: 1470, 1774, 1509, 1022, 1750  
+  
+5. Aktuell bei 948  
+   Nächster: 1022 (|948–1022| = 74)  
+   → neue Position: 1022  
+   Übrig: 1470, 1774, 1509, 1750  
+  
+6. Aktuell bei 1022  
+   Nächster: 1470 (|1022–1470| = 448)  
+   → neue Position: 1470  
+   Übrig: 1774, 1509, 1750  
+  
+7. Aktuell bei 1470  
+   Nächster: 1509 (|1470–1509| = 39)  
+   → neue Position: 1509  
+   Übrig: 1774, 1750  
+  
+8. Aktuell bei 1509  
+   Nächster: 1750 (|1509–1750| = 241)  
+   → neue Position: 1750  
+   Übrig: 1774  
+  
+9. Aktuell bei 1750  
+   Nächster: 1774 (|1750–1774| = 24)  
+   → neue Position: 1774  
+   Übrig: —  
+
+**Reihenfolge**:
+143 → 130 → 86 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774
+
+**Bewegungen**:
+
+* |143–130| = 13
+* |130–86| = 44
+* |86–913| = 827
+* |913–948| = 35
+* |948–1022| = 74
+* |1022–1470| = 448
+* |1470–1509| = 39
+* |1509–1750| = 241
+* |1750–1774| = 24
+
+**Summe**: 13 + 44 + 827 + 35 + 74 + 448 + 39 + 241 + 24 = **1745 Zylinder**
+
+
+### SCAN (Fahrstuhl-Algorithmus)
+
+Der Lesekopf bewegt sich in eine Richtung (hier: **aufwärts**, weil er von 125 nach 143 kam), bedient dabei alle Anfragen auf dem Weg, und kehrt dann am Ende um.
+
+* **Startposition:** 143
+* **Bewegungsrichtung:** aufwärts
+* **Anfragen:** 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130
+
+Wir teilen in zwei Gruppen:
+
+* Aufwärts (≥143): 1470, 913, 1774, 948, 1509, 1022
+* Abwärts (<143): 86, 130
+
+Zuerst behandeln wir alle Anfragen in aufsteigender Reihenfolge ≥143:
+→ 913, 948, 1022, 1470, 1509, 1774
+Dann kehrt der Kopf um und bedient absteigend:
+→ 130, 86
+
+**Reihenfolge des Besuchs**:
+143 → 913 → 948 → 1022 → 1470 → 1509 → 1774 → 130 → 86
+
+**Bewegungen**:
+
+* |143–913| = 770
+* |913–948| = 35
+* |948–1022| = 74
+* |1022–1470| = 448
+* |1470–1509| = 39
+* |1509–1774| = 265
+* |1774–130| = 1644
+* |130–86| = 44
+
+**Summe**: 770 + 35 + 74 + 448 + 39 + 265 + 1644 + 44 = **3319 Zylinder**
+
+
+### C-SCAN (Circular SCAN)
+
+Der Kopf bewegt sich in **eine Richtung** (hier: aufwärts) und bedient alle Anfragen auf dem Weg.
+Am Ende (bei höchstem Zylinder) springt der Kopf **ohne Bedienung** zurück zum Anfang und beginnt erneut.
+
+* **Startposition:** 143
+* **Bewegungsrichtung:** aufwärts
+* **Anfragen:** 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130
+
+Anfragen ≥143 (in aufsteigender Reihenfolge):
+→ 913, 948, 1022, 1470, 1509, 1750, 1774
+
+Anfragen <143 (werden erst nach Rücksprung behandelt, ebenfalls aufsteigend):
+→ 86, 130
+
+**Reihenfolge des Besuchs**:
+143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774
+→ Sprung zu 0 → 86 → 130
+
+**Bewegungen**:
+
+* |143–913| = 770
+* |913–948| = 35
+* |948–1022| = 74
+* |1022–1470| = 448
+* |1470–1509| = 39
+* |1509–1750| = 241
+* |1750–1774| = 24
+* |1774–0| = 1774 (Sprung ohne Bedienung)
+* |0–86| = 86
+* |86–130| = 44
+
+**Summe**: 770 + 35 + 74 + 448 + 39 + 241 + 24 + 1774 + 86 + 44 = **3535 Zylinder**
+
+### C-LOOK (Circular LOOK)
+
+* **Startposition:** 143
+* **Bewegungsrichtung:** aufwärts
+* **Anfragen:** 86, 1470, 913, 1774, 948, 1509, 1022, 1750, 130
+
+Zuerst alle Anfragen ≥143 (sortiert):
+→ 913, 948, 1022, 1470, 1509, 1750, 1774
+
+Dann Sprung zurück zum **niedrigsten angefragten Zylinder** (<143):
+→ 86, 130 (ebenfalls aufsteigend)
+
+**Reihenfolge des Besuchs**:
+143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774 → 86 → 130
+
+**Bewegungen**:
+
+* |143–913| = 770
+* |913–948| = 35
+* |948–1022| = 74
+* |1022–1470| = 448
+* |1470–1509| = 39
+* |1509–1750| = 241
+* |1750–1774| = 24
+* |1774–86| = 1688 (Sprung zurück)
+* |86–130| = 44
+
+**Summe**: 770 + 35 + 74 + 448 + 39 + 241 + 24 + 1688 + 44 = **3363 Zylinder**
+
+
+### Vergleichstabelle: Disk Scheduling
+
+| Algorithmus | Reihenfolge der besuchten Zylinder                                | Gesamtdistanz (Zylinder) |
+| ----------- | ----------------------------------------------------------------- | ------------------------ |
+| **FCFS**    | 143 → 86 → 1470 → 913 → 1774 → 948 → 1509 → 1022 → 1750 → 130     | 7081                     |
+| **SSTF**    | 143 → 130 → 86 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774     | 1897                     |
+| **SCAN**    | 143 → 913 → 948 → 1022 → 1470 → 1509 → 1774 → 130 → 86            | 3319                     |
+| **C-SCAN**  | 143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774 → 0 → 86 → 130 | 3535                     |
+| **C-LOOK**  | 143 → 913 → 948 → 1022 → 1470 → 1509 → 1750 → 1774 → 86 → 130     | 3363                     |
+
+## Aufgabe 8
+
+Ein RAID 0-System verteilt die Daten ohne Redundanz auf zwei Platten. Fällt auch nur eine Platte aus, ist das gesamte System unbrauchbar. Die Wahrscheinlichkeit, dass **beide Platten überleben**, beträgt 0,9 × 0,9 = 0,81. Daraus ergibt sich eine **Ausfallwahrscheinlichkeit von 1 – 0,81 = 0,19**, also **19 %**.
+
+Ein RAID 1-System spiegelt die Daten auf zwei Platten. Es bleibt funktionsfähig, solange **mindestens eine** Platte intakt ist. Nur wenn beide gleichzeitig ausfallen (0,1 × 0,1 = 0,01), kommt es zum Datenverlust. Die **Ausfallwahrscheinlichkeit liegt also bei 1 %**.
+
+Eine weitere Reduktion der Ausfallwahrscheinlichkeit ist **nur bei RAID 1** sinnvoll möglich. Dies gelingt z. B. durch den Einsatz von mehr als zwei Festplatten: Bei drei Platten beträgt die Wahrscheinlichkeit, dass alle gleichzeitig ausfallen, nur 0,1³ = 0,001. Auch sogenannte **Hot-Spare-Platten** können automatisch einspringen, wenn eine Platte ausfällt.
+
+Bei RAID 0 hingegen erhöht **jede zusätzliche Platte** sogar das Risiko, da das System schon beim Ausfall einer einzigen Platte versagt. Eine Verbesserung der Sicherheit ist daher hier nicht möglich.
+
+
+## Aufgabe 9
+
+Ja, in bestimmten Szenarien kann ein RAID 1-System eine höhere Leseleistung erreichen als RAID 0. Da die Daten auf mehreren Platten identisch vorliegen, kann der Controller parallele Lesezugriffe auf verschiedene Platten verteilen oder jeweils die am schnellsten zugängliche Platte nutzen.
+
+Dies bringt Vorteile bei vielen gleichzeitigen, verteilten Lesezugriffen – etwa bei Datenbankanfragen oder Webservern. Vorausgesetzt ist, dass der Controller intelligentes Load Balancing unterstützt.
+
+Bei rein sequentiellem Lesen großer Dateien ist RAID 0 meist schneller, da Striping die Datenrate erhöht.
+
+$\Rightarrow$  RAID 1 kann bei paralleler Last schneller sein, RAID 0 eher bei sequenziellen Zugriffen.
