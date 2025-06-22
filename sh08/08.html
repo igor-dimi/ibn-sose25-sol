@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.31">
+<meta name="generator" content="quarto-1.7.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -37,10 +72,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-e1a5c8363afafaef2c763b6775fbf3ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-d558773541b75318fdba2db46f940219.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-bf132de45b538d253cd2e2da5fec6016.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -203,6 +238,11 @@ window.Quarto = {
    
   <ul>
   <li><a href="#aufgabe-1" id="toc-aufgabe-1" class="nav-link active" data-scroll-target="#aufgabe-1">Aufgabe 1</a></li>
+  <li><a href="#aufgabe-2" id="toc-aufgabe-2" class="nav-link" data-scroll-target="#aufgabe-2">Aufgabe 2</a></li>
+  <li><a href="#aufgabe-4" id="toc-aufgabe-4" class="nav-link" data-scroll-target="#aufgabe-4">Aufgabe 4</a></li>
+  <li><a href="#aufgabe-5" id="toc-aufgabe-5" class="nav-link" data-scroll-target="#aufgabe-5">Aufgabe 5</a></li>
+  <li><a href="#aufgabe-6" id="toc-aufgabe-6" class="nav-link" data-scroll-target="#aufgabe-6">Aufgabe 6</a></li>
+  <li><a href="#aufgabe-7" id="toc-aufgabe-7" class="nav-link" data-scroll-target="#aufgabe-7">Aufgabe 7</a></li>
   </ul>
 </nav>
     </div>
@@ -360,6 +400,616 @@ R = \begin{bmatrix}
 <p><strong>Schlussfolgerung</strong></p>
 <p>Trotz erfüllter Coffman-Bedingungen und zyklischer Abhängigkeiten liegt <strong>kein Deadlock vor</strong>, da der Bankieralgorithmus eine vollständige Abarbeitungsreihenfolge findet. Dieses Beispiel erfüllt somit exakt die Aufgabenstellung: Ein System mit potenzieller Deadlock-Struktur, das sich jedoch als sicher herausstellt.</p></li>
 </ol>
+</section>
+<section id="aufgabe-2" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-2">Aufgabe 2</h2>
+<ol type="a">
+<li><p>Beschreiben Sie ein Szenario, in dem ein Deadlock entstehen kann:</p>
+<p>Ein Deadlock kann entstehen, wenn die beiden Prozesse <strong>P1</strong> und <strong>P2</strong> die Ressourcen <strong>A</strong> und <strong>B</strong> in entgegengesetzter Reihenfolge anfordern, und beide jeweils bereits eine Ressource belegt haben, während sie auf die zweite warten.</p>
+<p><strong>Ablauf eines möglichen Szenarios:</strong></p>
+<ol type="1">
+<li><strong>P1</strong> startet zuerst und führt <code>wait(sem_A)</code> aus → Ressource <strong>A</strong> wird gesperrt.</li>
+<li><strong>P2</strong> startet kurz danach und führt <code>wait(sem_B)</code> aus → Ressource <strong>B</strong> wird gesperrt.</li>
+<li>Nun versucht <strong>P1</strong>, <code>wait(sem_B)</code> auszuführen, blockiert aber, da <strong>B</strong> bereits durch <strong>P2</strong> gesperrt ist.</li>
+<li>Gleichzeitig versucht <strong>P2</strong>, <code>wait(sem_A)</code> auszuführen, blockiert aber, da <strong>A</strong> durch <strong>P1</strong> gehalten wird.</li>
+</ol>
+<ul>
+<li>Beide Prozesse warten nun jeweils auf eine Ressource, die vom jeweils anderen gehalten wird.</li>
+<li>Keiner kann weitermachen oder Ressourcen freigeben.</li>
+<li><strong>Dies ist ein klassischer Deadlock-Zustand.</strong></li>
+</ul>
+<p>Dieses Szenario entspricht genau dem Beispiel auf <strong>Folie 15 der Vorlesung 15</strong>, bei dem zwei Prozesse in dieser Weise mit <code>wait(A)</code>/<code>wait(B)</code> agieren. Der Deadlock tritt bei einer ungünstigen Ausführungsreihenfolge auf.</p></li>
+<li><p>Erklären Sie präzise, welche der notwendigen Bedingungen für einen Deadlock hier erfüllt sind.</p>
+<p>In der dargestellten Situation (siehe Teil a) sind <strong>alle vier Coffman-Bedingungen</strong> erfüllt, die gemeinsam notwendig für das Entstehen eines Deadlocks sind:</p>
+<ol type="1">
+<li><strong>Wechselseitiger Ausschluss (Mutual Exclusion)</strong> Beide Ressourcen (<strong>A</strong> und <strong>B</strong>) sind durch binäre Semaphore geschützt, d. h. sie können <strong>immer nur von einem Prozess gleichzeitig</strong> verwendet werden.</li>
+<li><strong>Hold-and-Wait (Belegen und Warten)</strong> Beide Prozesse belegen eine Ressource (z. B. <strong>P1</strong> hält <strong>A</strong>, <strong>P2</strong> hält <strong>B</strong>) und <strong>fordern gleichzeitig eine weitere Ressource an</strong>, auf die sie warten.</li>
+<li><strong>Keine Präemption (No Preemption)</strong> Ressourcen können <strong>nicht gewaltsam entzogen</strong> werden. Ein Prozess gibt eine Ressource nur durch ein <code>signal()</code> freiwillig frei — aber das geschieht <strong>erst nach der kritischen Sektion</strong>, also <strong>nicht während des Wartens</strong>.</li>
+<li><strong>Zyklische Wartebedingung (Circular Wait)</strong> Es entsteht ein Zyklus im Ressourcen-Wartegraphen:
+<ul>
+<li><strong>P1</strong> hält <strong>A</strong> und wartet auf <strong>B</strong>,</li>
+<li><strong>P2</strong> hält <strong>B</strong> und wartet auf <strong>A</strong>. → Zyklus: <span class="math inline">\(P1 \rightarrow B \rightarrow P2 \rightarrow A \rightarrow P1\)</span></li>
+</ul></li>
+</ol>
+<p><span class="math inline">\(\Rightarrow\)</span> Alle vier notwendigen Bedingungen für einen Ressourcen-Deadlock sind in diesem Szenario gleichzeitig gegeben. Das erklärt, <strong>warum hier ein Deadlock möglich ist</strong>, wenn die Prozesse in genau dieser Reihenfolge ausgeführt werden.</p></li>
+<li><p>Schlagen Sie eine einfache konzeptionelle Änderung vor, die das Risiko eines Deadlocks in diesem Beispiel beseitigt.</p></li>
+</ol>
+<p>Eine einfache, aber <strong>sehr effektive</strong> konzeptionelle Änderung besteht darin, <strong>eine einheitliche Reihenfolge für die Ressourcenzugriffe</strong> festzulegen.</p>
+<p><strong>Konkret:</strong> Beide Prozesse sollen die Ressourcen <strong>immer in derselben Reihenfolge anfordern</strong> — zum Beispiel:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c code-with-copy"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>wait<span class="op">(</span>sem_A<span class="op">);</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>wait<span class="op">(</span>sem_B<span class="op">);</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">// kritische Sektion</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>signal<span class="op">(</span>sem_B<span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>signal<span class="op">(</span>sem_A<span class="op">);</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Sowohl <strong>P1</strong> als auch <strong>P2</strong> würden dann <strong>zuerst <code>sem_A</code> und danach <code>sem_B</code></strong> anfordern.</p>
+<p>Durch die feste Anforderungsreihenfolge wird die <strong>zyklische Wartebedingung (circular wait)</strong> <strong>prinzipiell ausgeschlossen</strong>. Denn:</p>
+<ul>
+<li>Wenn ein Prozess bereits <strong><code>sem_A</code></strong> belegt, ein anderer Prozess aber auf <strong><code>sem_B</code></strong> wartet, wird dieser niemals gleichzeitig <code>sem_A</code> anfordern, da er <code>sem_A</code> ja <strong>zuerst</strong> anfordern müsste.</li>
+<li>Somit kann kein zyklisches Warten entstehen.</li>
+</ul>
+<p><span class="math inline">\(\Rightarrow\)</span> Die Einführung einer <strong>globalen, konsistenten Reihenfolge</strong> beim Zugriff auf mehrere Ressourcen ist eine einfache, konzeptionelle Methode zur <strong>Vermeidung von Deadlocks</strong>. Sie unterläuft gezielt eine der vier Deadlock-Bedingungen — nämlich die zyklische Wartebedingung.</p>
+</section>
+<section id="aufgabe-4" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-4">Aufgabe 4</h2>
+<ol type="a">
+<li><p>RAG:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./imgs/rag-a4.png" class="img-fluid figure-img" style="width:75.0%"></p>
+<figcaption>RAG</figcaption>
+</figure>
+</div></li>
+<li><p>E, A, R, und C:</p>
+<ul>
+<li><strong>Gesamtressourcenvektor:</strong> <span class="math inline">\(E = (2, 3, 1)\)</span></li>
+<li><strong>Verfügbarkeitsvektor (initial):</strong> <span class="math inline">\(A = (0, 0, 1)\)</span></li>
+<li><strong>Belegungsmatrix <span class="math inline">\(C\)</span>:</strong></li>
+</ul>
+<p><span class="math display">\[
+C = \begin{bmatrix}
+0 &amp; 1 &amp; 0 \\
+1 &amp; 1 &amp; 0 \\
+1 &amp; 1 &amp; 0
+\end{bmatrix}
+\]</span></p>
+<ul>
+<li><strong>Anforderungsmatrix <span class="math inline">\(R\)</span>:</strong></li>
+</ul>
+<p><span class="math display">\[
+R = \begin{bmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 1 \\
+0 &amp; 0 &amp; 1
+\end{bmatrix}
+\]</span></p></li>
+<li><p>Durchführung des Bankieralgorithmus</p>
+<p><strong>Ausführungstabelle des Bankieralgorithmus:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 15%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 12%">
+<col style="width: 25%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Schritt</th>
+<th>Prozess <span class="math inline">\(i\)</span></th>
+<th><span class="math inline">\(R_i\)</span></th>
+<th><span class="math inline">\(A\)</span></th>
+<th><span class="math inline">\(C_i\)</span></th>
+<th>Anfrage erfüllbar?</th>
+<th>Markiert</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td>1</td>
+<td>(1, 0, 0)</td>
+<td>(0, 0, 1)</td>
+<td>(0, 1, 0)</td>
+<td>Nein</td>
+<td>× × ×</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td>2</td>
+<td>(0, 1, 1)</td>
+<td>(0, 0, 1)</td>
+<td>(1, 1, 0)</td>
+<td>Nein</td>
+<td>× × ×</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td>3</td>
+<td>(0, 0, 1)</td>
+<td>(0, 0, 1)</td>
+<td>(1, 1, 0)</td>
+<td>Ja</td>
+<td>× × ✓</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td>1</td>
+<td>(1, 0, 0)</td>
+<td>(1, 1, 1)</td>
+<td>(0, 1, 0)</td>
+<td>Ja</td>
+<td>✓ × ✓</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td>2</td>
+<td>(0, 1, 1)</td>
+<td>(1, 2, 1)</td>
+<td>(1, 1, 0)</td>
+<td>Ja</td>
+<td>✓ ✓ ✓</td>
+</tr>
+</tbody>
+</table>
+<p>Alle Prozesse konnten schrittweise markiert werden. Es existiert also eine vollständige sichere Ausführungsreihenfolge.</p>
+<p><span class="math inline">\(\Rightarrow\)</span> <strong>Es liegt kein Deadlock vor.</strong></p>
+<p><strong>Erklärung der Tabelle:</strong> Die folgende Tabelle zeigt Schritt für Schritt, wie der Bankieralgorithmus arbeitet:</p>
+<ul>
+<li>In jeder Zeile wird ein Prozess betrachtet.</li>
+<li>Wenn seine Ressourcenanforderung <span class="math inline">\(R_i\)</span> durch den aktuellen Verfügbarkeitsvektor <span class="math inline">\(A\)</span> erfüllbar ist, wird der Prozess <strong>markiert</strong>.</li>
+<li>Anschließend wird seine Ressourcenbelegung <span class="math inline">\(C_i\)</span> zu <span class="math inline">\(A\)</span> addiert (Ressourcenfreigabe nach Terminierung).</li>
+<li>Die nächste Zeile prüft erneut alle Prozesse, bis keine unmarkierten Prozesse mehr übrig sind.</li>
+</ul></li>
+</ol>
+</section>
+<section id="aufgabe-5" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-5">Aufgabe 5</h2>
+<p>CPU-bound (rechenintensive) Prozesse führen lange Rechenoperationen mit wenigen I/O-Unterbrechungen aus. Sie profitieren von <strong>längerer CPU-Zuteilung</strong> ohne häufiges Umschalten, da Kontextwechsel mit <strong>Overhead</strong> verbunden sind (z. B. Speichern des Zustands, Leeren von Caches wie dem TLB).</p>
+<p>I/O-bound (ein-/ausgabeintensive) Prozesse führen dagegen viele kurze Rechenphasen aus, gefolgt von häufigem Warten auf I/O-Geräte. Würde man diese Prozesse zu lange auf der CPU halten, würde man <strong>wertvolle CPU-Zeit verschwenden</strong>, da sie häufig blockieren. Sie profitieren daher von <strong>kurzen, aber schnellen Reaktionszeiten</strong>, sodass sie nach Beendigung ihrer I/O-Phasen zügig wieder eingeplant werden können.</p>
+<p>Ein intelligenter Scheduler erkennt diese Unterschiede und trifft darauf basierende Entscheidungen, um die <strong>Systemauslastung zu optimieren</strong> und sowohl <strong>Rechenzeit effizient zu verteilen</strong> als auch <strong>I/O-Wartezeiten zu minimieren</strong>.</p>
+</section>
+<section id="aufgabe-6" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-6">Aufgabe 6</h2>
+<ol type="a">
+<li><p>Gantt-Diagramme für verschiedene Scheduling-Strategien**</p>
+<p>Gegeben sind fünf Prozesse mit folgenden CPU-Burst-Zeiten (in Millisekunden):</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Burst-Zeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>P1</td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td>P2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>P3</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>P4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>P5</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<ol type="i">
+<li><p>FCFS (First-Come, First-Served)** Prozesse werden in ihrer Ankunftsreihenfolge vollständig abgearbeitet:</p>
+<pre><code>| P1         | P2 | P3  | P4 | P5     |
+0           10    11    13   14       19</code></pre>
+<hr></li>
+<li><p>SJF (Shortest Job First)** Prozesse werden nach aufsteigender Burst-Zeit sortiert und dann nacheinander ausgeführt:</p>
+<pre><code>| P2 | P4 | P3  | P5     | P1          |
+0    1    2     4        9             19</code></pre></li>
+<li><p>RR (Round-Robin), Quantum = 1 ms** Prozesse werden in Zeitscheiben von 1 ms ausgeführt und nach jedem Quantum ans Ende der Queue gesetzt. Ergebnis bis Zeit 16 ms:</p>
+<pre><code>| P1 | P2 | P3 | P4 | P5 | P1 | P3 | P5 |
+0    1    2    3    4    5    6    7    8
+
+| P1 | P5 | P1 | P5 | P1 | P1 | P1 | P1 |
+8    9   10   11   12   13   14   15   16
+
+| P1 | P1 | P1 |
+16   17   18   19</code></pre></li>
+</ol></li>
+<li><p>Durchlaufzeiten:</p>
+<p>Die <strong>Durchlaufzeit</strong> eines Prozesses ist definiert als:</p>
+<p><span class="math display">\[
+\text{Durchlaufzeit} = \text{Fertigstellungszeit} - \text{Ankunftszeit}
+\]</span></p>
+<p>Da alle Prozesse bei <span class="math inline">\(t = 0\)</span> starten, entspricht die Durchlaufzeit hier einfach der <strong>Zeit der letzten Ausführung</strong> eines Prozesses im jeweiligen Gantt-Diagramm.</p>
+<ol type="i">
+<li><p>FCFS (First-Come, First-Served)</p>
+<p>Gantt-Diagramm:</p>
+<pre><code>| P1         | P2 | P3  | P4 | P5     |
+0           10  11  13  14  19</code></pre>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Durchlaufzeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>11</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>13</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>14</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>19</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>SJF (Shortest Job First)**</p>
+<p>Gantt-Diagramm:</p>
+<pre><code>| P2 | P4 | P3  | P5     | P1          |
+0    1    2     4        9           19</code></pre>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Durchlaufzeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>19</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>9</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>RR (Round-Robin), Quantum = 1 ms**</p>
+<p>Gantt-Diagramm:</p>
+<pre><code>| P1 | P2 | P3 | P4 | P5 | P1 | P3 | P5 | P1 | P5 | P1 | P5 | P1 | P1 | P1 | P1 | P1 | P1 | P1 |
+0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17   18  19</code></pre>
+<p><strong>Fertigstellungszeitpunkte (letzte Ausführung pro Prozess):</strong></p>
+<ul>
+<li><span class="math inline">\(P_2\)</span>: endet bei <strong>t = 2</strong></li>
+<li><span class="math inline">\(P_4\)</span>: endet bei <strong>t = 4</strong></li>
+<li><span class="math inline">\(P_3\)</span>: endet bei <strong>t = 7</strong></li>
+<li><span class="math inline">\(P_5\)</span>: endet bei <strong>t = 14</strong></li>
+<li><span class="math inline">\(P_1\)</span>: endet bei <strong>t = 19</strong></li>
+</ul>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Durchlaufzeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>19</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>14</td>
+</tr>
+</tbody>
+</table></li>
+</ol>
+<p><strong>Vergleich der Durchlaufzeiten</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>FCFS</th>
+<th>SJF</th>
+<th>RR (Q = 1 ms)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>10</td>
+<td>19</td>
+<td>19</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>11</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>13</td>
+<td>4</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>14</td>
+<td>2</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>19</td>
+<td>9</td>
+<td>14</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Wartezeit (Waiting Time)</p></li>
+</ol>
+<p>Die Wartezeit berechnet sich aus:</p>
+<p><span class="math display">\[
+\text{Wartezeit} = \text{Durchlaufzeit} - \text{Burst-Zeit}
+\]</span></p>
+<p>Die Burst-Zeiten (CPU-Bedarf) der Prozesse sind:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Burst-Zeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>10</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Berechnung der Wartezeiten je Strategie</strong></p>
+<ol type="i">
+<li><p>FCFS</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Durchlaufzeit</th>
+<th>Burst</th>
+<th>Wartezeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>10</td>
+<td>10</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>11</td>
+<td>1</td>
+<td>10</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>13</td>
+<td>2</td>
+<td>11</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>14</td>
+<td>1</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>19</td>
+<td>5</td>
+<td>14</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>SJF</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Durchlaufzeit</th>
+<th>Burst</th>
+<th>Wartezeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>19</td>
+<td>10</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>4</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>9</td>
+<td>5</td>
+<td>4</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>RR (Q = 1 ms)</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Prozess</th>
+<th>Durchlaufzeit</th>
+<th>Burst</th>
+<th>Wartezeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(P_1\)</span></td>
+<td>19</td>
+<td>10</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_2\)</span></td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_3\)</span></td>
+<td>7</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(P_4\)</span></td>
+<td>4</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(P_5\)</span></td>
+<td>14</td>
+<td>5</td>
+<td>9</td>
+</tr>
+</tbody>
+</table></li>
+<li><p>Durchschnittliche Wartezeiten:</p>
+<ol type="i">
+<li>FCFS:</li>
+</ol>
+<p>Wartezeiten: 0, 10, 11, 13, 14</p>
+<p><span class="math display">\[
+\text{Summe} = 48,\quad \text{Durchschnitt} = \frac{48}{5} = 9{,}6\ \text{ms}
+\]</span></p>
+<ol start="2" type="i">
+<li>SJF:</li>
+</ol>
+<p>Wartezeiten: 9, 0, 2, 1, 4</p>
+<p><span class="math display">\[
+\text{Summe} = 16,\quad \text{Durchschnitt} = \frac{16}{5} = 3{,}2\ \text{ms}
+\]</span></p>
+<ol start="3" type="i">
+<li>RR (Quantum = 1 ms):</li>
+</ol>
+<p>Wartezeiten: 9, 1, 5, 3, 9</p>
+<p><span class="math display">\[
+\text{Summe} = 27,\quad \text{Durchschnitt} = \frac{27}{5} = 5{,}4\ \text{ms}
+\]</span></p>
+<p><strong>Vergleich – Durchschnittliche Wartezeit</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Strategie</th>
+<th>Durchschnittliche Wartezeit</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>FCFS</td>
+<td>9,6 ms</td>
+</tr>
+<tr class="even">
+<td>SJF</td>
+<td>3,2 ms</td>
+</tr>
+<tr class="odd">
+<td>RR (Q=1)</td>
+<td>5,4 ms</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(\Rightarrow\)</span></p>
+<p>SJF liefert die <strong>geringste durchschnittliche Wartezeit</strong>, da kurze Prozesse bevorzugt behandelt werden. Allerdings kann SJF zu <strong>Verhungern (Starvation)</strong> führen, wenn lange Prozesse ständig verdrängt werden. Round-Robin bietet bessere Fairness, aber höhere Gesamtlatenz.</p></li>
+</ol>
+</section>
+<section id="aufgabe-7" class="level2">
+<h2 class="anchored" data-anchor-id="aufgabe-7">Aufgabe 7</h2>
+<ul>
+<li><p><strong>FCFS (First-Come, First-Served):</strong> Keine Gefahr von Verhungern, da Prozesse strikt in Ankunftsreihenfolge ausgeführt werden.</p></li>
+<li><p><strong>SJF (Shortest Job First):</strong> Gefahr von Verhungern besteht, da lange Prozesse durch immer neu ankommende kurze Prozesse dauerhaft verdrängt werden können.</p></li>
+<li><p><strong>SRTF (Shortest Remaining Time First):</strong> Ebenfalls anfällig für Verhungern, insbesondere für Prozesse mit langer verbleibender Laufzeit, da kürzere Prozesse bevorzugt werden.</p></li>
+<li><p><strong>RR (Round-Robin):</strong> Keine Gefahr von Verhungern, da alle Prozesse regelmäßig CPU-Zeit erhalten.</p></li>
+<li><p><strong>Multilevel Queue mit fixer Priorität:</strong> Hohe Verhungernsgefahr für Prozesse in unteren Prioritätsklassen, wenn ständig Prozesse mit höherer Priorität ankommen.</p></li>
+</ul>
 
 
 </section>
