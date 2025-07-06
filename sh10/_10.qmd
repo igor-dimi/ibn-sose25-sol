@@ -1,0 +1,256 @@
+---
+title: Blatt 10
+---
+
+```text
+- Igor Dimitrov: 3650069
+- Orhan Gul: 4286552
+- Diar Al Jorany: 4284222
+```
+
+
+## Aufgabe 1 – Klassifizierung, Whois, Traceroute
+
+**1. Klassenzugehörigkeit:**
+Die Netzwerke `129.206.0.0/16` und `147.142.0.0/16` gehören beide zur **Klasse B**, da ihre ersten Oktette im Bereich `128.0.0.0` bis `191.255.255.255` liegen. Sie besitzen jeweils ein `/16`-Präfix, was der klassischen Adressierung für Klasse-B-Netze entspricht.
+
+**2. Whois-Abfrage:**
+Das Subnetz `147.142.0.0/16` wird laut RIPE-Datenbank wie folgt bezeichnet:
+
+* `netname`: `UNI-HEIDELBERG`
+* `descr`: `Ruprecht-Karls-Universitaet Universitätsrechenzentrum (URZ) Geschäftsstelle, Heidelberg, Germany`
+
+Es handelt sich um eine historische „Early Registration“, die heute vom URZ Heidelberg verwaltet wird.
+
+**3. Traceroute vom Feld in die Altstadt:**
+Ein praktischer Traceroute-Test vom Wohnheim (Feld) zur Altstadt war **nicht möglich**, da **ICMP-Nachrichten vom ISP des Wohnheims blockiert werden**. Eine Analyse des Subnetzwechsels zwischen `129.206/16` (Heidelberg Nord) und `147.142/16` (Heidelberg Süd & Mannheim) konnte daher nicht durchgeführt werden.
+
+
+## Aufgabe 2 – Subnetzbildung und Adressanalyse
+
+**Gegeben**: Der Adressbereich `128.8.192.0 – 128.8.199.255`
+
+
+
+**• Wie viele Adressen sind in diesem Adressraum?**
+
+Der Bereich umfasst acht zusammenhängende /24-Netze:
+
+* Von `192` bis `199` im dritten Oktett:
+  `199 − 192 + 1 = 8` Blöcke
+* Jeder /24-Block enthält 256 Adressen
+
+$$
+8 \times 256 = \boxed{2048 \text{ IP-Adressen}}
+$$
+
+
+
+**• Der Raum soll in mehrere Subnetze mit je 30 Hosts aufgeteilt werden. Geben Sie eine geeignete Subnetzmaske an.**
+
+Ein Subnetz mit mindestens 30 Hosts benötigt 5 Host-Bits:
+
+$$
+2^5 = 32 \text{ Adressen} \Rightarrow 30 nutzbar (abzüglich Netz- und Broadcastadresse)
+$$
+
+Somit bleiben 27 Bits für Netzanteil:
+
+$$
+\boxed{/27 = 255.255.255.224}
+$$
+
+
+
+**• Wie viele Subnetze mit je 30 Hosts können adressiert werden?**
+
+Gesamtanzahl an Adressen: 2048
+Adressen pro Subnetz: 32
+
+$$
+\frac{2048}{32} = \boxed{64 \text{ Subnetze}}
+$$
+
+
+
+**• Teilen Sie gemäß der oben gewählten Subnetzmaske die IP-Adresse 128.8.192.171 in Netz-ID und Host-ID auf. Geben Sie beides sowohl in binärer als auch in dezimaler Schreibweise an.**
+
+* IP-Adresse: `128.8.192.171`
+* Subnetzmaske: `/27` = `255.255.255.224`
+
+Letztes Oktett in Binärdarstellung:
+
+* IP: `171` → `10101011`
+* Maske: `224` → `11100000`
+* Bitweises UND: `10100000` → `160`
+
+**Netz-ID:**
+
+* Dezimal: `128.8.192.160`
+* Binär: `10000000.00001000.11000000.10100000`
+
+**Host-ID:**
+
+* Dezimal: `171 − 160 = 11`
+* Binär: `00000000.00000000.00000000.00001011`
+
+
+
+**Zusatzfall innerhalb derselben Aufgabe:**
+*Eine andere Firma hat eine Class-C-Adresse bekommen und hat 180 Hosts, die angeschlossen werden sollen. Ist es möglich, das Netzwerk in ein Subnetz mit 40 Rechnern und 5 Subnetze mit je 28 Rechnern aufzuteilen?*
+
+Ein Class-C-Netzwerk umfasst 256 Adressen (`/24`).
+
+Erforderliche Subnetze:
+
+* 1 Subnetz für ≥40 Hosts → /26 (64 Adressen)
+* 5 Subnetze für ≥28 Hosts → je /27 (32 Adressen)
+
+Benötigte Adressen gesamt:
+
+$$
+64 + (5 \times 32) = \boxed{224 \text{ Adressen}} \quad < 256
+$$
+
+**Antwort:**
+Ja, diese Aufteilung ist **möglich**. Durch Anwendung von **VLSM** (Variable Length Subnet Masking) können unterschiedlich große Subnetze innerhalb eines /24-Netzwerks realisiert werden.
+
+---
+
+## Aufgabe 3 – 
+
+a) Subnetzvergabe aus `214.97.254.0/23`
+
+| Subnetz | Zuweisung                               | Adressbereich                       | Bemerkung                               |
+| ------- | --------------------------------------- | ----------------------------------- | --------------------------------------- |
+| A       | `214.97.254.0/24 – 214.97.254.252/30`   | `214.97.254.0` – `214.97.254.251`   | 256 Adressen minus F (am oberen Ende)   |
+| F       | `214.97.254.252/30`                     | `214.97.254.252` – `214.97.254.255` | Punkt-zu-Punkt-Verbindung (z. B. R1–R3) |
+| B       | `214.97.255.0/25 – 214.97.255.124/30`   | `214.97.255.0` – `214.97.255.123`   | 128 Adressen minus D                    |
+| D       | `214.97.255.124/30`                     | `214.97.255.124` – `214.97.255.127` | Punkt-zu-Punkt-Verbindung (z. B. R1–R2) |
+| C       | `214.97.255.128/25 – 214.97.255.252/30` | `214.97.255.128` – `214.97.255.251` | 128 Adressen minus E                    |
+| E       | `214.97.255.252/30`                     | `214.97.255.252` – `214.97.255.255` | Punkt-zu-Punkt-Verbindung (z. B. R2–R3) |
+
+
+Erläuterung:
+
+* Für jedes große Subnetz (A, B, C) wird eine passende **/24 bzw. /25**-Adresse zugewiesen
+* Daraus wird am oberen Rand ein **/30-Block subtrahiert** und separat für die Punkt-zu-Punkt-Verbindung verwendet
+* Die Notation `a.b.c.d/x – e.f.g.h/y` beschreibt den **Restblock**, also das große Subnetz **abzüglich** des kleinen
+* Die gesamte Zuweisung bleibt **vollständig innerhalb von `214.97.254.0/23` (512 Adressen)**
+
+
+---
+
+b) Weiterleitungstabellen (binäre Präfixe)
+
+Jeder Router ist mit einem der Hauptsubnetze (A, B oder C) sowie mit zwei Punkt-zu-Punkt-Verbindungen (D, E, F) verbunden. Die Routingtabellen sollen drei Einträge enthalten, je einen pro erreichbarem Subnetz (A, B, C), wobei das **längste passende binäre Präfix** verwendet wird.
+
+Die relevanten Zielpräfixe in binärer Schreibweise:
+
+| Subnetz | Dezimalbereich                  | Binärpräfix (mindestens unterscheidend) |
+| ------- | ------------------------------- | --------------------------------------- |
+| A       | 214.97.254.0 – 214.97.254.255   | `11010110 01100001 11111110` (24 Bit)   |
+| B       | 214.97.255.0 – 214.97.255.127   | `11010110 01100001 11111111 0` (25 Bit) |
+| C       | 214.97.255.128 – 214.97.255.255 | `11010110 01100001 11111111 1` (25 Bit) |
+
+---
+
+#### Routingtabelle R1
+
+| Zielpräfix                         | Ausgang       |
+| ---------------------------------- | ------------- |
+| `11010110 01100001 11111111 0` (B) | über D        |
+| `11010110 01100001 11111111 1` (C) | über F        |
+| andere Ziele                       | über D oder F |
+
+---
+
+#### Routingtabelle R2
+
+| Zielpräfix                         | Ausgang       |
+| ---------------------------------- | ------------- |
+| `11010110 01100001 11111110` (A)   | über D        |
+| `11010110 01100001 11111111 1` (C) | über E        |
+| andere Ziele                       | über D oder E |
+
+---
+
+#### Routingtabelle R3
+
+| Zielpräfix                         | Ausgang       |
+| ---------------------------------- | ------------- |
+| `11010110 01100001 11111110` (A)   | über F        |
+| `11010110 01100001 11111111 0` (B) | über E        |
+| andere Ziele                       | über E oder F |
+
+---
+
+Jede Tabelle enthält genau drei Einträge, wie gefordert. Die verwendeten Präfixe sind so gewählt, dass sie die Zielnetze A, B und C eindeutig identifizieren, basierend auf der Longest-Prefix-Matching-Regel.
+
+---
+
+## Aufgabe 4 – Präfixe und Routingentscheidungen
+
+a) Gemeinsame binäre Präfixe und Sortierung
+
+Gegeben sind drei Adressbereiche (in binärer Schreibweise). Gesucht ist jeweils das **kürzeste gemeinsame Präfix** (Longest Prefix Match) zwischen Start- und Endadresse sowie die Sortierreihenfolge der Präfixe in einer Routingtabelle.
+
+| Eintrag | Startadresse                          | Endadresse                            | Gemeinsames Präfix         | Präfixlänge |
+| ------- | ------------------------------------- | ------------------------------------- | -------------------------- | ----------- |
+| A       | `11001000 00010111 00011000 00000000` | `11001000 00010111 00011011 11111111` | `11001000 00010111 000110` | 22          |
+| B       | `11001000 00010111 00010000 00000000` | `11001000 00010111 00010111 11111111` | `11001000 00010111 00010`  | 21          |
+| C       | `11001000 00010111 00011100 00000000` | `11001000 00010111 00011111 11111111` | `11001000 00010111 000111` | 22          |
+
+**Sortierreihenfolge in der Routingtabelle (nach Präfixlänge):**
+
+1. A (`/22`)
+2. C (`/22`)
+3. B (`/21`)
+
+(A und C können auch getauscht werden, solange beide vor B erscheinen.)
+
+**Begründung:** Die Routingtabelle wird gemäß Longest-Prefix-Matching nach Präfixlänge absteigend sortiert. Längere Präfixe haben Vorrang bei der Weiterleitung.
+
+---
+
+b) Anzahl der IP-Adressen pro Eintrag
+
+Die Anzahl der IP-Adressen pro Präfix ergibt sich aus:
+
+$$
+2^{32 - \text{Präfixlänge}}
+$$
+
+| Eintrag | Präfixlänge | Anzahl Adressen         |
+| ------- | ----------- | ----------------------- |
+| A       | /22         | $2^{10} = \boxed{1024}$ |
+| B       | /21         | $2^{11} = \boxed{2048}$ |
+| C       | /22         | $2^{10} = \boxed{1024}$ |
+
+---
+
+c) Einfügen eines neuen Bereichs (D) und Auswirkung auf Routing
+
+**Neuer Bereich:**
+
+* Start: `11001000 00010111 00010000 00000000`
+* Ende:  `11001000 00010111 00010000 01111111`
+
+→ Gemeinsames Präfix:
+
+$$
+\boxed{11001000\ 00010111\ 00010000\ 0} \quad (\text{25 Bit})
+$$
+
+**Sortierung:**
+Der neue Eintrag D mit /25 wird **oberhalb aller bisherigen Einträge** einsortiert, da er den längsten Präfix besitzt.
+
+**Routingentscheidung für Adresse `11001000 00010111 00010000 00000010`:**
+
+* **Vor Einfügen von D:** fällt unter Präfix B (/21) → Routing erfolgt über B
+* **Nach Einfügen von D:** fällt unter D (/25) → Routing erfolgt über D
+
+---
+
+**Fazit:** Durch Einführung des neuen Eintrags D ändert sich die Routingentscheidung für passende Adressen hin zum präziseren Präfix, wie es der Longest-Prefix-Matching-Regel entspricht.
+
