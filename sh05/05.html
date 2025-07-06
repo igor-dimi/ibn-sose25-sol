@@ -228,6 +228,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Blatt 8</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../sh10/10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Blatt 10</span></span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -380,7 +386,7 @@ F(4) = \frac{41086 - 126}{4096} = \frac{40960}{4096} = 10
 <section id="python-implementierung" class="level3">
 <h3 class="anchored" data-anchor-id="python-implementierung">Python Implementierung</h3>
 <p>Die Rekonstruktion der Tabelle kann mit python wie folgt implementiert werden:</p>
-<div id="ff19d367" class="cell" data-execution_count="1">
+<div id="b309add2" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> reconstruct_page_table(k, mappings):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    page_size <span class="op">=</span> <span class="dv">1</span> <span class="op">&lt;&lt;</span> k  <span class="co"># 2^k</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    page_mask <span class="op">=</span> page_size <span class="op">-</span> <span class="dv">1</span></span>
@@ -492,7 +498,7 @@ i = 0, M, 2M, 3M, \dots, \text{solange } i &lt; N
 </ul>
 <p>Dieses Verhalten kann mit der folgenden Python-funktion simuliert werden:</p></li>
 </ol>
-<div id="c45aa532" class="cell" data-execution_count="2">
+<div id="92babbf0" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tlb_pages(M, N, ints_per_page<span class="op">=</span><span class="dv">1024</span>):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Simulates the number of distinct pages accessed in the loop:</span></span>
@@ -513,7 +519,7 @@ i = 0, M, 2M, 3M, \dots, \text{solange } i &lt; N
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">len</span>(pages)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <pre><code>Einige Simulationen:</code></pre>
-<div id="a193617b" class="cell" data-execution_count="3">
+<div id="cd0e3550" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">1</span>, <span class="dv">65536</span>))        <span class="co"># Should be 64 → fills exactly 64 pages</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">1024</span>, <span class="dv">65536</span>))     <span class="co"># Should be 64 → each access on a new page</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tlb_pages(<span class="dv">256</span>, <span class="dv">65536</span>))      <span class="co"># Should be 64 / 4 = 16 → reuse of pages</span></span>
